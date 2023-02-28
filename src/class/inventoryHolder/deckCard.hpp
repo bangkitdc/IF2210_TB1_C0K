@@ -13,8 +13,14 @@ class DeckCard : public InventoryHolder {
     public:
         DeckCard();
         ~DeckCard();
+        
+        void shuffleCard();
 
-        vector<Card> getCards();
+        DeckCard operator-(CardValue a);
+
+        // vector<Card> getCards();
+        DeckCard operator-(Card);
+        void displayDeckCard();
 };
 
 #endif

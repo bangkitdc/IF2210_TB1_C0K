@@ -14,7 +14,7 @@ class InventoryHolder {
         InventoryHolder();
         InventoryHolder(string);
         virtual ~InventoryHolder();
-        virtual vector<Card> getCards() = 0;
+        // virtual vector<Card> getCards() = 0;
 };
 
 #endif

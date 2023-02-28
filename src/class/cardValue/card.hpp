@@ -20,7 +20,7 @@ class Card : public CardValue {
         void setNum(int);
         string getWarna() const;
         void setWarna(string);
-
+        void displayCard();
         bool isValidCard() const;
         double getValue() const;
 };
