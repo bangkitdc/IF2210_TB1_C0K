@@ -1,8 +1,8 @@
 #include "deckCard.hpp"
 #include <random>
-#include <algorithm>//make ini dlu mumpung blm ada yg nanya hehehehehe
+#include <algorithm>
 
-DeckCard::DeckCard(){
+DeckCard::DeckCard() : InventoryHolder ("DeckCard"){
     for(int i=1;i<=13;i++){
             cards.push_back(Card(i,"Merah"));
     }    
@@ -30,11 +30,32 @@ void DeckCard::shuffleCard(){
     std::shuffle(begin(cards), end(cards), rng);
 }
 
+vector<Card> DeckCard::getCards(){
+    return cards;
+    
+}
 DeckCard DeckCard::operator-(Card a){
     for(int i=0;i<cards.size();i++){
         if (cards[i].getNum()==a.getNum() && cards[i].getWarna().compare(a.getWarna())==0 ){
             cards.erase(cards.begin()+i);
         }
     }
-    return ;
+    return *this;
+}
+
+void DeckCard::deleteCard(Card a){
+    for(int i=0;i<cards.size();i++){
+        if (cards[i].getNum()==a.getNum() && cards[i].getWarna().compare(a.getWarna())==0 ){
+            cards.erase(cards.begin()+i);
+        }
+    }
+}
+
+Card DeckCard::getCard(){
+    // shuffleCard();
+    Card temp=cards[cards.size()-1];
+    cards.pop_back();
+    return temp;
+
+    
 }

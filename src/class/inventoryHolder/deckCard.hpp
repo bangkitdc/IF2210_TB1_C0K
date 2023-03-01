@@ -10,16 +10,19 @@ using namespace std;
 class DeckCard : public InventoryHolder {
     protected:
         vector<Card> cards;
+        void deleteCard(Card);
+        
     public:
+        // friend class Player;
+        // friend class Card;
         DeckCard();
         ~DeckCard();
         
         void shuffleCard();
 
-        DeckCard operator-(CardValue a);
-
-        // vector<Card> getCards();
+        vector<Card> getCards();
         DeckCard operator-(Card);
+        Card getCard();
         void displayDeckCard();
 };
 
