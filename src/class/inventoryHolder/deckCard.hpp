@@ -22,6 +22,7 @@ class DeckCard : public InventoryHolder {
 
         vector<Card> getCards();
         DeckCard operator-(Card);
+        DeckCard operator+(Card);
         Card getCard();
         void displayDeckCard();
 };
