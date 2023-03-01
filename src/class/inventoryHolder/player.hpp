@@ -13,7 +13,7 @@ class Player : public InventoryHolder {
     protected:
         string username;
         vector<Card> cards;
-        Ability ability;
+        Ability * ability;
     public:
         Player();
         Player(string);
