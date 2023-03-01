@@ -3,11 +3,23 @@
 
 #include <iostream>
 #include "cardValue.hpp"
+#include "../inventoryHolder/player.hpp"
 using namespace std;
 
-class CardValue : public CardValue {
+class Combination : public CardValue {
+    protected:
+        vector<Card> card;
     public:
         double getValue();
+
+        double Pair();
+        double TwoPair();
+        double ThreeOfAKind();
+        double Straight();
+        double Flush();
+        double FullHouse();
+        double FourOfAKind();
+        double StraightFlush();
 };
 
 #endif

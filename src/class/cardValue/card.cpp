@@ -29,9 +29,12 @@ string Card::getWarna() const {
 void Card::setWarna(string warna) {
     this->warna = warna;
 }
+void Card::displayCard() {
+    cout << this->getNum() << " (" << this->getWarna() << ")\n";
+}
 
 bool Card::isValidCard() const {
-    return (this->num != 0) and (this->warna != "-");
+    return (this->num != 0) & (this->warna != "-");
 }
 
 double Card::getValue() const {
@@ -46,6 +49,6 @@ double Card::getValue() const {
     } else if (getWarna() == "merah") {
         return temp + 0.09;
     } else {
-        // exception
+        return 0;
     }
 }

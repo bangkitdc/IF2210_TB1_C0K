@@ -6,11 +6,13 @@
 #include "cardValue.hpp"
 using namespace std;
 
-class Card : public CardValue {
+class Card {
     protected:
         int num;                    // 1-13
         string warna;               // Hijau, Biru, Kuning, Merah
     public:
+        // friend class Player;
+        // friend class DeckCard;
         Card();                     // default ctor
         Card(int, string);          // user-defined ctor
         Card(const Card&);          // cctor
@@ -23,6 +25,7 @@ class Card : public CardValue {
 
         bool isValidCard() const;
         double getValue() const;
+        void displayCard();
 };
 
 #endif
