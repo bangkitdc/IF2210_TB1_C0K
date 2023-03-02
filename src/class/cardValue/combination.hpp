@@ -12,14 +12,14 @@ class Combination : public CardValue {
     public:
         double getValue();
 
-        double Pair();
-        double TwoPair();
-        double ThreeOfAKind();
-        double Straight();
-        double Flush();
-        double FullHouse();
-        double FourOfAKind();
-        double StraightFlush();
+        bool hasPair();
+        bool hasTwoPair();
+        bool hasThreeOfAKind();
+        bool hasStraight();
+        bool hasFlush();
+        bool hasFullHouse();
+        bool hasFourOfAKind();
+        bool hasStraightFlush();
 };
 
 #endif
