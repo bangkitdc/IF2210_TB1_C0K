@@ -20,6 +20,15 @@ class Combination : public CardValue {
         bool hasFullHouse();
         bool hasFourOfAKind();
         bool hasStraightFlush();
+
+        vector<Card> pair(vector<Card>);
+        vector<Card> twoPair(vector<Card>);
+        vector<Card> threeOfAKind(vector<Card>);
+        vector<Card> straight(vector<Card>);
+        vector<Card> flush(vector<Card>);
+        vector<Card> fullHouse(vector<Card>);
+        vector<Card> fourOfAKind(vector<Card>);
+        vector<Card> straightFlush(vector<Card>);
 };
 
 #endif
