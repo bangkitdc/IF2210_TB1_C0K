@@ -3,12 +3,14 @@
 #include <iostream>
 using namespace std;
 
+int Player::totalPlayer = 0;
 
-
-Player::Player(string a,DeckCard *deck):InventoryHolder(a){
+Player::Player(string a,DeckCard *deck) : InventoryHolder("player"), id(Player::totalPlayer + 1) {
     this->username=a;
     setCard(deck);
     this->point=0;
+
+    Player::totalPlayer ++;
 }
 
 void Player::setCard(DeckCard *deck){
@@ -16,9 +18,7 @@ void Player::setCard(DeckCard *deck){
         this->cardsP.push_back(deck->getCard());
     }
 } 
-Player::Player(){
 
-}
 Player::~Player(){
 }
 

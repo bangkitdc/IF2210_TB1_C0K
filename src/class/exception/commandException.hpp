@@ -5,18 +5,32 @@
 #include <string>
 using namespace std;
 
-class CommandException : public BaseException {
-    protected:
-        static int numOfCommandException;
+class InvalidCommandException : public BaseException {
+    private:
         string command;
-
     public:
-        CommandException(string);                   // user-defined ctor
-        CommandException(const CommandException &); // cctor
+        InvalidCommandException(string command) {
+            this->command = command;
+        }
 
-        string getCommandException();
-        static int getNumOfCommandException();
-        void displayMessage() const;
+        void displayMessage() const {
+            cout << "Command " << this->command << " is invalid." << endl;
+        }
+};
+
+class FailedCommandException : public BaseException {
+    private:
+        BaseException *exception;
+        string command;
+    public:
+        FailedCommandException(BaseException *exception, string command) {
+            this->exception = exception;
+            this->command = command;
+        }
+
+        void displayMessage() const {
+            cout << "Command " << this->command << " has failed." << endl;
+        }
 };
 
 #endif
