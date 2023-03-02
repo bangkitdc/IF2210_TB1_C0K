@@ -28,8 +28,11 @@ class Player : public InventoryHolder {
         double getPoint()const;
         string getName()const;
         vector<Card> getCards();
+        void setCards(vector<Card>);
         void displayPlayer();
         void setCard(DeckCard*);
+        Player& operator+(Card);
+        Player& operator-(Card);
 };
 
 #endif

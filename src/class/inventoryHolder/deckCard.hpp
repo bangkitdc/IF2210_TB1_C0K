@@ -16,12 +16,15 @@ class DeckCard : public InventoryHolder {
         // friend class Player;
         // friend class Card;
         DeckCard();
+        DeckCard(string);
         ~DeckCard();
         
         void shuffleCard();
-
+        
         vector<Card> getCards();
-        DeckCard operator-(Card);
+        void setCards(vector<Card>);
+        DeckCard& operator-(Card);
+        DeckCard& operator+(Card);
         Card getCard();
         void displayDeckCard();
 };

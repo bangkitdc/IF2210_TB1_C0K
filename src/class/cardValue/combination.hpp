@@ -12,14 +12,23 @@ class Combination : public CardValue {
     public:
         double getValue();
 
-        double Pair();
-        double TwoPair();
-        double ThreeOfAKind();
-        double Straight();
-        double Flush();
-        double FullHouse();
-        double FourOfAKind();
-        double StraightFlush();
+        bool hasPair();
+        bool hasTwoPair();
+        bool hasThreeOfAKind();
+        bool hasStraight();
+        bool hasFlush();
+        bool hasFullHouse();
+        bool hasFourOfAKind();
+        bool hasStraightFlush();
+
+        vector<Card> pair(vector<Card>);
+        vector<Card> twoPair(vector<Card>);
+        vector<Card> threeOfAKind(vector<Card>);
+        vector<Card> straight(vector<Card>);
+        vector<Card> flush(vector<Card>);
+        vector<Card> fullHouse(vector<Card>);
+        vector<Card> fourOfAKind(vector<Card>);
+        vector<Card> straightFlush(vector<Card>);
 };
 
 #endif
