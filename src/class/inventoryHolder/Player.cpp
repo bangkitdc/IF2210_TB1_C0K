@@ -54,6 +54,7 @@ void Player::displayPlayer(){
 
 Player& Player::operator+(Card a){
     cardsP.push_back(a);
+    return *this;
 }
 
 Player& Player::operator-(Card a){
@@ -62,6 +63,7 @@ Player& Player::operator-(Card a){
             cardsP.erase(cardsP.begin()+i);
         }
     }
+    return *this;
 }
 
 void Player::setCards(vector<Card> a){

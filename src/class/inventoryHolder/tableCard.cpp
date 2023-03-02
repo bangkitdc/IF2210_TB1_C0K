@@ -11,7 +11,6 @@ void tableCard::setTCard(DeckCard *deck){
 
 void tableCard::displayTCard(){
     cout << "=======Kartu Table Sekarang======" << endl;
-    cout << "\t";
     for(int i=0;i<Tcards.size();i++){
         Tcards[i].displayCard();
     }
