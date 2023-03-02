@@ -17,7 +17,8 @@ int main(){
     
     table1.setTCard(&game1);
     table1.displayTCard();
-
+    Card temp(10,"Hijau");
+    game1-temp;
     game1.displayDeckCard();
 
     

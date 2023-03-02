@@ -31,8 +31,9 @@ class Player : public InventoryHolder {
         void setCards(vector<Card>);
         void displayPlayer();
         void setCard(DeckCard*);
-        Player& operator+(Card);
-        Player& operator-(Card);
+        Player& operator+(const Card &);
+        Player& operator-(const Card &);
+        Player& operator=(const Player &);
 };
 
 #endif
