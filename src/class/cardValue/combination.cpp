@@ -1,10 +1,20 @@
 #include "combination.hpp"
 
-bool Combination::hasPair()
+Combination::Combination()
+{
+    
+}
+
+Combination::~Combination()
+{
+
+}
+
+bool Combination::hasPair(vector<Card> card)
 {
     int ctr = 0;
     for (int i = 0; i < card.size(); i++){
-        for (int j = 0; j < card.size(); i++){
+        for (int j = 0; j < card.size(); j++){
             if(card[i].getNum() == card[j].getNum()){
                 ctr++;
             }
@@ -18,12 +28,12 @@ bool Combination::hasPair()
     return 0;
 }
 
-bool Combination::hasTwoPair()
+bool Combination::hasTwoPair(vector<Card> card)
 {
     int ctr = 0;
     int valid = 0;
     for (int i = 0; i < card.size(); i++){
-        for (int j = 0; j < card.size(); i++){
+        for (int j = 0; j < card.size(); j++){
             if(card[i].getNum() == card[j].getNum()){
                 ctr++;
             }
@@ -34,14 +44,14 @@ bool Combination::hasTwoPair()
         }
         ctr = 0;
     }
-    if(valid == 2){
+    if(valid > 2){
         return 1;
     }
 
     return 0;
 }
 
-bool Combination::hasThreeOfAKind()
+bool Combination::hasThreeOfAKind(vector<Card> card)
 {
     int ctr = 0;
     for (int i = 0; i < card.size(); i++){
@@ -59,7 +69,7 @@ bool Combination::hasThreeOfAKind()
     return 0;
 }
 
-bool Combination::hasStraight()
+bool Combination::hasStraight(vector<Card> card)
 {
     
     int ctr = 0;
@@ -88,14 +98,14 @@ bool Combination::hasStraight()
     return 0;
 }
 
-bool Combination::hasFlush()
+bool Combination::hasFlush(vector<Card> card)
 {
     int ctr = 0;
     for(int i = 1; i < card.size(); i++){
         if(card[0].getWarna() == card[i].getWarna()){
             ctr++;
         }
-        if(ctr == 5){
+        if(ctr == 4){
             return 1;
         }
     }
@@ -103,7 +113,7 @@ bool Combination::hasFlush()
     return 0;
 }
 
-bool Combination::hasFullHouse()
+bool Combination::hasFullHouse(vector<Card> card)
 {
     int ctr = 0;
     int ctrFH = 0;
@@ -129,25 +139,28 @@ bool Combination::hasFullHouse()
     return 0;
 }
 
-bool Combination::hasFourOfAKind()
+bool Combination::hasFourOfAKind(vector<Card> card)
 {
+    vector<Card> temp;
     int ctr = 0;
     for (int i = 0; i < card.size(); i++){
-        for (int j = 0; j < card.size(); i++){
+        for (int j = i+1; j < card.size(); j++){
             if(card[i].getNum() == card[j].getNum()){
                 ctr++;
-            }
-            if(ctr == 4){ 
-                return 1;
+                // cout << ctr << "ctr" << endl;
             }
         }
-        ctr = 0;
+        if(ctr == 3){
+            return 1;
+        }
+        else{
+            ctr = 0;
+        }
     }
-
     return 0;
 }
 
-bool Combination::hasStraightFlush()
+bool Combination::hasStraightFlush(vector<Card> card)
 {
     int ctr = 0;
     for(int i = 1; i < card.size(); i++){
@@ -161,4 +174,110 @@ bool Combination::hasStraightFlush()
     }
 
     return 0;
+}
+
+vector<Card> Combination::pair(vector<Card> card)
+{
+    int ctr = 0;
+    vector<Card> temp;
+    for(int i = 0; i < card.size(); i++){
+        for(int j = i+1; j < card.size(); j++){
+            if(card[i].getNum() == card[j].getNum() && temp.size() != 2){
+                temp.push_back(card[i]);
+                temp.push_back(card[j]);
+                ctr ++;
+            }
+            if(ctr > 0 && card[i].getNum() > temp[0].getNum()){
+                temp.clear();
+                ctr = 0;
+                temp.push_back(card[i]);
+                temp.push_back(card[j]);
+
+            }
+        }
+    }
+    return temp;
+}
+
+vector<Card> Combination::twoPair(vector<Card> card)
+{
+    int ctr = 0;
+    vector<Card> temp;
+    for(int i = 0; i < card.size(); i++){
+        for(int j = i+1; j < card.size(); j++){
+            if(card[i].getNum() == card[j].getNum()){
+                if(ctr > 1){
+                    if(temp[0].getNum() < card[i].getNum()){
+                        if(temp[2].getNum() < temp[0].getNum()){
+                            temp[2] = temp[0];
+                            temp[3] = temp[1];
+                        }
+                        temp[0] = card[i];
+                        temp[1] = card[i];
+                        break;
+                    }
+                    break;
+                }
+                temp.push_back(card[i]);
+                temp.push_back(card[j]);
+                ctr++;
+                break;
+            }
+        }
+    }
+    return temp;
+}
+
+vector<Card> Combination::fourOfAKind(vector<Card> card)
+{
+    int ctr = 0;
+    vector<Card> temp;
+    for(int i = 0; i < card.size(); i++){
+        for(int j = i+1; j < card.size(); j++){
+            if(card[i].getNum() == card[j].getNum()){
+                temp.push_back(card[j]);
+                cout << card[j].getNum() << " <-" << endl;
+                if(card[i].getNum() > temp[0].getNum()){
+                    cout << card[j].getNum() << " ->" << endl;
+                    temp.clear();
+                    temp.push_back(card[j]);
+                    ctr=0;
+                }
+                ctr++;
+            }
+        }
+        if(temp.size() == 3){
+            temp.push_back(card[i]);
+            break;
+        }
+        else{
+            ctr = 0;
+        }
+    }
+    return temp;
+}
+
+vector<Card> Combination::flush(vector<Card> card)
+{
+    vector<Card> temp;
+    for(int i = 0; i < card.size(); i++){
+        for(int j = i+1; j < card.size(); j++){
+            if(card[i].getWarna() == card[j].getWarna()){
+                temp.push_back(card[j]);
+            }
+        }
+        if(temp.size() == 4){
+            temp.push_back(card[i]);
+            break;
+        }
+        else{
+            temp.clear();
+        }
+    }
+    return temp;
+}
+
+double Combination::getValue() const
+{
+    return 0.0;
 }

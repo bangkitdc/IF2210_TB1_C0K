@@ -1,25 +1,25 @@
 #ifndef _COMBINATION_HPP_
 #define _COMBINATION_HPP_
 
+#include <vector>
 #include <iostream>
 #include "cardValue.hpp"
 #include "../inventoryHolder/player.hpp"
 using namespace std;
 
 class Combination : public CardValue {
-    protected:
-        vector<Card> card;
     public:
-        double getValue();
+        Combination();
+        ~Combination();
 
-        bool hasPair();
-        bool hasTwoPair();
-        bool hasThreeOfAKind();
-        bool hasStraight();
-        bool hasFlush();
-        bool hasFullHouse();
-        bool hasFourOfAKind();
-        bool hasStraightFlush();
+        bool hasPair(vector<Card> card);
+        bool hasTwoPair(vector<Card> card);
+        bool hasThreeOfAKind(vector<Card> card);
+        bool hasStraight(vector<Card> card);
+        bool hasFlush(vector<Card> card);
+        bool hasFullHouse(vector<Card> card);
+        bool hasFourOfAKind(vector<Card> card);
+        bool hasStraightFlush(vector<Card> card);
 
         vector<Card> pair(vector<Card>);
         vector<Card> twoPair(vector<Card>);
@@ -29,6 +29,8 @@ class Combination : public CardValue {
         vector<Card> fullHouse(vector<Card>);
         vector<Card> fourOfAKind(vector<Card>);
         vector<Card> straightFlush(vector<Card>);
+
+        double getValue() const;
 };
 
 #endif
