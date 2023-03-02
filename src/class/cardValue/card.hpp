@@ -4,12 +4,14 @@
 #include <iostream>
 #include <string>
 #include "cardValue.hpp"
+#include <utility>
 using namespace std;
 
 class Card {
     protected:
-        int num;                    // 1-13
-        string warna;               // Hijau, Biru, Kuning, Merah
+        // int num;                    // 1-13
+        // string warna;               // Hijau, Biru, Kuning, Merah
+        pair<int,string> card;
     public:
         // friend class Player;
         // friend class DeckCard;

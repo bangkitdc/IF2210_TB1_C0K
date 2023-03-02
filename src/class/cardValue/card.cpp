@@ -3,38 +3,38 @@
 Card::Card() : Card(0, "-") { }
 
 Card::Card(int num, string warna) {
-    this->num = num;
-    this->warna = warna;
+    card.first=num;
+    card.second = warna;
 }
 
 Card::Card(const Card & other) {
-    this->num = other.num;
-    this->warna = other.warna;
+    card.first = other.card.first;
+    card.second = other.card.second;
 }
 
 Card::~Card() { }
 
 int Card::getNum() const {
-    return this->num;
+    return card.first;
 }
 
 void Card::setNum(int num) {
-    this->num = num;
+    card.first = num;
 }
 
 string Card::getWarna() const {
-    return this->warna;
+    return card.second;
 }
 
 void Card::setWarna(string warna) {
-    this->warna = warna;
+    card.second = warna;
 }
 void Card::displayCard() {
     cout << this->getNum() << " (" << this->getWarna() << ")\n";
 }
 
 bool Card::isValidCard() const {
-    return (this->num != 0) & (this->warna != "-");
+    return (card.first != 0) & (card.second != "-");
 }
 
 double Card::getValue() const {
