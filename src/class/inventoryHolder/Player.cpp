@@ -52,12 +52,12 @@ void Player::displayPlayer(){
     cout << "Point : " << this->getPoint() <<endl;
 }
 
-Player& Player::operator+(Card a){
+Player& Player::operator+(const Card a){
     cardsP.push_back(a);
     return *this;
 }
 
-Player& Player::operator-(Card a){
+Player& Player::operator-(const Card &a){
     for(int i=0;i<cardsP.size();i++){
         if (cardsP[i].getNum()==a.getNum() && cardsP[i].getWarna().compare(a.getWarna())==0 ){
             cardsP.erase(cardsP.begin()+i);
@@ -66,6 +66,9 @@ Player& Player::operator-(Card a){
     return *this;
 }
 
+Player& Player::operator=(const Player &a){
+    this->cardsP=a.cardsP;
+}
 void Player::setCards(vector<Card> a){
     cardsP=a;
 }
