@@ -3,9 +3,7 @@
 #include <iostream>
 using namespace std;
 
-
-
-Player::Player(string a,DeckCard *deck):InventoryHolder(a){
+Player::Player(string a,DeckCard *deck) : InventoryHolder("player"){
     this->username=a;
     setCard(deck);
     this->point=0;

@@ -5,8 +5,7 @@ int main() {
         Game game;
         game.startGame();
     } catch (BaseException *e) {
-
+        e->displayMessage();
     }
-
     return 0;
 }

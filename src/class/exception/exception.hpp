@@ -2,6 +2,7 @@
 #define _EXCEPTION_HPP_
 
 #include <iostream>
+#include "commandException.hpp"
 using namespace std;
 
 class BaseException {

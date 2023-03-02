@@ -2,6 +2,7 @@
 #define __GAME_HPP_
 
 #include <iostream>
+#include <queue>
 #include "../exception/exception.hpp"
 using namespace std;
 

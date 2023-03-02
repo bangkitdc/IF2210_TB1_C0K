@@ -29,8 +29,7 @@ class FailedCommandException : public BaseException {
         }
 
         void displayMessage() const {
-            cout << "Command " << this->command << " is failed." << endl;
-            this->exception->displayMessage();
+            cout << "Command " << this->command << " has failed." << endl;
         }
 };
 
