@@ -17,6 +17,7 @@ class tableCard : public InventoryHolder{
     void setTCard(DeckCard*);
     void displayTCard();
     vector<Card> getCards();
+    void setCards(vector<Card>);
 
 
 };

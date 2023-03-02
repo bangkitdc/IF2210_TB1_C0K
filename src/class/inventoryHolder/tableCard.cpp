@@ -20,3 +20,7 @@ void tableCard::displayTCard(){
 vector<Card> tableCard::getCards(){
     return Tcards;
 }
+
+void tableCard::setCards(vector<Card> a){
+    Tcards=a;
+}

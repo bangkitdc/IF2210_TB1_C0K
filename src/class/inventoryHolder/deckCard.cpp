@@ -63,3 +63,7 @@ Card DeckCard::getCard(){
 DeckCard& DeckCard::operator+(Card a){
     cards.push_back(a);
 }
+
+void DeckCard::setCards(vector<Card> a){
+    cards=a;
+}

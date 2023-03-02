@@ -51,3 +51,20 @@ void Player::displayPlayer(){
     }
     cout << "Point : " << this->getPoint() <<endl;
 }
+
+Player& Player::operator+(Card a){
+    cardsP.push_back(a);
+}
+
+Player& Player::operator-(Card a){
+    for(int i=0;i<cardsP.size();i++){
+        if (cardsP[i].getNum()==a.getNum() && cardsP[i].getWarna().compare(a.getWarna())==0 ){
+            cardsP.erase(cardsP.begin()+i);
+        }
+    }
+}
+
+void Player::setCards(vector<Card> a){
+    cardsP=a;
+}
+    
