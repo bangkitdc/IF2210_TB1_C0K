@@ -112,6 +112,29 @@ void Game::process(string command) {
     }
 }
 
+// void Game::addPlayerTurn(Player) {
+
+// }
+
+Game& Game::operator<<(const Player& player) {
+    this->playerTurn.push(player);
+
+    return *this;
+}
+
+// Game& operator>>(const Game& game, const Player& player) {
+//     Player temp = game.playerTurn.front();
+//     game.playerTurn.pop();
+
+//     return temp;
+// }
+Game &operator>>(Game &game, Player &player) {
+    player = game.playerTurn.front();
+    game.playerTurn.pop();
+
+    return game;
+}
+
 void Game::nextRound() {
     if (this->round == 6) {
         this->round = 1;

@@ -13,6 +13,7 @@ using namespace std;
 
 class Player : public InventoryHolder {
     protected:
+        const int id;
         string username;
         Ability * ability;
         vector<Card> cardsP;
@@ -33,6 +34,8 @@ class Player : public InventoryHolder {
         void setCard(DeckCard*);
         Player& operator+(Card);
         Player& operator-(Card);
+
+        static int totalPlayer;
 };
 
 #endif
