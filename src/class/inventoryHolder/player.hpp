@@ -21,7 +21,6 @@ class Player : public InventoryHolder {
     public:
         // friend class Card;
         // friend class DeckCard;
-        Player();
         Player(string,DeckCard*);
         ~Player();
         void setName(string);
@@ -32,16 +31,11 @@ class Player : public InventoryHolder {
         void setCards(vector<Card>);
         void displayPlayer();
         void setCard(DeckCard*);
-<<<<<<< HEAD
-        Player& operator+(Card);
-        Player& operator-(Card);
-
-        static int totalPlayer;
-=======
         Player& operator+(const Card &);
         Player& operator-(const Card &);
         Player& operator=(const Player &);
->>>>>>> a0143350d66e465c1d88b30ed7d57c9304137fc8
+
+        static int totalPlayer;
 };
 
 #endif
