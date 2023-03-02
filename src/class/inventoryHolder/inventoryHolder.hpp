@@ -15,6 +15,7 @@ class InventoryHolder {
         InventoryHolder(string);
         virtual ~InventoryHolder();
         virtual vector<Card> getCards()=0;
+        virtual void setCards(vector<Card>)=0;
 };
 
 #endif
