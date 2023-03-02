@@ -21,8 +21,8 @@ class DeckCard : public InventoryHolder {
         void shuffleCard();
 
         vector<Card> getCards();
-        DeckCard operator-(Card);
-        DeckCard operator+(Card);
+        DeckCard& operator-(Card);
+        DeckCard& operator+(Card);
         Card getCard();
         void displayDeckCard();
 };

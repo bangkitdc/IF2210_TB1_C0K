@@ -34,7 +34,7 @@ vector<Card> DeckCard::getCards(){
     return cards;
     
 }
-DeckCard DeckCard::operator-(Card a){
+DeckCard& DeckCard::operator-(Card a){
     for(int i=0;i<cards.size();i++){
         if (cards[i].getNum()==a.getNum() && cards[i].getWarna().compare(a.getWarna())==0 ){
             cards.erase(cards.begin()+i);
@@ -60,6 +60,6 @@ Card DeckCard::getCard(){
     
 }
 
-DeckCard DeckCard::operator+(Card a){
+DeckCard& DeckCard::operator+(Card a){
     cards.push_back(a);
 }
