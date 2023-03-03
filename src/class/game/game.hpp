@@ -4,7 +4,9 @@
 #include <iostream>
 #include <queue>
 #include "../exception/exception.hpp"
+#include "../exception/commandException.hpp"
 #include "../inventoryHolder/player.hpp"
+// #include "../inventoryHolder/deckCard.hpp"
 using namespace std;
 
 class Game {
@@ -13,16 +15,17 @@ class Game {
         bool gameEnd;
         queue<Player> playerTurn;
     public:
+
         Game();
+        // ~Game();
         
         void startGame();
         string reqCommand();
         void process(string);
 
-        // void addPlayerTurn(Player);
-
-        Game& operator<<(const Player&); // enqueue
-        friend Game& operator>>(Game&, Player&); // dequeue
+        void enqueuePlayer(Player);
+        void dequeuePlayer(Player&);
+        
         void nextRound();
 };
 

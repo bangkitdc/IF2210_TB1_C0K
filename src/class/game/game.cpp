@@ -25,22 +25,39 @@ void Game::startGame() {
     cout << "WELCOME TO POKER KW" << endl << endl;
 
     // inisiasi player, dll
+    DeckCard d;
+    Player p1("jeydan", &d);
+    Player p2("bagas", &d);
 
+    this->enqueuePlayer(p1);
+    this->enqueuePlayer(p2);
+
+    Player p3;
+    this->dequeuePlayer(p3);
+
+    cout << p3.getName() << endl;
+
+    // this->playerTurn.push(p1);
+    // this->playerTurn.push(p2);
+
+    cout << this->playerTurn.size();
     
-    while (!gameEnd) {
+    // this << p1;
+    
+    // while (!gameEnd) {
 
-        if (this->round == 1) {
-            // inisiasi awal deck, tablecard, playercard, dll
-            // kalau round 1 ditanya deck nya mau random apa dari file
-        }
+    //     if (this->round == 1) {
+    //         // inisiasi awal deck, tablecard, playercard, dll
+    //         // kalau round 1 ditanya deck nya mau random apa dari file
+    //     }
 
-        try {
-            string command = reqCommand();
-            process(command);
-        } catch (BaseException *e) {
-            // exception
-        }
-    }
+    //     try {
+    //         string command = reqCommand();
+    //         process(command);
+    //     } catch (BaseException *e) {
+    //         // exception
+    //     }
+    // }
 }
 
 string Game::reqCommand() {
@@ -66,25 +83,25 @@ string Game::reqCommand() {
 void Game::process(string command) {
     try {
         if (command == "NEXT") {
-
+            return;
         } else if (command == "RE-ROLL") {
-
+            return;
         } else if (command == "DOUBLE") {
-
+            return;
         } else if (command == "QUADRUPLE") {
-
+            return;
         } else if (command == "HALF") {
-
+            return;
         } else if (command == "QUARTER") {
-
+            return;
         } else if (command == "REVERSE") {
-
+            return;
         } else if (command == "SWAPCARD") {
-
+            return;
         } else if (command == "SWITCH") {
-
+            return;
         } else if (command == "ABILITYLESS") {
-
+            return;
         } else if (command == "HELP") {
             cout << endl << "Command yang tersedia: " << endl;
             cout << "NEXT \t: " << "Perintah untuk tidak melakukan apa-apa. Giliran dilanjutkan ke pemain berikutnya" << endl;
@@ -112,17 +129,14 @@ void Game::process(string command) {
     }
 }
 
-Game& Game::operator<<(const Player& player) {
+void Game::enqueuePlayer(Player player) {
     this->playerTurn.push(player);
-
-    return *this;
 }
 
-Game &operator>>(Game &game, Player &player) {
-    player = game.playerTurn.front();
-    game.playerTurn.pop();
+void Game::dequeuePlayer(Player &player) {
+    player = this->playerTurn.front();
 
-    return game;
+    this->playerTurn.pop();
 }
 
 void Game::nextRound() {

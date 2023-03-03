@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 #include "../cardValue/card.hpp"
-#include "../cardValue/card.hpp"
 #include "../ability/ability.hpp"
 #include "inventoryHolder.hpp"
 #include "deckCard.hpp"
@@ -21,6 +20,7 @@ class Player : public InventoryHolder {
     public:
         // friend class Card;
         // friend class DeckCard;
+        Player();
         Player(string,DeckCard*);
         ~Player();
         void setName(string);

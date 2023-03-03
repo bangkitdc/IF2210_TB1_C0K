@@ -67,6 +67,7 @@ DeckCard& DeckCard::operator+(const Card &a){
 
 DeckCard& DeckCard::operator=(const DeckCard &a){
     this->cards=a.cards;
+    return *this;
 }
 void DeckCard::setCards(vector<Card> a){
     cards=a;

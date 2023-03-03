@@ -5,6 +5,11 @@ using namespace std;
 
 int Player::totalPlayer = 0;
 
+Player::Player() : InventoryHolder("player"), id(-1) {
+    this->username = "test";
+    this->point = 0;
+}
+
 Player::Player(string a,DeckCard *deck) : InventoryHolder("player"), id(Player::totalPlayer + 1) {
     this->username=a;
     setCard(deck);
@@ -52,7 +57,7 @@ void Player::displayPlayer(){
     cout << "Point : " << this->getPoint() <<endl;
 }
 
-Player& Player::operator+(const Card a){
+Player& Player::operator+(const Card &a){
     cardsP.push_back(a);
     return *this;
 }
@@ -67,7 +72,11 @@ Player& Player::operator-(const Card &a){
 }
 
 Player& Player::operator=(const Player &a){
-    this->cardsP=a.cardsP;
+    this->cardsP = a.cardsP;
+    this->username = a.username;
+    this->point = a.point;
+    // ability belom
+    return *this;
 }
 void Player::setCards(vector<Card> a){
     cardsP=a;
