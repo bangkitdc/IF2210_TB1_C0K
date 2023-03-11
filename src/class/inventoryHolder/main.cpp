@@ -11,6 +11,7 @@ int main(){
     table1+game1; //kartu table1 ditambah kartu dari deckCard
     p1.displayPlayer();
     table1.displayTCard();
+    
     // p1-game1;
     // p1.displayPlayer();
     game1.displayDeckCard();
