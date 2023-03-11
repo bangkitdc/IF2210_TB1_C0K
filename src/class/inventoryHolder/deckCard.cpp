@@ -4,22 +4,26 @@
 
 DeckCard::DeckCard() : InventoryHolder ("DeckCard"){
     for(int i=1;i<=13;i++){
-            cards.push_back(Card(i,"Merah"));
+            cards.push_back(Card(i,"merah"));
     }    
     for(int i=1;i<=13;i++){
-            cards.push_back(Card(i,"Kuning"));
+            cards.push_back(Card(i,"kuning"));
     }    
     for(int i=1;i<=13;i++){
-            cards.push_back(Card(i,"Biru"));
+            cards.push_back(Card(i,"biru"));
     }    
     for(int i=1;i<=13;i++){
-            cards.push_back(Card(i,"Hijau"));
+            cards.push_back(Card(i,"hijau"));
     }    
 }
 
 DeckCard::~DeckCard(){}
-
+        
+void DeckCard::addCard(Card a){
+    cards.push_back(a);
+}
 void DeckCard::displayDeckCard(){
+    cout << "======================Deck Card======================" << endl;
     for (auto elem : DeckCard::cards) {
         elem.displayCard();
     }
@@ -32,7 +36,6 @@ void DeckCard::shuffleCard(){
 
 vector<Card> DeckCard::getCards(){
     return cards;
-    
 }
 DeckCard& DeckCard::operator-(const Card & a){
     for(int i=0;i<cards.size();i++){
@@ -55,9 +58,7 @@ Card DeckCard::getCard(){
     // shuffleCard();
     Card temp=cards[cards.size()-1];
     cards.pop_back();
-    return temp;
-
-    
+    return temp;   
 }
 
 DeckCard& DeckCard::operator+(const Card &a){

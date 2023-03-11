@@ -19,9 +19,9 @@ Player::Player(string a,DeckCard *deck) : InventoryHolder("player"), id(Player::
 }
 
 void Player::setCard(DeckCard *deck){
-    for (int i=0;i<2;i++){
-        this->cardsP.push_back(deck->getCard());
-    }
+
+    this->cardsP.push_back(deck->getCard());
+    
 } 
 
 Player::~Player(){
@@ -54,15 +54,31 @@ string Player::getName()const{
 
 void Player::displayPlayer(){
     cout << "Name : " << this->getName() <<endl;
+    cout << "Point : " << this->getPoint() <<endl;
     cout << "Card : \n" ;
     for (int i=0;i<cardsP.size();i++){
         cardsP[i].displayCard();
     }
-    cout << "Point : " << this->getPoint() <<endl;
+    
+}
+
+void Player::displayPlayerCard(int i){
+    cardsP[i].displayCard();
 }
 
 Player& Player::operator+(const Card &a){
+    if(cardsP.size()==2){
+        throw "Player sudah memiliki 2 kartu";
+    }
     cardsP.push_back(a);
+    return *this;
+}
+
+Player& Player::operator+(DeckCard &a){
+    if(cardsP.size()==2){
+        throw "Player sudah memiliki 2 kartu";
+    }
+    cardsP.push_back(a.getCard());
     return *this;
 }
 
@@ -75,6 +91,14 @@ Player& Player::operator-(const Card &a){
     return *this;
 }
 
+Player& Player::operator-(DeckCard &a){
+    if(cardsP.size()==0){
+        throw "Player tidak memiliki kartu";
+    }
+    a.addCard(cardsP[cardsP.size()-1]);
+    cardsP.pop_back();
+    return *this;
+}
 Player& Player::operator=(const Player &a){
     this->id = a.id;
     this->cardsP = a.cardsP;
@@ -86,4 +110,3 @@ Player& Player::operator=(const Player &a){
 void Player::setCards(vector<Card> a){
     cardsP=a;
 }
-    

@@ -32,9 +32,12 @@ class Player : public InventoryHolder {
         vector<Card> getCards();
         void setCards(vector<Card>);
         void displayPlayer();
+        void displayPlayerCard(int i);
         void setCard(DeckCard*);
         Player& operator+(const Card &);
+        Player& operator+(DeckCard &);
         Player& operator-(const Card &);
+        Player& operator-(DeckCard &);
         Player& operator=(const Player &);
 
         static int totalPlayer;
