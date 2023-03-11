@@ -16,92 +16,175 @@ const string listCommand[] = {
     "QUIT"
 };
 
-Game::Game() {
-    this->round = 1;
-    this->gameEnd = false;
-}
+Game::Game() : GameManager() {}
 
 void Game::startGame() {
-    cout << "WELCOME TO POKER KW" << endl << endl;
+    cout << "Welcome to Poker KW" << endl << endl;
 
-    // inisiasi player, dll
+    // Initiate Main Deck Card
     DeckCard d;
-    Player p1("jeydan", &d);
-    Player p2("bagas", &d);
+    d.shuffleCard();
 
-    this->enqueuePlayer(p1);
-    this->enqueuePlayer(p2);
+    // Input Player
+    inputPlayer(d);
+    printQueue();
 
-    Player p3;
-    this->dequeuePlayer(p3);
+    while (!gameEnd) {
+        if (round == 1) {
+            // inisiasi awal deck, tablecard, playercard, dll
+            // kalau round 1 ditanya deck nya mau random apa dari file
 
-    cout << p3.getName() << endl;
+            setPrize(64);
+        }
 
-    // this->playerTurn.push(p1);
-    // this->playerTurn.push(p2);
+        if (round == 6) {
+            // evaluate
+        }
 
-    cout << this->playerTurn.size();
-    
-    // this << p1;
-    
-    // while (!gameEnd) {
+        cout << "prize: " << getPrize() << endl; 
 
-    //     if (this->round == 1) {
-    //         // inisiasi awal deck, tablecard, playercard, dll
-    //         // kalau round 1 ditanya deck nya mau random apa dari file
-    //     }
+        string command = reqCommand();
+        process(command);
 
-    //     try {
-    //         string command = reqCommand();
-    //         process(command);
-    //     } catch (BaseException *e) {
-    //         // exception
-    //     }
-    // }
+        // Next Turn
+        Player temp = dequeuePlayer();
+        enqueuePlayer(temp);
+
+        printQueue();
+        nextRound();
+    }
+}
+
+void Game::inputPlayer(DeckCard &d) {
+    cout << "Jumlah player pada game : 7" << endl;
+    cout << "Silahkan masukkan username tiap player!!" << endl;
+
+    do {
+        string username;
+        cout << "Masukkan username [P" << this->playerTurn.size() + 1 << "]: " << endl;
+        cin >> username;
+
+        Player temp(username, &d);
+        this->enqueuePlayer(temp);
+    } while (this->playerTurn.size() != 7);
 }
 
 string Game::reqCommand() {
     string command;
     while(!this->gameEnd) {
-        cout << "Masukan command:" << endl;
-        cout << "> ";
-        cin >> command;
-        
-        for (string com : listCommand) {
-            if (com == command) {
-                return command;
+        try {
+            cout << "Masukkan command:" << endl;
+            cout << "> ";
+            cin >> command;
+            
+            for (string com : listCommand) {
+                if (com == command) {
+                    return command;
+                }
             }
+
+            throw InvalidCommandException(command);
+        } catch(InvalidCommandException& e) {
+            cout << e.what() << endl;
         }
-
-        // throw exception
-        throw new InvalidCommandException(command);
     }
-
     return "GAME END";
 }
 
 void Game::process(string command) {
     try {
         if (command == "NEXT") {
-            return;
+            cout << "Giliran dilanjut ke pemain berikutnya" << endl;
+
+            if (true) {
+                // throw exception
+            }
         } else if (command == "RE-ROLL") {
-            return;
+            if (true) { // ga punya kartu
+                throw NoCardException(command);
+            } else { // punya kartu
+                cout << "Melakukan pembuangan kartu yang sedang dimiliki" << endl;
+
+                // REROLL ALGORITHM
+
+                cout << "Kamu mendapatkan 2 kartu baru yaitu:" << endl;
+
+                // PRINT KARTU AJA
+            }
         } else if (command == "DOUBLE") {
-            return;
+            int temp = getPrize();
+            setPrize(temp * 2);
+
+            cout << playerTurn.front().getName() << " melakukan DOUBLE! Poin hadiah naik dari" << endl;
+            cout << temp << " menjadi " << getPrize() << "!" << endl;
+
+            if (true) {
+                // throw exception
+            }
         } else if (command == "QUADRUPLE") {
-            return;
+            if (true) { // ga punya kartu
+                throw NoCardException(command);
+            } else { // punya kartu
+                int temp = getPrize();
+                setPrize(temp * 4);
+
+                cout << playerTurn.front().getName() << " melakukan DOUBLE! Poin hadiah naik dari" << endl;
+                cout << temp << " menjadi " << getPrize() << "!" << endl;
+
+                // KURANGIN KARTU
+            }
         } else if (command == "HALF") {
-            return;
+            int temp = getPrize();
+            if (temp != 1) {
+                setPrize(temp / 2);
+
+                cout << playerTurn.front().getName() << " melakukan HALF! Poin hadiah turun dari" << endl;
+                cout << temp << " menjadi " << getPrize() << "!" << endl;
+            } else {
+                cout << playerTurn.front().getName() << " melakukan HALF! Sayangnya poin hadiah sudah bernilai" << endl;
+                cout << temp << ". Poin hadiah tidak berubah.. Giliran dilanjut!" << endl;
+            }
+
+            if (true) {
+                // throw exception
+            }
         } else if (command == "QUARTER") {
-            return;
+            if (true) { // ga punya kartu
+                throw NoCardException(command);
+            } else { // punya kartu
+                int temp = getPrize();
+                if (temp != 1) {
+                    setPrize(temp / 2);
+
+                    cout << playerTurn.front().getName() << " melakukan HALF! Poin hadiah turun dari" << endl;
+                    cout << temp << " menjadi " << getPrize() << "!" << endl;
+                } else {
+                    cout << playerTurn.front().getName() << " melakukan HALF! Sayangnya poin hadiah sudah bernilai" << endl;
+                    cout << temp << ". Poin hadiah tidak berubah.. Giliran dilanjut!" << endl;
+                }
+
+                // KURANGIN KARTU
+            }
         } else if (command == "REVERSE") {
-            return;
+
+            if (true) {
+                // throw exception
+            }
         } else if (command == "SWAPCARD") {
-            return;
+
+            if (true) {
+                // throw exception
+            }
         } else if (command == "SWITCH") {
-            return;
+
+            if (true) {
+                // throw exception
+            }
         } else if (command == "ABILITYLESS") {
-            return;
+
+            if (true) {
+                // throw exception
+            }
         } else if (command == "HELP") {
             cout << endl << "Command yang tersedia: " << endl;
             cout << "NEXT \t: " << "Perintah untuk tidak melakukan apa-apa. Giliran dilanjutkan ke pemain berikutnya" << endl;
@@ -118,31 +201,39 @@ void Game::process(string command) {
             cout << "QUIT \t: " << "Perintah untuk keluar game" << endl;
         } else if (command == "QUIT") {
             this->gameEnd = true;
-            // skor terakhir
+            // print skor terakhir
 
             cout << "Terima kasih telah bermain :p" << endl;
         } else {
-            throw new InvalidCommandException(command);
+            throw InvalidCommandException(command);
         }
-    } catch (BaseException *e) {
-        throw new FailedCommandException(e, command);
+    } catch (InvalidCommandException &e) {
+        cout << e.what() << endl;
     }
 }
 
 void Game::enqueuePlayer(Player player) {
-    this->playerTurn.push(player);
+    this->playerTurn.push_back(player);
 }
 
-void Game::dequeuePlayer(Player &player) {
-    player = this->playerTurn.front();
+Player Game::dequeuePlayer() {
+    Player player = this->playerTurn.front();
 
-    this->playerTurn.pop();
+    this->playerTurn.pop_front();
+    return player;
 }
 
-void Game::nextRound() {
-    if (this->round == 6) {
-        this->round = 1;
-    } else {
-        this->round += 1;
+void Game::printQueue() {
+    int count = 0;
+    cout << "<";
+    for (auto &t : playerTurn) {
+        cout << "p" << t.getId();
+
+        if (count < playerTurn.size() - 1) {
+            cout << ",";
+        }
+
+        count ++;
     }
+    cout << ">" << endl;
 }

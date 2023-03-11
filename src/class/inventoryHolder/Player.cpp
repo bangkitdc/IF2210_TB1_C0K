@@ -40,6 +40,10 @@ void Player::addPoint(double addP){
     this->point+=addP;
 }
 
+int Player::getId() const {
+    return this->id;
+}
+
 double Player::getPoint()const{
     return this->point;
 }
@@ -97,6 +101,7 @@ Player& Player::operator-(DeckCard &a){
     return *this;
 }
 Player& Player::operator=(const Player &a){
+    this->id = a.id;
     this->cardsP = a.cardsP;
     this->username = a.username;
     this->point = a.point;

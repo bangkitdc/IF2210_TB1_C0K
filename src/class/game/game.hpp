@@ -1,32 +1,22 @@
 #ifndef __GAME_HPP_
 #define __GAME_HPP_
 
-#include <iostream>
-#include <queue>
-#include "../exception/exception.hpp"
-#include "../exception/commandException.hpp"
-#include "../inventoryHolder/player.hpp"
-// #include "../inventoryHolder/deckCard.hpp"
-using namespace std;
+#include "gameManager.hpp"
 
-class Game {
-    private:
-        int round;
-        bool gameEnd;
-        queue<Player> playerTurn;
+class Game : public GameManager {
     public:
-
         Game();
-        // ~Game();
         
         void startGame();
+
+        void inputPlayer(DeckCard &);
+
         string reqCommand();
         void process(string);
 
         void enqueuePlayer(Player);
-        void dequeuePlayer(Player&);
-        
-        void nextRound();
+        Player dequeuePlayer();
+        void printQueue();
 };
 
 #endif

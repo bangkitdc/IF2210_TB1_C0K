@@ -7,7 +7,7 @@ using namespace std;
 
 class BaseException {
     public:
-        virtual void displayMessage() const = 0;    // message display
+        virtual const string what() const = 0;    // message display
 };
 
 #endif
