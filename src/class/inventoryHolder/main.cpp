@@ -6,11 +6,14 @@
 int main(){
     DeckCard game1;
     Player p1;
+    tableCard table1;
     p1+game1;
+    table1+game1;
     p1.displayPlayer();
-    p1-game1;
-    p1.displayPlayer();
+    table1.displayTCard();
+    // p1-game1;
+    // p1.displayPlayer();
     game1.displayDeckCard();
-
+    
 
 }
