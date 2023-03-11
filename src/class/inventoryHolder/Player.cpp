@@ -1,4 +1,5 @@
 #include "player.hpp"
+#include "../exception/cardException.hpp"
 #include <vector>
 #include <iostream>
 using namespace std;
@@ -72,9 +73,9 @@ Player& Player::operator+(const Card &a){
 
 Player& Player::operator+(DeckCard &a){
     if(cardsP.size()==2){
-        throw "Player sudah memiliki 2 kartu";
+        throw playerFullException();
     }
-    cardsP.push_back(a.getCard());
+    setCard(&a);
     return *this;
 }
 
@@ -89,7 +90,7 @@ Player& Player::operator-(const Card &a){
 
 Player& Player::operator-(DeckCard &a){
     if(cardsP.size()==0){
-        throw "Player tidak memiliki kartu";
+        throw playerKosongException();
     }
     a.addCard(cardsP[cardsP.size()-1]);
     cardsP.pop_back();

@@ -1,4 +1,5 @@
 #include "tableCard.hpp"
+#include "../exception/cardException.hpp"
 using namespace std;
 
 tableCard::tableCard():InventoryHolder("TableCard"){
@@ -26,7 +27,7 @@ void tableCard::setCards(vector<Card> a){
 
 tableCard& tableCard::operator+(DeckCard &a){
     if(Tcards.size()==5){
-        throw "Table Card full";//TableCardFull()
+        throw tablePenuhException();//TableCardFull()
     }
     Tcards.push_back(a.getCard());
     return *this;
@@ -34,7 +35,7 @@ tableCard& tableCard::operator+(DeckCard &a){
 
 tableCard& tableCard::operator-(DeckCard &a){
     if(Tcards.size()==0){
-        throw "Table Card Empty";
+        throw tableKosongException();
     }
     a.addCard(Tcards[Tcards.size()-1]);
     Tcards.pop_back();
