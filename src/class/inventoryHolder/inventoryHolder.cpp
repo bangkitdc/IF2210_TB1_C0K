@@ -7,4 +7,3 @@ InventoryHolder::InventoryHolder(string type) {
 }
 
 InventoryHolder::~InventoryHolder() { }
-

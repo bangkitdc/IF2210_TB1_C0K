@@ -105,4 +105,3 @@ Player& Player::operator=(const Player &a){
 void Player::setCards(vector<Card> a){
     cardsP=a;
 }
-    
