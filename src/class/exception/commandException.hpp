@@ -2,6 +2,7 @@
 #define _COMMANDEXCEPTION_HPP_
 
 #include "exception.hpp"
+#include <algorithm>
 #include <string>
 using namespace std;
 
@@ -13,23 +14,21 @@ class InvalidCommandException : public BaseException {
             this->command = command;
         }
 
-        void displayMessage() const {
-            cout << "Command " << this->command << " is invalid." << endl;
+        const string what() const noexcept {
+            return "Command " + this->command + " is invalid.";
         }
 };
 
-class FailedCommandException : public BaseException {
+class NoCardException : public BaseException {
     private:
-        BaseException *exception;
-        string command;
+        string ability;
     public:
-        FailedCommandException(BaseException *exception, string command) {
-            this->exception = exception;
-            this->command = command;
+        NoCardException(string ability) {
+            this->ability = ability;
         }
 
-        void displayMessage() const {
-            cout << "Command " << this->command << " has failed." << endl;
+        const string what() const noexcept {
+            return "Ets, tidak bisa. Kamu tidak punya kartu Ability " + this->ability + ".";
         }
 };
 

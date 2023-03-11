@@ -12,7 +12,7 @@ using namespace std;
 
 class Player : public InventoryHolder {
     protected:
-        const int id;
+        int id;
         string username;
         Ability * ability;
         vector<Card> cardsP;
@@ -25,6 +25,8 @@ class Player : public InventoryHolder {
         ~Player();
         void setName(string);
         void addPoint(double);
+
+        int getId() const;
         double getPoint()const;
         string getName()const;
         vector<Card> getCards();
