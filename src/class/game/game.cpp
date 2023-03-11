@@ -16,10 +16,7 @@ const string listCommand[] = {
     "QUIT"
 };
 
-Game::Game() {
-    this->round = 1;
-    this->gameEnd = false;
-}
+Game::Game() : GameManager() {}
 
 void Game::startGame() {
     cout << "Welcome to Poker KW" << endl << endl;
@@ -239,20 +236,4 @@ void Game::printQueue() {
         count ++;
     }
     cout << ">" << endl;
-}
-
-void Game::nextRound() {
-    if (this->round == 6) {
-        this->round = 1;
-    } else {
-        this->round += 1;
-    }
-}
-
-void Game::setPrize(int prize) {
-    this->prize = prize;
-}
-
-int Game::getPrize() {
-    return this->prize;
 }

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <map>
+#include <vector>
 #include "ability.hpp"
 #include "abilityless.hpp"
 #include "quadruple.hpp"
@@ -13,10 +14,16 @@
 #include "switch.hpp"
 using namespace std;
 
-class DeckInventory {
+class DeckAbility {
+    private:
+        map<int, Ability*> aDeck;
     public:
-        DeckInventory();
-        ~DeckInventory();
+        DeckAbility();
+        ~DeckAbility();
+
+        map<int, Ability*> getAbilityDeck();
+        void shuffleAbility();
+        void giveAbility();
 };
 
 #endif
