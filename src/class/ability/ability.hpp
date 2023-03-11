@@ -16,7 +16,7 @@ class Ability {
         ~Ability();
 
         void setPower(string);
-        virtual string getPower() const;
+        virtual string getPower() const; 
         void setUsage(bool);
         bool getUsage() const;
 
