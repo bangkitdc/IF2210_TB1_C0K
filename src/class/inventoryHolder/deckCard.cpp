@@ -4,31 +4,31 @@
 
 DeckCard::DeckCard() : InventoryHolder ("DeckCard"){
     for(int i=1;i<=13;i++){
-            cards.push_back(Card(i,"Merah"));
+            cards.push_back(Card(i,"merah"));
     }    
     for(int i=1;i<=13;i++){
-            cards.push_back(Card(i,"Kuning"));
+            cards.push_back(Card(i,"kuning"));
     }    
     for(int i=1;i<=13;i++){
-            cards.push_back(Card(i,"Biru"));
+            cards.push_back(Card(i,"biru"));
     }    
     for(int i=1;i<=13;i++){
-            cards.push_back(Card(i,"Hijau"));
+            cards.push_back(Card(i,"hijau"));
     }    
 }
 
 DeckCard::~DeckCard(){}
 
-void DeckCard::displayDeckCard(){
-    for (auto elem : DeckCard::cards) {
-        elem.displayCard();
-    }
-}
+// void DeckCard::displayDeckCard(){
+//     for (auto elem : DeckCard::cards) {
+//         elem.displayCard();
+//     }
+// }
 
-void DeckCard::shuffleCard(){
-    auto rng = std::default_random_engine {};
-    std::shuffle(begin(cards), end(cards), rng);
-}
+// void DeckCard::shuffleCard(){
+//     auto rng = std::default_random_engine {};
+//     std::shuffle(begin(cards), end(cards), rng);
+// }
 
 vector<Card> DeckCard::getCards(){
     return cards;
