@@ -37,5 +37,6 @@ tableCard& tableCard::operator-(DeckCard &a){
         throw "Table Card Empty";
     }
     a.addCard(Tcards[Tcards.size()-1]);
+    Tcards.pop_back();
     return *this;
 }
