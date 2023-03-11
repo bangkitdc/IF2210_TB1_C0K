@@ -18,21 +18,24 @@ DeckCard::DeckCard() : InventoryHolder ("DeckCard"){
 }
 
 DeckCard::~DeckCard(){}
+        
+void DeckCard::addCard(Card a){
+    cards.push_back(a);
+}
+void DeckCard::displayDeckCard(){
+    cout << "======================Deck Card======================" << endl;
+    for (auto elem : DeckCard::cards) {
+        elem.displayCard();
+    }
+}
 
-// void DeckCard::displayDeckCard(){
-//     for (auto elem : DeckCard::cards) {
-//         elem.displayCard();
-//     }
-// }
-
-// void DeckCard::shuffleCard(){
-//     auto rng = std::default_random_engine {};
-//     std::shuffle(begin(cards), end(cards), rng);
-// }
+void DeckCard::shuffleCard(){
+    auto rng = std::default_random_engine {};
+    std::shuffle(begin(cards), end(cards), rng);
+}
 
 vector<Card> DeckCard::getCards(){
     return cards;
-    
 }
 DeckCard& DeckCard::operator-(const Card & a){
     for(int i=0;i<cards.size();i++){
@@ -55,9 +58,7 @@ Card DeckCard::getCard(){
     // shuffleCard();
     Card temp=cards[cards.size()-1];
     cards.pop_back();
-    return temp;
-
-    
+    return temp;   
 }
 
 DeckCard& DeckCard::operator+(const Card &a){

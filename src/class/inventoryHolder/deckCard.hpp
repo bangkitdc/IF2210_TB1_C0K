@@ -20,13 +20,13 @@ class DeckCard : public InventoryHolder {
         ~DeckCard();
         
         void shuffleCard();
-        
-        vector<Card> getCards();
         void setCards(vector<Card>);
+        void addCard(Card a);
+        Card getCard();
+        vector<Card> getCards();
         DeckCard& operator-(const Card &);
         DeckCard& operator+(const Card &);
         DeckCard& operator=(const DeckCard &);
-        Card getCard();
         void displayDeckCard();
 };
 
