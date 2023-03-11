@@ -18,6 +18,8 @@ class tableCard : public InventoryHolder{
     void displayTCard();
     vector<Card> getCards();
     void setCards(vector<Card>);
+    tableCard& operator+(DeckCard &);
+    tableCard& operator-(DeckCard &);
     
 
 };
