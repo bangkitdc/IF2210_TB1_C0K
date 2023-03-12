@@ -33,6 +33,16 @@ class Combination : public CardValue {
         int priorityCard(vector<Card> cards);
 
         int color2Int(Card);
+
+        double highVal(int angka, int warna);
+        double pairVal(int angka, int warna1, int warna2);
+        double twoPairVal(int angka1, int angka2, int warna1_a, int warna1_b, int warna2_a, int warna2_b);
+        double threesVal(int angka, int warna1, int warna2, int warna3);
+        double straightVal(int angkaTerkecil, int warna1, int warna2, int warna3, int warna4, int warna5);
+        double flushVal(int angka1, int angka2, int angka3, int angka4, int angka5, int warna);
+        double fullHouseVal(int angka1, int angka2, int warna1_1, int warna1_2, int warna1_3, int warna2_1, int warna2_2);
+        double foursVal(int angka);
+        double straightFlushVal(int angka1, int angka2, int angka3, int angka4, int angka5, int warna);
 };
 
 #endif

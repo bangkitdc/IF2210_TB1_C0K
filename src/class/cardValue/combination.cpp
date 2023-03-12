@@ -1,4 +1,5 @@
 #include "combination.hpp"
+#include <bits/stdc++.h>
 // #include "testcombo.cpp"
 #include <string>
 
@@ -536,4 +537,98 @@ void Combination::sortingWarna(vector<Card> card){
             }
         }
     }
+}
+
+double Combination::highVal(int angka, int warna) {
+    // High Card
+    double konstan = 0.1 * angka;
+
+    return konstan + warna * 0.03;
+    // MAX : 1.39
+}
+
+double Combination::pairVal(int angka, int warna1, int warna2) {
+    // Pair
+    double konstan = (angka * 10.1) - 13;
+    // Rumus dari 10.1 - 13 + -2.9 + 3(kemungkinan terkecil) = 1.49 
+
+    return 1.39 + konstan + (pow(2, warna1) + pow(2, warna2));
+    // MAX : 131.69
+}
+
+double Combination::twoPairVal(int angka1, int angka2, int warna1_a, int warna1_b, int warna2_a, int warna2_b) {
+    // TwoPair
+
+    // Pair kecil hanya punya porsi 0.3
+	if (angka1 > angka2) {
+		return 131.69 + pairVal(angka1, warna1_a, warna1_b) + pairVal(angka2, warna2_a, warna2_b) * 0.3;
+	} else {
+		return 131.69 + pairVal(angka2, warna2_a, warna2_b) + pairVal(angka1, warna1_a, warna1_b) * 0.3;
+	}
+	// MAX : 299.857
+}
+
+double Combination::threesVal(int angka, int warna1, int warna2, int warna3) {
+    // Threes
+    double konstan = (angka * 10.1) - 15;
+    // Rumus mirip pairVal
+
+    return 299.857 + (konstan) + (pow(2, warna1) + pow(2, warna2) + pow(2, warna3));
+    // MAX : 430.157
+}
+
+double Combination::straightVal(int angkaTerkecil, int warna1, int warna2, int warna3, int warna4, int warna5) {
+    // Straight
+    double konstan = angkaTerkecil * 1024;
+
+    // Menggunakan representasi 10 bit
+    int subset = 0;
+    subset = subset | (warna5 << 8);
+    subset = subset | (warna4 << 6);
+    subset = subset | (warna3 << 4);
+    subset = subset | (warna2 << 2);
+    subset = subset | warna1;
+
+    return 430.157 + konstan + subset;
+    // MAX : 10669.2
+}
+
+double Combination::flushVal(int angka1, int angka2, int angka3, int angka4, int angka5, int warna) {
+    // Flush
+    double konstan = warna * 0.2;
+    // Differs warna dengan 1 angka di belakang koma
+
+    return 10669.2 + konstan + pow(2, angka1) + pow(2, angka2) + pow(2, angka3) + pow(2, angka4) + pow(2, angka5);
+    // MAX : 50861.2
+}
+
+double Combination::fullHouseVal(int angka1, int angka2, int warna1_1, int warna1_2, int warna1_3, int warna2_1, int warna2_2) {
+    // FullHouse
+    // angka1 = 3 biji
+    // angka2 = 2 biji
+
+    double konstan1 = pow(2, warna1_1) + pow(2, warna1_2) + pow(2, warna1_3);
+    double konstan2 = pow(2, warna2_1) + pow(2, warna2_2);
+
+    // min 5 x 32 = 160
+    // max = 158 (dari kombinasi konstan1 dan konstan2)
+    // agar tidak overlap angka dikali agar mendekati 158, yakni 160
+
+    return 26285.8 + (pow(2, angka1) + pow(2, angka2)) * pow(2, 5) + (pow(konstan1, 2) + konstan2 - 50);
+    // MAX : 419660
+}
+
+double Combination::foursVal(int angka) {
+    // Fours
+
+    return 419660 + angka;
+    // MAX : 419673
+}
+
+double Combination::straightFlushVal(int angka1, int angka2, int angka3, int angka4, int angka5, int warna) {
+    // StraightFlush
+    double konstan = warna;
+
+    return 419673 + konstan + angka1 + angka2 + angka3 + angka4 + angka5;
+    // MAX : 419731
 }
