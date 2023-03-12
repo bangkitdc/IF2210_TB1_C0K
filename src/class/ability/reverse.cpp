@@ -1,4 +1,5 @@
 #include "reverse.hpp"
+#include "../game/gameManager.hpp"
 
 Reverse::Reverse() {
     this->power = "Reverse";
@@ -15,7 +16,7 @@ bool Reverse::getUsage() const {
     return this->used;
 }
 
-void Reverse::use(string power) {
+void Reverse::use(string power, GameManager* state) {
     if (this->power != power) {
         cout << "bukan punyalu goblok\n";
     }

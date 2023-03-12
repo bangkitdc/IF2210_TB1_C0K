@@ -5,10 +5,15 @@
 #include <string>
 #include <vector>
 #include "../cardValue/card.hpp"
-#include "../ability/ability.hpp"
+// #include "../ability/ability.hpp"
 #include "inventoryHolder.hpp"
 #include "deckCard.hpp"
 using namespace std;
+
+#pragma once
+class Ability;
+class DeckAbility;
+class Game;
 
 class Player : public InventoryHolder {
     protected:
@@ -34,6 +39,8 @@ class Player : public InventoryHolder {
         void displayPlayer();
         void displayPlayerCard(int i);
         void setCard(DeckCard*);
+        Ability* getAbility();
+        void setAbility(Ability*);
         Player& operator+(const Card &);
         Player& operator+(DeckCard &);
         Player& operator-(const Card &);
@@ -41,6 +48,8 @@ class Player : public InventoryHolder {
         Player& operator=(const Player &);
 
         static int totalPlayer;
+        friend class DeckAbility;
+        friend class Game;
 };
 
 #endif

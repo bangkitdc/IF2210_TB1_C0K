@@ -1,4 +1,6 @@
 #include "quadruple.hpp"
+#include "../game/gameManager.hpp"
+#include "../inventoryHolder/player.hpp"
 
 Quadruple::Quadruple() {
     this->power = "Quadruple";
@@ -15,7 +17,8 @@ bool Quadruple::getUsage() const {
     return this->used;
 }
 
-void Quadruple::use(string power) {
+void Quadruple::use(string power, GameManager* state) {
+    cout << "KON\n";
     if (this->power != power) {
         cout << "bukan punyalu goblok\n";
     }
@@ -23,7 +26,10 @@ void Quadruple::use(string power) {
         cout << "udah dipake kontol\n";
     }
     else {
-        cout << "dipake ya sayang\n";
+        int temp = state->getPrize();
+        state->setPrize(temp * 4);
+        cout << state->getPlayer().front().getName() << " melakukan QUADRUPLE! Poin hadiah naik dari" << endl;
+        cout << temp << " menjadi " << state->getPrize() << "!" << endl;
         this->used = true;
     }
 }

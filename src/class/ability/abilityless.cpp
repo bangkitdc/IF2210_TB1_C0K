@@ -1,4 +1,5 @@
 #include "abilityless.hpp"
+#include "../game/gameManager.hpp"
 
 AbilityLess::AbilityLess() {
     this->power = "AbilityLess";
@@ -15,7 +16,7 @@ bool AbilityLess::getUsage() const {
     return this->used;
 }
 
-void AbilityLess::use(string power) {
+void AbilityLess::use(string power, GameManager* state) {
     if (this->power != power) {
         cout << "bukan punyalu goblok\n";
     }

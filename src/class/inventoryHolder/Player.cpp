@@ -1,4 +1,5 @@
 #include "player.hpp"
+#include "../ability/ability.hpp"
 #include <vector>
 #include <iostream>
 using namespace std;
@@ -23,6 +24,14 @@ void Player::setCard(DeckCard *deck){
     this->cardsP.push_back(deck->getCard());
     
 } 
+
+Ability* Player::getAbility() {
+    return this->ability;
+}
+
+void Player::setAbility(Ability *abl) {
+    this->ability = abl;
+}
 
 Player::~Player(){
 }

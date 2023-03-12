@@ -1,4 +1,5 @@
 #include "reroll.hpp"
+#include "../game/gameManager.hpp"
 
 ReRoll::ReRoll() {
     this->power = "ReRoll";
@@ -15,7 +16,7 @@ bool ReRoll::getUsage() const {
     return this->used;
 }
 
-void ReRoll::use(string power) {
+void ReRoll::use(string power, GameManager* state) {
     if (this->power != power) {
         cout << "bukan punyalu goblok\n";
     }
