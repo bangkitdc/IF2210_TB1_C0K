@@ -32,7 +32,7 @@ void Game::startGame() {
     printQueue();
 
     // sementara langsung gw bagiin ability dl
-    da->shuffleAbility(this);
+    // da->shuffleAbility(this);
     // problem disini
 
     while (!gameEnd) {
