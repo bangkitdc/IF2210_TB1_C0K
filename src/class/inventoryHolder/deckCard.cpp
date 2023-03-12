@@ -1,6 +1,7 @@
 #include "deckCard.hpp"
 #include <random>
 #include <algorithm>
+#include <fstream>
 
 DeckCard::DeckCard() : InventoryHolder ("DeckCard"){
     for(int i=1;i<=13;i++){
@@ -15,6 +16,102 @@ DeckCard::DeckCard() : InventoryHolder ("DeckCard"){
     for(int i=1;i<=13;i++){
             cards.push_back(Card(i,"hijau"));
     }    
+}
+DeckCard::DeckCard(string filename):InventoryHolder("DeckCard"){
+    fstream f;
+    f.open(filename+".txt",ios::in);    
+    while(!f.eof()&& cards.size()<=52){
+        string line;
+        string cardColor;
+        int cardNum;
+
+        f>>line;
+        switch (line[0])
+        {
+        case '1':
+            if(line[1]=='0'){
+                cardNum=10;
+                break;
+            }
+            else if(line[1]=='1'){
+                cardNum=11;
+                break;
+            }
+            else if(line[1]=='2'){
+                cardNum=12;
+                break;
+            }
+            else if(line[1]=='3'){
+                cardNum=13;
+                break;
+            }else{
+                cardNum= 1;
+                break;
+            }
+            
+        case '2':
+            cardNum = 2;
+            break;
+        case '3':
+            cardNum = 3;
+            break;
+        case '4':
+            cardNum = 4;
+            break;
+        case '5':
+            cardNum = 5;
+            break;
+        case '6':
+            cardNum = 6;
+            break;
+        case '7':
+            cardNum = 7;
+            break;
+        case '8':
+            cardNum = 8;
+            break;
+        case '9':
+            cardNum = 9;
+            break;
+        default:
+            break;
+        }
+        
+        switch (line[1])
+        {
+        case 'm':
+            cardColor = "merah";
+            break;
+        case 'k':
+            cardColor = "kuning";
+            break;
+        case 'b':
+            cardColor = "biru";
+            break;
+        case 'h':
+            cardColor = "hijau";
+            break;
+        default:
+            switch (line[2])
+            {
+            case 'm':
+                cardColor = "merah";
+                break;
+            case 'k':
+                cardColor = "kuning";
+                break;
+            case 'b':
+                cardColor = "biru";
+                break;
+            case 'h':
+                cardColor = "hijau";
+                break;
+            default : break;
+            break;
+            }   
+        }
+        addCard(Card(cardNum,cardColor));
+    }
 }
 
 DeckCard::~DeckCard(){}
