@@ -27,7 +27,7 @@ void tableCard::setCards(vector<Card> a){
 
 tableCard& tableCard::operator+(DeckCard &a){
     if(Tcards.size()==5){
-        throw tablePenuhException();//TableCardFull()
+        throw TablePenuhException();//TableCardFull()
     }
     Tcards.push_back(a.getCard());
     return *this;
@@ -35,7 +35,7 @@ tableCard& tableCard::operator+(DeckCard &a){
 
 tableCard& tableCard::operator-(DeckCard &a){
     if(Tcards.size()==0){
-        throw tableKosongException();
+        throw TableKosongException();
     }
     a.addCard(Tcards[Tcards.size()-1]);
     Tcards.pop_back();

@@ -5,35 +5,35 @@
 #include <string>
 using namespace std;
 
-class playerFullException : public BaseException{
+class PlayerFullException : public BaseException{
     public : 
-    playerFullException(){}
-    void displayMessage() const {
-        cout << "Player sudah memiliki kartu" << endl;
+    PlayerFullException(){}
+    const string what() const noexcept {
+        return "Player sudah memiliki kartu";
     }
 };
 
-class playerKosongException : public BaseException{
+class PlayerKosongException : public BaseException{
     public :
-    playerKosongException(){}
-    void displayMessage() const {
-        cout << "Player tidak memiliki kartu" << endl;
+    PlayerKosongException(){}
+    const string what() const noexcept {
+        return "Player tidak memiliki kartu";
     }
 };
 
-class tableKosongException : public BaseException {
+class TableKosongException : public BaseException {
     public :
-    tableKosongException(){} 
-    void displayMessage() const{
-        cout << "Tidak ada TableCard" << endl;
+    TableKosongException(){} 
+    const string what() const noexcept {
+        return "Tidak ada TableCard";
     }
 };
 
-class tablePenuhException : public BaseException {
+class TablePenuhException : public BaseException {
     public : 
-    tablePenuhException(){}
-    void displayMessage() const{
-        cout << "Table Card sudah ada 5" << endl;
+    TablePenuhException(){}
+    const string what() const noexcept {
+        return "Table Card sudah ada 5";
     }
 };
 #endif
