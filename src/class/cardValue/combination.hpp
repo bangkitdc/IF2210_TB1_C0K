@@ -12,6 +12,7 @@ class Combination : public CardValue {
         Combination();
         ~Combination();
 
+        void sortingWarna(vector<Card> card);
         bool hasPair(vector<Card> card);
         bool hasTwoPair(vector<Card> card);
         bool hasThreeOfAKind(vector<Card> card);
@@ -29,8 +30,8 @@ class Combination : public CardValue {
         vector<Card> fullHouse(vector<Card>);
         vector<Card> fourOfAKind(vector<Card>);
         vector<Card> straightFlush(vector<Card>);
+        int priorityCard(vector<Card> cards);
 
-        double getValue() const;
 };
 
 #endif
