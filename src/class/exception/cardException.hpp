@@ -8,32 +8,32 @@ using namespace std;
 class playerFullException : public BaseException{
     public : 
     playerFullException(){}
-    void displayMessage() const {
-        cout << "Player sudah memiliki kartu" << endl;
+    const string what() const {
+        return "Player sudah memiliki kartu" ;
     }
 };
 
 class playerKosongException : public BaseException{
     public :
     playerKosongException(){}
-    void displayMessage() const {
-        cout << "Player tidak memiliki kartu" << endl;
+    const string what() const {
+        return "Player tidak memiliki kartu" ;
     }
 };
 
 class tableKosongException : public BaseException {
     public :
     tableKosongException(){} 
-    void displayMessage() const{
-        cout << "Tidak ada TableCard" << endl;
+    const string what() const{
+        return "Tidak ada TableCard" ;
     }
 };
 
 class tablePenuhException : public BaseException {
     public : 
     tablePenuhException(){}
-    void displayMessage() const{
-        cout << "Table Card sudah ada 5" << endl;
+    const string what() const{
+        return "Table Card sudah ada 5" ;
     }
 };
 #endif
