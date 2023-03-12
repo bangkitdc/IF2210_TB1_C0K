@@ -87,7 +87,7 @@ Player& Player::operator+(const Card &a){
 
 Player& Player::operator+(DeckCard &a){
     if(cardsP.size()==2){
-        throw playerFullException();
+        throw PlayerFullException();
     }
     setCard(&a);
     return *this;
@@ -104,7 +104,7 @@ Player& Player::operator-(const Card &a){
 
 Player& Player::operator-(DeckCard &a){
     if(cardsP.size()==0){
-        throw playerKosongException();
+        throw PlayerKosongException();
     }
     a.addCard(cardsP[cardsP.size()-1]);
     cardsP.pop_back();
