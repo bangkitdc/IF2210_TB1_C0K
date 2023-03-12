@@ -136,3 +136,7 @@ vector<Card> Player::evaluateCard(tableCard a){
 
     
 }
+
+double Player::getValueGeneric() {
+    return point; 
+}

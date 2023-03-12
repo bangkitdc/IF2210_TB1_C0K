@@ -52,3 +52,21 @@ double Card::getValue() const {
         return 0;
     }
 }
+
+double Card::getValueGeneric() {
+    double temp;
+    string warna=card.second;
+    if(warna.compare("merah")==0){
+        temp=0.4;
+    }
+    else if(warna.compare("kuning")==0){
+        temp=0.3;
+    }
+    else if(warna.compare("biru")==0){
+        temp=0.2;
+    }
+    else if(warna.compare("hijau")==0){
+        temp=0.1;
+    }
+    return card.first+temp; 
+}

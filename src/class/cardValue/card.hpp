@@ -28,6 +28,7 @@ class Card {
         bool isValidCard() const;
         double getValue() const;
         void displayCard();
+        double getValueGeneric();
 };
 
 #endif

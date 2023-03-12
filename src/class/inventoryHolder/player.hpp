@@ -48,6 +48,7 @@ class Player : public InventoryHolder {
         Player& operator-(DeckCard &);
         Player& operator=(const Player &);
         vector<Card> evaluateCard(tableCard a);
+        double getValueGeneric();
         static int totalPlayer;
         friend class DeckAbility;
         friend class Game;
