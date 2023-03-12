@@ -8,6 +8,7 @@
 // #include "../ability/ability.hpp"
 #include "inventoryHolder.hpp"
 #include "deckCard.hpp"
+#include "../inventoryHolder/tableCard.hpp"
 using namespace std;
 
 #pragma once
@@ -46,7 +47,7 @@ class Player : public InventoryHolder {
         Player& operator-(const Card &);
         Player& operator-(DeckCard &);
         Player& operator=(const Player &);
-
+        vector<Card> evaluateCard(tableCard a);
         static int totalPlayer;
         friend class DeckAbility;
         friend class Game;

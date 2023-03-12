@@ -112,6 +112,7 @@ DeckCard::DeckCard(string filename):InventoryHolder("DeckCard"){
         }
         addCard(Card(cardNum,cardColor));
     }
+    f.close();
 }
 
 DeckCard::~DeckCard(){}

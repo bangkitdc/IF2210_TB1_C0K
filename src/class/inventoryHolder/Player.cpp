@@ -15,6 +15,7 @@ Player::Player() : InventoryHolder("player"), id(-1) {
 Player::Player(string a,DeckCard *deck) : InventoryHolder("player"), id(Player::totalPlayer + 1) {
     this->username=a;
     setCard(deck);
+    setCard(deck);
     this->point=0;
 
     Player::totalPlayer ++;
@@ -119,4 +120,19 @@ Player& Player::operator=(const Player &a){
 }
 void Player::setCards(vector<Card> a){
     cardsP=a;
+}
+
+vector<Card> Player::evaluateCard(tableCard a){
+    vector<Card> temp;
+    vector<Card> tempTable=a.getCards();
+    for(int i=0;i<cardsP.size();i++){
+        temp.push_back(cardsP[i]);
+    }
+
+    for (int i=0;i<a.getCards().size();i++){
+        temp.push_back(tempTable[i]);
+    }
+    return temp;
+
+    
 }
