@@ -13,7 +13,7 @@ class Swap : public Ability {
 
         string getPower() const override;
         bool getUsage() const override;
-        void use(string);
+        void use(string, GameManager*);
 };
 
 #endif

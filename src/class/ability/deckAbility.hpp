@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <map>
-#include <vector>
 #include "ability.hpp"
 #include "abilityless.hpp"
 #include "quadruple.hpp"
@@ -12,6 +11,8 @@
 #include "reverse.hpp"
 #include "swap.hpp"
 #include "switch.hpp"
+#include "../game/gameManager.hpp"
+#include "../inventoryHolder/player.hpp"
 using namespace std;
 
 class DeckAbility {
@@ -22,8 +23,7 @@ class DeckAbility {
         ~DeckAbility();
 
         map<int, Ability*> getAbilityDeck();
-        void shuffleAbility();
-        void giveAbility();
+        void shuffleAbility(GameManager*);
 };
 
 #endif

@@ -1,4 +1,5 @@
 #include "swap.hpp"
+#include "../game/gameManager.hpp"
 
 Swap::Swap() {
     this->power = "Swap";
@@ -15,7 +16,7 @@ bool Swap::getUsage() const {
     return this->used;
 }
 
-void Swap::use(string power) {
+void Swap::use(string power, GameManager* state) {
     if (this->power != power) {
         cout << "bukan punyalu goblok\n";
     }

@@ -12,9 +12,21 @@
 //         ++it;
 //     }
 
-//     aDeck[1]->use("ReRoll");
-//     aDeck[1]->use("AbilityLess");
-//     aDeck[1]->use("AbilityLess");
+//     abilityDeck.shuffleAbility();
+
+//     aDeck = abilityDeck.getAbilityDeck();
+
+
+//     it = aDeck.begin();
+
+//     while(it != aDeck.end()) {
+//         cout << it->first << " " << it->second->getPower() << endl;
+//         ++it;
+//     }
+
+//     // aDeck[1]->use("ReRoll");
+//     // aDeck[1]->use("AbilityLess");
+//     // aDeck[1]->use("AbilityLess");
 
 //     return 0;
 // }

@@ -1,4 +1,5 @@
 #include "GameManager.hpp"
+#include "../inventoryHolder/player.hpp"
 using namespace std;
 
 GameManager::GameManager() {
@@ -20,4 +21,8 @@ void GameManager::setPrize(int prize) {
 
 int GameManager::getPrize() {
     return this->prize;
+}
+
+deque<Player> GameManager::getPlayer() {
+    return this->playerTurn;
 }

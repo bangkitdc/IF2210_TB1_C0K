@@ -23,11 +23,17 @@ void Game::startGame() {
 
     // Initiate Main Deck Card
     DeckCard d;
+    // DeckAbility da;
+    DeckAbility* da = new DeckAbility();
     d.shuffleCard();
 
     // Input Player
     inputPlayer(d);
     printQueue();
+
+    // sementara langsung gw bagiin ability dl
+    // da->shuffleAbility(this);
+    // problem disini
 
     while (!gameEnd) {
         if (round == 1) {
@@ -48,6 +54,7 @@ void Game::startGame() {
 
         // Next Turn
         Player temp = dequeuePlayer();
+        // cout << temp.getAbility()->getPower() << "\n";
         enqueuePlayer(temp);
 
         printQueue();
@@ -122,17 +129,19 @@ void Game::process(string command) {
                 // throw exception
             }
         } else if (command == "QUADRUPLE") {
-            if (true) { // ga punya kartu
-                throw NoCardException(command);
-            } else { // punya kartu
-                int temp = getPrize();
-                setPrize(temp * 4);
+            cout << "PPP\n";
+            playerTurn.front().ability->use(command, this);
+            // if (true) { // ga punya kartu
+            //     throw NoCardException(command);
+            // } else { // punya kartu
+            //     int temp = getPrize();
+            //     setPrize(temp * 4);
 
-                cout << playerTurn.front().getName() << " melakukan DOUBLE! Poin hadiah naik dari" << endl;
-                cout << temp << " menjadi " << getPrize() << "!" << endl;
+            //     cout << playerTurn.front().getName() << " melakukan DOUBLE! Poin hadiah naik dari" << endl;
+            //     cout << temp << " menjadi " << getPrize() << "!" << endl;
 
-                // KURANGIN KARTU
-            }
+            //     // KURANGIN KARTU
+            // }
         } else if (command == "HALF") {
             int temp = getPrize();
             if (temp != 1) {

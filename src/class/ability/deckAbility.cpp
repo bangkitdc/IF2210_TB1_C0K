@@ -24,7 +24,30 @@ map<int, Ability*> DeckAbility::getAbilityDeck() {
     return this->aDeck;
 }
 
-void DeckAbility::shuffleAbility() {
-    vector<int> keys = {1,2,3,4,5,6,7};
-    shuffle(keys.begin(), keys.end());
+void DeckAbility::shuffleAbility(GameManager* state) {
+    // int i = 1;
+    // for (Player& p : state->getPlayer()) {
+    //     p.setAbility(aDeck[i]);
+    //     cout << aDeck[i]->getPower() << " " << p.getAbility()->getPower() << "\n";
+    //     i++;
+    // }
+    // for (Player& p : state->getPlayer()) {
+    //     cout << p.getAbility()->getPower() << " ";
+    // }
+    // for (int i = 0; i < 7; i++) {
+    //     state->getPlayer().at(i).ability = new Quadruple;
+    //     // cout << aDeck[i+1] << "\n";
+    //     // cout << state->getPlayer().at(i).ability->getPower() << " ";
+    // }
+    // cout << "\n";
+    for (Player& p : state->getPlayer()) {
+        p.ability = new Quadruple;
+        cout << p.getAbility()->getPower() << " ";
+    }
+    cout << "\n";
+    for (Player& p : state->getPlayer()) {
+        // p.ability = new Quadruple;
+        cout << p.getAbility()->getPower() << " ";
+    }
+    cout << "\n";
 }

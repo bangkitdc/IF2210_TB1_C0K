@@ -2,6 +2,10 @@
 #define __GAME_HPP_
 
 #include "gameManager.hpp"
+#include "../exception/exception.hpp"
+#include "../exception/commandException.hpp"
+#include "../inventoryHolder/player.hpp"
+#include "../ability/deckAbility.hpp"
 
 class Game : public GameManager {
     public:

@@ -3,11 +3,12 @@
 
 #include <iostream>
 #include <deque>
-#include "../exception/exception.hpp"
-#include "../exception/commandException.hpp"
-#include "../inventoryHolder/player.hpp"
+// #include "../inventoryHolder/player.hpp"
 // #include "../cardValue/cardValue.hpp"
 using namespace std;
+
+#pragma once
+class Player;
 
 class GameManager {
     protected:
@@ -20,6 +21,7 @@ class GameManager {
         void nextRound();
         void setPrize(int);
         int getPrize();
+        deque<Player> getPlayer();
 };
 
 #endif
