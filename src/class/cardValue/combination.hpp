@@ -32,6 +32,7 @@ class Combination : public CardValue {
         vector<Card> straightFlush(vector<Card>);
         int priorityCard(vector<Card> cards);
 
+        int color2Int(Card);
 };
 
 #endif

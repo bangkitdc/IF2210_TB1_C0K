@@ -1,5 +1,5 @@
 #include "combination.hpp"
-#include "testcombo.cpp"
+// #include "testcombo.cpp"
 #include <string>
 
 Combination::Combination()
@@ -10,46 +10,6 @@ Combination::Combination()
 Combination::~Combination()
 {
 
-}
-
-void Combination::sortingWarna(vector<Card> card){
-    int w1, w2;
-    Card tempsort;
-    //sorting warna
-    for(int i=0; i<card.size(); i++){
-        for(int j = i+1; j<card.size();j++){
-            if (card[i].getNum() == card[j].getNum()){
-                string warna1 = card[i].getWarna();
-                string warna2 = card[j].getWarna();
-                if (warna1 == "hijau"){
-                    w1 = 0;
-                } else if (warna1 == "biru"){
-                    w1 = 1;
-                } else if (warna1 == "kuning"){
-                    w1 = 2;
-                } else if (warna1 == "merah"){
-                    w1 = 3;
-                }
-
-                if (warna2 == "hijau"){
-                    w2 = 1;
-                } else if (warna2 == "biru"){
-                    w2 = 2;
-                } else if (warna2 == "kuning"){
-                    w2 = 3;
-                } else if (warna2 == "merah"){
-                    w2 = 4;
-                }
-
-                if(w2 > w1){
-                    tempsort = card[i];
-                    card[i] = card[j];
-                    card[j] = tempsort;
-                }
-
-            }
-        }
-    }
 }
 
 bool Combination::hasPair(vector<Card> card)
@@ -540,4 +500,40 @@ vector<Card> Combination::fullHouse(vector<Card> cards){
     }
 
     return res;
+}
+
+int Combination::color2Int(Card card)
+{
+    if(card.getWarna() == "hijau"){
+        return 0;
+    }
+    else if(card.getWarna() == "biru"){
+        return 1;
+    }
+    else if(card.getWarna() == "kuning"){
+        return 2;
+    }
+    else if(card.getWarna() == "merah"){
+        return 3;
+    }
+}
+
+void Combination::sortingWarna(vector<Card> card){
+    int w1, w2;
+    Card tempsort;
+    //sorting warna
+    for(int i=0; i<card.size(); i++){
+        for(int j = i+1; j<card.size();j++){
+            if (card[i].getNum() == card[j].getNum()){
+                int warna1 = color2Int(card[i]);
+                int warna2 = color2Int(card[j]);
+                if(w2 > w1){
+                    tempsort = card[i];
+                    card[i] = card[j];
+                    card[j] = tempsort;
+                }
+
+            }
+        }
+    }
 }
