@@ -31,7 +31,7 @@ void GameManager::startGame() {
     printQueue();
 
     // sementara langsung gw bagiin ability dl
-    // da->shuffleAbility(this);
+    da->shuffleAbility(this);
     // problem disini
 
     while (!gameEnd) {
@@ -70,8 +70,27 @@ void GameManager::startGame() {
             nextRound();
         }
 
-        // evaluate
-        // d.~DeckCard();
+        if (round == 2) {
+            da->shuffleAbility(this);
+        }
+
+        if (round == 6) {
+            // evaluate
+        }
+
+        cout << "prize: " << getPrize() << endl; 
+
+        string command = reqCommand();
+        process(command);
+
+        // Next Turn
+        Player temp = dequeuePlayer();
+        // cout << temp.getAbility()->getPower() << "\n";
+        enqueuePlayer(temp);
+
+        printQueue();
+        nextRound();
+        cout << "Round: " << round << "\n";
     }
 }
 
@@ -197,18 +216,7 @@ void GameManager::process(string command) {
             if (true) {
                 // throw exception
             }
-        } else if (command == "RE-ROLL") {
-            if (true) { // ga punya kartu
-                throw NoCardException(command);
-            } else { // punya kartu
-                cout << "Melakukan pembuangan kartu yang sedang dimiliki" << endl;
-
-                // REROLL ALGORITHM
-
-                cout << "Kamu mendapatkan 2 kartu baru yaitu:" << endl;
-
-                // PRINT KARTU AJA
-            }
+        
         } else if (command == "DOUBLE") {
             int temp = getPrize();
             setPrize(temp * 2);
@@ -219,20 +227,6 @@ void GameManager::process(string command) {
             if (true) {
                 // throw exception
             }
-        } else if (command == "QUADRUPLE") {
-            cout << "PPP\n";
-            playerTurn.front().getAbility()->use(command, this);
-            // if (true) { // ga punya kartu
-            //     throw NoCardException(command);
-            // } else { // punya kartu
-            //     int temp = getPrize();
-            //     setPrize(temp * 4);
-
-            //     cout << playerTurn.front().getName() << " melakukan DOUBLE! Poin hadiah naik dari" << endl;
-            //     cout << temp << " menjadi " << getPrize() << "!" << endl;
-
-            //     // KURANGIN KARTU
-            // }
         } else if (command == "HALF") {
             int temp = getPrize();
             if (temp != 1) {
@@ -248,43 +242,69 @@ void GameManager::process(string command) {
             if (true) {
                 // throw exception
             }
-        } else if (command == "QUARTER") {
-            if (true) { // ga punya kartu
-                throw NoCardException(command);
-            } else { // punya kartu
-                int temp = getPrize();
-                if (temp != 1) {
-                    setPrize(temp / 2);
+        // } else if (command == "RE-ROLL") {
+        //     if (true) { // ga punya kartu
+        //         throw NoCardException(command);
+        //     } else { // punya kartu
+        //         cout << "Melakukan pembuangan kartu yang sedang dimiliki" << endl;
 
-                    cout << playerTurn.front().getName() << " melakukan HALF! Poin hadiah turun dari" << endl;
-                    cout << temp << " menjadi " << getPrize() << "!" << endl;
-                } else {
-                    cout << playerTurn.front().getName() << " melakukan HALF! Sayangnya poin hadiah sudah bernilai" << endl;
-                    cout << temp << ". Poin hadiah tidak berubah.. Giliran dilanjut!" << endl;
-                }
+        //         // REROLL ALGORITHM
 
-                // KURANGIN KARTU
-            }
-        } else if (command == "REVERSE") {
+        //         cout << "Kamu mendapatkan 2 kartu baru yaitu:" << endl;
 
-            if (true) {
-                // throw exception
-            }
-        } else if (command == "SWAPCARD") {
+        //         // PRINT KARTU AJA
+        //     }
+        // } else if (command == "QUADRUPLE") {
+        //     playerTurn.front().getAbility()->use(command, this);
+        //     // if (true) { // ga punya kartu
+        //     //     throw NoCardException(command);
+        //     // } else { // punya kartu
+        //     //     int temp = getPrize();
+        //     //     setPrize(temp * 4);
 
-            if (true) {
-                // throw exception
-            }
-        } else if (command == "SWITCH") {
+        //     //     cout << playerTurn.front().getName() << " melakukan DOUBLE! Poin hadiah naik dari" << endl;
+        //     //     cout << temp << " menjadi " << getPrize() << "!" << endl;
 
-            if (true) {
-                // throw exception
-            }
-        } else if (command == "ABILITYLESS") {
+        //     //     // KURANGIN KARTU
+        //     // }
+        
+        // } else if (command == "QUARTER") {
+        //     if (true) { // ga punya kartu
+        //         throw NoCardException(command);
+        //     } else { // punya kartu
+        //         int temp = getPrize();
+        //         if (temp != 1) {
+        //             setPrize(temp / 2);
 
-            if (true) {
-                // throw exception
-            }
+        //             cout << playerTurn.front().getName() << " melakukan HALF! Poin hadiah turun dari" << endl;
+        //             cout << temp << " menjadi " << getPrize() << "!" << endl;
+        //         } else {
+        //             cout << playerTurn.front().getName() << " melakukan HALF! Sayangnya poin hadiah sudah bernilai" << endl;
+        //             cout << temp << ". Poin hadiah tidak berubah.. Giliran dilanjut!" << endl;
+        //         }
+
+        //         // KURANGIN KARTU
+        //     }
+        // } else if (command == "REVERSE") {
+
+        //     if (true) {
+        //         // throw exception
+        //     }
+        // } else if (command == "SWAPCARD") {
+
+        //     if (true) {
+        //         // throw exception
+        //     }
+        // } else if (command == "SWITCH") {
+
+        //     if (true) {
+        //         // throw exception
+        //     }
+        // } else if (command == "ABILITYLESS") {
+
+        //     if (true) {
+        //         // throw exception
+        //     }
         } else if (command == "HELP") {
             cout << endl << "Command yang tersedia: " << endl;
             cout << "NEXT \t: " << "Perintah untuk tidak melakukan apa-apa. Giliran dilanjutkan ke pemain berikutnya" << endl;
@@ -305,10 +325,20 @@ void GameManager::process(string command) {
 
             cout << "Terima kasih telah bermain :p" << endl;
         } else {
-            throw InvalidCommandException(command);
+            try {
+                playerTurn.front().getAbility()->use(command, this);
+            } catch (NoCardException &e) {
+                cout << e.what() << endl;
+                process(reqCommand());
+            } catch (UsedCardException &e) {
+                cout << e.what() << endl;
+                process(reqCommand());
+            }
+            
         }
     } catch (InvalidCommandException &e) {
         cout << e.what() << endl;
+        // process(reqCommand());
     }
 }
 
