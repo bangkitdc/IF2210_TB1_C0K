@@ -13,6 +13,22 @@ Combination::~Combination()
 
 }
 
+vector<Card> Combination::sortCard(vector<Card> card)
+{
+    //sorting
+    Card tempsort;
+    for(int i=0; i<card.size(); i++){
+        for(int j=0; j<card.size(); j++){
+            if(card[i].getNum() < card[j].getNum()){
+                tempsort = card[i];
+                card[i] = card[j];
+                card[j] = tempsort;
+            }
+        }
+    }
+    return card;
+}
+
 bool Combination::hasPair(vector<Card> card)
 {
     int ctr = 0;
@@ -59,16 +75,7 @@ bool Combination::hasThreeOfAKind(vector<Card> card)
     int temp, index;
     int ctr = 0;
 
-    //sorting
-    for(int i=0; i<card.size(); i++){
-        for(int j=1; j<card.size(); j++){
-            if(card[i].getNum() < card[j].getNum()){
-                tempsort = card[i];
-                card[i] = card[j];
-                card[j] = tempsort;
-            }
-        }
-    }
+    sortCard(card);
 
     for (int i=0; i<card.size(); i++){
         if (i == 0){
@@ -99,16 +106,7 @@ bool Combination::hasStraight(vector<Card> card)
     int temp;
     int ctr = 0;
 
-    //sorting
-    for(int i=0; i<card.size(); i++){
-        for(int j=0; j<card.size(); j++){
-            if(card[i].getNum() < card[j].getNum()){
-                tempsort = card[i];
-                card[i] = card[j];
-                card[j] = tempsort;
-            }
-        }
-    }
+    sortCard(card);
 
     for (int i=0; i<card.size()-4; i++){
         temp = card[i].getNum();
@@ -179,16 +177,7 @@ bool Combination::hasStraightFlush(vector<Card> card)
     Card tempsort;
     string tempcolour;
 
-    //sorting
-    for(int i=0; i<card.size(); i++){
-        for(int j=0; j<card.size(); j++){
-            if(card[i].getNum() < card[j].getNum()){
-                tempsort = card[i];
-                card[i] = card[j];
-                card[j] = tempsort;
-            }
-        }
-    }
+    sortCard(card);
 
     for (int i=0; i<card.size()-4; i++){
         temp = card[i].getNum();
@@ -239,16 +228,7 @@ vector<Card> Combination::twoPair(vector<Card> card)
     int w1, w2;
     bool same = false;
 
-    //sorting
-    for(int i=0; i<card.size(); i++){
-        for(int j=0; j<card.size(); j++){
-            if(card[i].getNum() > card[j].getNum()){
-                tempsort = card[i];
-                card[i] = card[j];
-                card[j] = tempsort;
-            }
-        }
-    }
+    sortCard(card);
 
     sortingWarna(card);
 
@@ -279,9 +259,7 @@ vector<Card> Combination::fourOfAKind(vector<Card> card)
         for(int j = i+1; j < card.size(); j++){
             if(card[i].getNum() == card[j].getNum()){
                 temp.push_back(card[j]);
-                cout << card[j].getNum() << " <-" << endl;
                 if(card[i].getNum() > temp[0].getNum()){
-                    cout << card[j].getNum() << " ->" << endl;
                     temp.clear();
                     temp.push_back(card[j]);
                     ctr=0;
@@ -303,6 +281,9 @@ vector<Card> Combination::fourOfAKind(vector<Card> card)
 vector<Card> Combination::flush(vector<Card> card)
 {
     vector<Card> temp;
+
+    sortCard(card);
+    
     for(int i = 0; i < card.size(); i++){
         for(int j = i+1; j < card.size(); j++){
             if(card[i].getWarna() == card[j].getWarna()){
@@ -326,16 +307,7 @@ vector<Card> Combination::threeOfAKind(vector<Card> cards){
     int temp, index;
     int ctr = 0;
 
-    //sorting
-    for(int i=0; i<cards.size(); i++){
-        for(int j=0; j<cards.size(); j++){
-            if(cards[i].getNum() < cards[j].getNum()){
-                tempsort = cards[i];
-                cards[i] = cards[j];
-                cards[j] = tempsort;
-            }
-        }
-    }
+    sortCard(card);
 
     for (int i=0; i<cards.size(); i++){
         if (i == 0){
@@ -374,16 +346,7 @@ vector<Card> Combination::straight(vector<Card> cards){
     int temp, index, w1, w2;
     int ctr = 0;
 
-    //sorting
-    for(int i=0; i<cards.size(); i++){
-        for(int j=0; j<cards.size(); j++){
-            if(cards[i].getNum() < cards[j].getNum()){
-                tempsort = cards[i];
-                cards[i] = cards[j];
-                cards[j] = tempsort;
-            }
-        }
-    }
+    sortCard(card);
 
     sortingWarna(cards);
 
@@ -424,16 +387,7 @@ vector<Card> Combination::straightFlush(vector<Card> cards){
     int temp, index, w1, w2;
     int ctr = 0;
 
-    //sorting
-    for(int i=0; i<cards.size(); i++){
-        for(int j=0; j<cards.size(); j++){
-            if(cards[i].getNum() < cards[j].getNum()){
-                tempsort = cards[i];
-                cards[i] = cards[j];
-                cards[j] = tempsort;
-            }
-        }
-    }
+    sortCard(card);
 
     sortingWarna(cards);
 
@@ -514,7 +468,7 @@ int Combination::color2Int(Card card)
     else if(card.getWarna() == "kuning"){
         return 2;
     }
-    else if(card.getWarna() == "merah"){
+    else {
         return 3;
     }
 }

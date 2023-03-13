@@ -9,18 +9,16 @@
 
 class tableCard : public InventoryHolder{
     protected:
-    vector<Card> Tcards;
+        vector<Card> Tcards;
     public:
-    tableCard();
-    ~tableCard();
-    void setTCard(DeckCard*);
-    void displayTCard();
-    vector<Card> getCards();
-    void setCards(vector<Card>);
-    tableCard& operator+(DeckCard &);
-    tableCard& operator-(DeckCard &);
-    
-
+        tableCard();
+        ~tableCard();
+        void setTCard(DeckCard*);
+        void displayTCard();
+        vector<Card> getCards();
+        void setCards(vector<Card>);
+        tableCard& operator+(DeckCard &);
+        tableCard& operator-(DeckCard &);
 };
 
 

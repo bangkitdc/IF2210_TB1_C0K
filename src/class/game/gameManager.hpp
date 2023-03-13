@@ -5,6 +5,7 @@
 #include "../exception/exception.hpp"
 #include "../exception/commandException.hpp"
 #include "../inventoryHolder/player.hpp"
+#include "../inventoryHolder/tableCard.hpp"
 #include "../ability/deckAbility.hpp"
 
 class GameManager : public Game {
@@ -13,7 +14,7 @@ class GameManager : public Game {
         
         void startGame();
 
-        void inputPlayer(DeckCard &);
+        void inputPlayer();
 
         string reqCommand();
         void process(string);
