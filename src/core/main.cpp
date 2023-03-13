@@ -1,7 +1,7 @@
-#include "../class/game/game.hpp"
+#include "../class/game/gameManager.hpp"
 
 int main() {
-    Game game;
+    GameManager game;
     game.startGame();
     return 0;
 }

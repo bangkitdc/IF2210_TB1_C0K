@@ -15,6 +15,7 @@ using namespace std;
 class Ability;
 class DeckAbility;
 class Game;
+class tablecard;
 
 class Player : public InventoryHolder {
     protected:

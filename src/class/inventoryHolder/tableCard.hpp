@@ -5,7 +5,6 @@
 #include <vector>
 #include "../cardValue/card.hpp"
 #include "deckCard.hpp"
-#include "player.hpp"
 #include "inventoryHolder.hpp"
 
 class tableCard : public InventoryHolder{
