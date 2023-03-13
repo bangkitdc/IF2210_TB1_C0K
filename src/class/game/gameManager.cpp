@@ -30,14 +30,8 @@ void GameManager::startGame() {
     inputPlayer();
     printQueue();
 
-    // sementara langsung gw bagiin ability dl
-    da->shuffleAbility(this);
-    // problem disini
-
-    string file = inputFile();
-
     while (!gameEnd) {
-        // Initiate Main Deck Card
+        // Initiate Main Deck Card, Table Card
         DeckCard d;
         // DeckAbility da;
         tableCard t;
@@ -49,21 +43,22 @@ void GameManager::startGame() {
             if (round == 1) {
                 // inisiasi awal deck, tablecard, playercard, dll
                 // kalau round 1 ditanya deck nya mau random apa dari file
-                // if(pilihan == file) {
-
-                // }
+                int pil = inputOpsi();
+                if (pil == 2) {
+                    string fileInput = inputFile();
+                    d.readFromFile(fileInput);
+                }
 
                 setPrize(64);
             }
 
-            cout << "prize: " << getPrize() << endl; 
+            cout << endl << "Prize saat ini: " << getPrize() << endl; 
 
             string command = reqCommand();
             process(command);
 
             // Next Turn
             Player temp = dequeuePlayer();
-            // cout << temp.getAbility()->getPower() << "\n";
             enqueuePlayer(temp);
 
             printQueue();
@@ -76,6 +71,12 @@ void GameManager::startGame() {
 
         if (round == 6) {
             // evaluate
+            // Combination c;
+
+            // Player p1;
+            // p1 = c.evaluate(getPlayers())
+
+
         }
 
         cout << "prize: " << getPrize() << endl; 
@@ -128,6 +129,10 @@ string GameManager::inputFile() {
         }
     }
 
+    if (count == 0) {
+        return "nofile";
+    }
+
     string i;
     bool flag = true;
     while(flag) {
@@ -151,6 +156,35 @@ string GameManager::inputFile() {
     }
 
     return s[stoi(i) - 1];
+}
+
+int GameManager::inputOpsi() {
+    string i;
+    bool flag = true;
+    while(flag) {
+        try {
+            cout << "Untuk urutan Deck Card, terdapat 2 Opsi" << endl;
+            cout << "1. Opsi Random" << endl;
+            cout << "2. Opsi Baca File" << endl;
+            cout << "Masukkan pilihan: " << endl;
+            cout << "> ";
+            cin >> i;
+
+            if (!isInteger(i)) {
+                throw NotNumberException(i);
+            }
+            
+            if (!(stoi(i) >= 1 && stoi(i) <= 2)) {
+                throw InvalidNumberException(i);
+            }
+
+            flag = false;
+        } catch(InvalidNumberException& e) {
+            cout << e.what() << endl;
+        }
+    }
+
+    return stoi(i);
 }
 
 string GameManager::reqCommand() {
@@ -209,69 +243,6 @@ void GameManager::process(string command) {
             if (true) {
                 // throw exception
             }
-        // } else if (command == "RE-ROLL") {
-        //     if (true) { // ga punya kartu
-        //         throw NoCardException(command);
-        //     } else { // punya kartu
-        //         cout << "Melakukan pembuangan kartu yang sedang dimiliki" << endl;
-
-        //         // REROLL ALGORITHM
-
-        //         cout << "Kamu mendapatkan 2 kartu baru yaitu:" << endl;
-
-        //         // PRINT KARTU AJA
-        //     }
-        // } else if (command == "QUADRUPLE") {
-        //     playerTurn.front().getAbility()->use(command, this);
-        //     // if (true) { // ga punya kartu
-        //     //     throw NoCardException(command);
-        //     // } else { // punya kartu
-        //     //     int temp = getPrize();
-        //     //     setPrize(temp * 4);
-
-        //     //     cout << playerTurn.front().getName() << " melakukan DOUBLE! Poin hadiah naik dari" << endl;
-        //     //     cout << temp << " menjadi " << getPrize() << "!" << endl;
-
-        //     //     // KURANGIN KARTU
-        //     // }
-        
-        // } else if (command == "QUARTER") {
-        //     if (true) { // ga punya kartu
-        //         throw NoCardException(command);
-        //     } else { // punya kartu
-        //         int temp = getPrize();
-        //         if (temp != 1) {
-        //             setPrize(temp / 2);
-
-        //             cout << playerTurn.front().getName() << " melakukan HALF! Poin hadiah turun dari" << endl;
-        //             cout << temp << " menjadi " << getPrize() << "!" << endl;
-        //         } else {
-        //             cout << playerTurn.front().getName() << " melakukan HALF! Sayangnya poin hadiah sudah bernilai" << endl;
-        //             cout << temp << ". Poin hadiah tidak berubah.. Giliran dilanjut!" << endl;
-        //         }
-
-        //         // KURANGIN KARTU
-        //     }
-        // } else if (command == "REVERSE") {
-
-        //     if (true) {
-        //         // throw exception
-        //     }
-        // } else if (command == "SWAPCARD") {
-
-        //     if (true) {
-        //         // throw exception
-        //     }
-        // } else if (command == "SWITCH") {
-
-        //     if (true) {
-        //         // throw exception
-        //     }
-        // } else if (command == "ABILITYLESS") {
-
-        //     if (true) {
-        //         // throw exception
-        //     }
         } else if (command == "HELP") {
             cout << endl << "Command yang tersedia: " << endl;
             cout << "NEXT \t: " << "Perintah untuk tidak melakukan apa-apa. Giliran dilanjutkan ke pemain berikutnya" << endl;

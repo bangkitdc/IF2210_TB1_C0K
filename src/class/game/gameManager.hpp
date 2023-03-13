@@ -17,6 +17,7 @@ class GameManager : public Game {
 
         void inputPlayer();
         string inputFile();
+        int inputOpsi();
 
         string reqCommand();
         void process(string);
