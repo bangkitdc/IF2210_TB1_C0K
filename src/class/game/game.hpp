@@ -23,6 +23,8 @@ class Game {
         int getPrize();
         deque<Player> getPlayer();
         friend class DeckAbility;
+        friend class Swap;
+        friend class Switch;
 };
 
 #endif

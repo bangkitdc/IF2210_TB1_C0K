@@ -2,7 +2,7 @@
 #define _SWAP_HPP_
 
 #include "ability.hpp"
-
+#include "../inventoryHolder/player.hpp"
 class Swap : public Ability {
     private:
         string power;

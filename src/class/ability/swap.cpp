@@ -1,4 +1,5 @@
 #include "swap.hpp"
+
 #include "../game/gameManager.hpp"
 
 Swap::Swap() {
