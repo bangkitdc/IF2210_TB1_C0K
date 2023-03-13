@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "files.associations": {
     "vector": "cpp",
     "iosfwd": "cpp",
@@ -73,4 +74,45 @@
   ],
   "C_Cpp_Runner.useAddressSanitizer": false,
   "python.pythonPath": "C:\\Python311\\python.exe"
+=======
+    "files.associations": {
+        "vector": "cpp",
+        "iosfwd": "cpp",
+        "iostream": "cpp",
+        "__bit_reference": "cpp",
+        "__node_handle": "cpp",
+        "atomic": "cpp",
+        "bitset": "cpp",
+        "chrono": "cpp",
+        "cstddef": "cpp",
+        "deque": "cpp",
+        "__memory": "cpp",
+        "limits": "cpp",
+        "locale": "cpp",
+        "optional": "cpp",
+        "random": "cpp",
+        "ratio": "cpp",
+        "system_error": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "array": "cpp",
+        "functional": "cpp",
+        "utility": "cpp",
+        "variant": "cpp",
+        "__hash_table": "cpp",
+        "__split_buffer": "cpp",
+        "initializer_list": "cpp",
+        "queue": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "ostream": "cpp",
+        "xstring": "cpp",
+        "xtree": "cpp",
+        "xutility": "cpp",
+        "xiosbase": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+>>>>>>> feb6de2d068d6e25c5cf61eb26a2f5b184d46311
 }

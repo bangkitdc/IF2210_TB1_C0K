@@ -16,9 +16,8 @@ class DeckCard : public InventoryHolder {
         // friend class Player;
         // friend class Card;
         DeckCard();
-        DeckCard(string);
         ~DeckCard();
-        
+        void readFromFile(string);
         void shuffleCard();
         void setCards(vector<Card>);
         void addCard(Card a);

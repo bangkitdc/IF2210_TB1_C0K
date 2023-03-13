@@ -17,10 +17,12 @@ DeckCard::DeckCard() : InventoryHolder ("DeckCard"){
             cards.push_back(Card(i,"hijau"));
     }    
 }
-DeckCard::DeckCard(string filename):InventoryHolder("DeckCard"){
+
+void DeckCard::readFromFile(string filename){
     fstream f;
+    vector<Card> temp;
     f.open(filename+".txt",ios::in);    
-    while(!f.eof()&& cards.size()<=52){
+    while(!f.eof()){
         string line;
         string cardColor;
         int cardNum;
@@ -48,7 +50,6 @@ DeckCard::DeckCard(string filename):InventoryHolder("DeckCard"){
                 cardNum= 1;
                 break;
             }
-            
         case '2':
             cardNum = 2;
             break;
@@ -74,6 +75,7 @@ DeckCard::DeckCard(string filename):InventoryHolder("DeckCard"){
             cardNum = 9;
             break;
         default:
+            throw "Input tidak valid";
             break;
         }
         
@@ -106,13 +108,20 @@ DeckCard::DeckCard(string filename):InventoryHolder("DeckCard"){
             case 'h':
                 cardColor = "hijau";
                 break;
-            default : break;
+            default : 
+                throw "Input tidak valid";
+                break;
+            
             break;
             }   
         }
-        addCard(Card(cardNum,cardColor));
+        temp.push_back(Card(cardNum,cardColor));
     }
     f.close();
+    if (temp.size()!= 52){
+        throw "Input kartu kurang";
+    }
+    cards=temp;
 }
 
 DeckCard::~DeckCard(){}

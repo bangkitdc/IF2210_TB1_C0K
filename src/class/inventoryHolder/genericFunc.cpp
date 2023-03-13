@@ -1,14 +1,19 @@
-// #include <iostream>
-// #include <vector>
-// #include <deque>
+#include <iostream>
+#include <vector>
+#include <deque>
+#include "../inventoryHolder/Player.hpp"
+#include "../inventoryHolder/deckCard.hpp"
 
-// template<class T,class X>
-// T findMax(const T& container) {
-//     T::value_type maxVal = container.front(); // set initial maxVal to the first element
-//     for (const auto& element : container) { // iterate over all elements in the container
-//         if (element > maxVal) { // if current element is greater than current maxVal
-//             maxVal = element; // update maxVal
-//         }
-//     }
-//     return maxVal; // return the maximum value found
-// }
+template <typename Container>
+typename Container::value_type getMaxValue(const Container& container)
+{
+    typename Container::value_type max_val = container.front();
+    for(const auto& val : container)
+    {
+        if(val.getValue() > max_val.getValue())
+        {
+            max_val = val;
+        }
+    }
+    return max_val;
+}
