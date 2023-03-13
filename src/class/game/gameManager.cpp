@@ -34,10 +34,8 @@ void GameManager::startGame() {
     // da->shuffleAbility(this);
     // problem disini
 
-    string file = inputFile();
-
     while (!gameEnd) {
-        // Initiate Main Deck Card
+        // Initiate Main Deck Card, Table Card
         DeckCard d;
         // DeckAbility da;
         tableCard t;
@@ -49,14 +47,16 @@ void GameManager::startGame() {
             if (round == 1) {
                 // inisiasi awal deck, tablecard, playercard, dll
                 // kalau round 1 ditanya deck nya mau random apa dari file
-                // if(pilihan == file) {
-
-                // }
+                int pil = inputOpsi();
+                if (pil == 2) {
+                    string fileInput = inputFile();
+                    d.readFromFile(fileInput);
+                }
 
                 setPrize(64);
             }
 
-            cout << "prize: " << getPrize() << endl; 
+            cout << endl << "Prize saat ini: " << getPrize() << endl; 
 
             string command = reqCommand();
             process(command);
@@ -109,6 +109,10 @@ string GameManager::inputFile() {
         }
     }
 
+    if (count == 0) {
+        return "nofile";
+    }
+
     string i;
     bool flag = true;
     while(flag) {
@@ -132,6 +136,35 @@ string GameManager::inputFile() {
     }
 
     return s[stoi(i) - 1];
+}
+
+int GameManager::inputOpsi() {
+    string i;
+    bool flag = true;
+    while(flag) {
+        try {
+            cout << "Untuk urutan Deck Card, terdapat 2 Opsi" << endl;
+            cout << "1. Opsi Random" << endl;
+            cout << "2. Opsi Baca File" << endl;
+            cout << "Masukkan pilihan: " << endl;
+            cout << "> ";
+            cin >> i;
+
+            if (!isInteger(i)) {
+                throw NotNumberException(i);
+            }
+            
+            if (!(stoi(i) >= 1 && stoi(i) <= 2)) {
+                throw InvalidNumberException(i);
+            }
+
+            flag = false;
+        } catch(InvalidNumberException& e) {
+            cout << e.what() << endl;
+        }
+    }
+
+    return stoi(i);
 }
 
 string GameManager::reqCommand() {
