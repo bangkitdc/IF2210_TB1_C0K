@@ -1,5 +1,5 @@
 #include "combination.hpp"
-// #include <bits/stdc++.h>
+#include <bits/stdc++.h>
 // #include "testcombo.cpp"
 #include <string>
 
@@ -306,7 +306,7 @@ vector<Card> Combination::threeOfAKind(vector<Card> cards){
     int temp, index;
     int ctr = 0;
 
-    sortCard(cardss);
+    sortCard(cards);
 
     for (int i=0; i<cards.size(); i++){
         if (i == 0){
@@ -345,7 +345,7 @@ vector<Card> Combination::straight(vector<Card> cards){
     int temp, index, w1, w2;
     int ctr = 0;
 
-    sortCard(cardss);
+    sortCard(cards);
     sortingWarna(cards);
 
     for (int i=0; i<cards.size()-4; i++){
@@ -385,7 +385,7 @@ vector<Card> Combination::straightFlush(vector<Card> cards){
     int temp, index, w1, w2;
     int ctr = 0;
 
-    sortCard(cardss);
+    sortCard(cards);
     sortingWarna(cards);
 
 
