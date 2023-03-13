@@ -2,7 +2,7 @@
 #include "../game/gameManager.hpp"
 
 Swap::Swap() {
-    this->power = "Swap";
+    this->power = "SWAP";
     this->used = false;
 }
 
@@ -18,10 +18,10 @@ bool Swap::getUsage() const {
 
 void Swap::use(string power, GameManager* state) {
     if (this->power != power) {
-        cout << "bukan punyalu goblok\n";
+        throw NoCardException(power);
     }
     else if (this->used) {
-        cout << "udah dipake kontol\n";
+        throw UsedCardException(power);
     }
     else {
         cout << "dipake ya sayang\n";

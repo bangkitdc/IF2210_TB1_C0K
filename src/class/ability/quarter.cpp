@@ -3,7 +3,7 @@
 #include "../inventoryHolder/player.hpp"
 
 Quarter::Quarter() {
-    this->power = "Quarter";
+    this->power = "QUARTER";
     this->used = false;
 }
 
@@ -19,10 +19,10 @@ bool Quarter::getUsage() const {
 
 void Quarter::use(string power, GameManager* state) {
     if (this->power != power) {
-        cout << "bukan punyalu goblok\n";
+        throw NoCardException(power);
     }
     else if (this->used) {
-        cout << "udah dipake kontol\n";
+        throw UsedCardException(power);
     }
     else {
         int temp = state->getPrize();

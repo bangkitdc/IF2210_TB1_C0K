@@ -32,4 +32,17 @@ class NoCardException : public BaseException {
         }
 };
 
+class UsedCardException : public BaseException {
+    private:
+        string ability;
+    public:
+        UsedCardException(string ability) {
+            this->ability = ability;
+        }
+
+        const string what() const noexcept {
+            return "Ets, Kamu udah pakai kartu Ability " + this->ability + ".";
+        }
+};
+
 #endif

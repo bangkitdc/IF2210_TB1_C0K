@@ -22,6 +22,7 @@ class Game {
         void setPrize(int);
         int getPrize();
         deque<Player> getPlayer();
+        friend class DeckAbility;
 };
 
 #endif

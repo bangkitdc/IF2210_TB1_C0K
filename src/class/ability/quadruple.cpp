@@ -3,7 +3,7 @@
 #include "../inventoryHolder/player.hpp"
 
 Quadruple::Quadruple() {
-    this->power = "Quadruple";
+    this->power = "QUADRUPLE";
     this->used = false;
 }
 
@@ -18,12 +18,11 @@ bool Quadruple::getUsage() const {
 }
 
 void Quadruple::use(string power, GameManager* state) {
-    cout << "KON\n";
     if (this->power != power) {
-        cout << "bukan punyalu goblok\n";
+        throw NoCardException(power);
     }
     else if (this->used) {
-        cout << "udah dipake kontol\n";
+        throw UsedCardException(power);
     }
     else {
         int temp = state->getPrize();

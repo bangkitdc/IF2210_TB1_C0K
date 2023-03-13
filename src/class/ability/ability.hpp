@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include "../exception/commandException.hpp"
 // #include "../game/gameManager.hpp"
 using namespace std;
 
