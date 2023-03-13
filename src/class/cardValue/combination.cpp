@@ -1,4 +1,6 @@
 #include "combination.hpp"
+#include <bits/stdc++.h>
+// #include "testcombo.cpp"
 #include <string>
 
 Combination::Combination()
@@ -32,20 +34,18 @@ bool Combination::hasPair(vector<Card> card)
 bool Combination::hasTwoPair(vector<Card> card)
 {
     int ctr = 0;
-    int valid = 0;
+    int temp = 0;
+    bool same;
     for (int i = 0; i < card.size(); i++){
-        for (int j = 0; j < card.size(); j++){
-            if(card[i].getNum() == card[j].getNum()){
+        for (int j = i+1; j < card.size(); j++){
+            if(card[i].getNum() == card[j].getNum() && card[i].getNum() != temp){
+                temp = card[i].getNum();
                 ctr++;
             }
-            if(ctr == 2){
-                valid++;
-                break;
-            }
         }
-        ctr = 0;
     }
-    if(valid > 2){
+
+    if(ctr >= 2){
         return 1;
     }
 
@@ -145,31 +145,8 @@ bool Combination::hasFullHouse(vector<Card> card){
     int temp1,temp2,temp3;
     vector<Card> c1, c2, c3;
 
-    if (hasThreeOfAKind(card)){
-        if (hasPair(card)){
-            c3 = threeOfAKind(card);
-            c2 = pair(card);
-            temp3 = c3[0].getNum();
-            cout << temp3 << endl;
-            temp2 = c2[0].getNum();
-            cout << temp2 << endl;
-            if (temp2 == temp3){
-                cout << "debug 1" << endl;
-                if (hasTwoPair(card)){
-                    cout << "debug 2" << endl;
-                    c1 = twoPair(card);
-                    temp1 = c1[0].getNum();
-                    cout << temp1 << endl;
-                    if(temp1 != temp3){
-                        return 1;
-                    }
-                } else {
-                    return 0;
-                }
-            } else {
-                return 1;
-            }
-        } 
+    if (hasThreeOfAKind(card) && hasTwoPair(card)){
+        return 1;
     }
     return 0;
 }
@@ -256,30 +233,42 @@ vector<Card> Combination::pair(vector<Card> card)
 vector<Card> Combination::twoPair(vector<Card> card)
 {
     int ctr = 0;
-    vector<Card> temp;
-    for(int i = 0; i < card.size(); i++){
-        for(int j = i+1; j < card.size(); j++){
-            if(card[i].getNum() == card[j].getNum()){
-                if(ctr > 1){
-                    if(temp[0].getNum() < card[i].getNum()){
-                        if(temp[2].getNum() < temp[0].getNum()){
-                            temp[2] = temp[0];
-                            temp[3] = temp[1];
-                        }
-                        temp[0] = card[i];
-                        temp[1] = card[i];
-                        break;
-                    }
-                    break;
-                }
-                temp.push_back(card[i]);
-                temp.push_back(card[j]);
-                ctr++;
-                break;
+    Card tempsort;
+    vector<Card> res;
+    int temp = 0;
+    int w1, w2;
+    bool same = false;
+
+    //sorting
+    for(int i=0; i<card.size(); i++){
+        for(int j=0; j<card.size(); j++){
+            if(card[i].getNum() > card[j].getNum()){
+                tempsort = card[i];
+                card[i] = card[j];
+                card[j] = tempsort;
             }
         }
     }
-    return temp;
+
+    sortingWarna(card);
+
+    for(int i = 0; i < card.size()-1; i++){
+        for(int j = i+1; j < card.size(); j++){
+            if(card[i].getNum() == card[j].getNum() && card[i].getNum() != temp){
+                temp = card[i].getNum();
+                res.push_back(card[i]);
+                res.push_back(card[j]);
+                ctr++;
+            }
+            if(ctr == 2){
+                break;
+            }
+        }
+        if(ctr == 2){
+            break;
+        }
+    }
+    return res;
 }
 
 vector<Card> Combination::fourOfAKind(vector<Card> card)
@@ -331,11 +320,6 @@ vector<Card> Combination::flush(vector<Card> card)
     return temp;
 }
 
-double Combination::getValue() const
-{
-    return 0.0;
-}
-
 vector<Card> Combination::threeOfAKind(vector<Card> cards){
     vector<Card> res;
     Card tempsort;
@@ -344,7 +328,7 @@ vector<Card> Combination::threeOfAKind(vector<Card> cards){
 
     //sorting
     for(int i=0; i<cards.size(); i++){
-        for(int j=1; j<cards.size(); j++){
+        for(int j=0; j<cards.size(); j++){
             if(cards[i].getNum() < cards[j].getNum()){
                 tempsort = cards[i];
                 cards[i] = cards[j];
@@ -401,41 +385,7 @@ vector<Card> Combination::straight(vector<Card> cards){
         }
     }
 
-    //sorting warna
-    for(int i=0; i<cards.size(); i++){
-        for(int j = i+1; j<cards.size();j++){
-            if (cards[i].getNum() == cards[j].getNum()){
-                string warna1 = cards[i].getWarna();
-                string warna2 = cards[j].getWarna();
-                if (warna1 == "hijau"){
-                    w1 = 1;
-                } else if (warna1 == "biru"){
-                    w1 = 2;
-                } else if (warna1 == "kuning"){
-                    w1 = 3;
-                } else if (warna1 == "merah"){
-                    w1 = 4;
-                }
-
-                if (warna2 == "hijau"){
-                    w2 = 1;
-                } else if (warna2 == "biru"){
-                    w2 = 2;
-                } else if (warna2 == "kuning"){
-                    w2 = 3;
-                } else if (warna2 == "merah"){
-                    w2 = 4;
-                }
-
-                if(w2 > w1){
-                    tempsort = cards[i];
-                    cards[i] = cards[j];
-                    cards[j] = tempsort;
-                }
-
-            }
-        }
-    }
+    sortingWarna(cards);
 
     for (int i=0; i<cards.size()-4; i++){
         temp = cards[i].getNum();
@@ -485,41 +435,7 @@ vector<Card> Combination::straightFlush(vector<Card> cards){
         }
     }
 
-    //sorting warna
-    for(int i=0; i<cards.size(); i++){
-        for(int j = i+1; j<cards.size();j++){
-            if (cards[i].getNum() == cards[j].getNum()){
-                string warna1 = cards[i].getWarna();
-                string warna2 = cards[j].getWarna();
-                if (warna1 == "hijau"){
-                    w1 = 1;
-                } else if (warna1 == "biru"){
-                    w1 = 2;
-                } else if (warna1 == "kuning"){
-                    w1 = 3;
-                } else if (warna1 == "merah"){
-                    w1 = 4;
-                }
-
-                if (warna2 == "hijau"){
-                    w2 = 1;
-                } else if (warna2 == "biru"){
-                    w2 = 2;
-                } else if (warna2 == "kuning"){
-                    w2 = 3;
-                } else if (warna2 == "merah"){
-                    w2 = 4;
-                }
-
-                if(w2 > w1){
-                    tempsort = cards[i];
-                    cards[i] = cards[j];
-                    cards[j] = tempsort;
-                }
-
-            }
-        }
-    }
+    sortingWarna(cards);
 
     for (int i=0; i<cards.size(); i++){
         cout << res[i].getNum() << " " << res[i].getWarna() << endl;
@@ -556,25 +472,163 @@ vector<Card> Combination::fullHouse(vector<Card> cards){
     int temp, index, temp3, temp2;
     int ctr = 0;
 
-    if(hasThreeOfAKind(cards)) {
-        if (hasTwoPair(cards)){
-            three = threeOfAKind(cards);
-            two = twoPair(cards);
-            temp3 = three[0].getNum();
-            temp2 = two[0].getNum();
-            if(temp2 == temp3){
-                return res;
-            } else{
-                for(int i=0; i<3; i++){
-                    res.push_back(three[i]);
-                }
-                for(int i=0; i<2; i++){
-                    res.push_back(two[i]);
-                }
-                return res;
+    if(hasThreeOfAKind(cards) && hasTwoPair(cards)){
+        three = threeOfAKind(cards);
+        two = twoPair(cards);
+        temp3 = three[0].getNum();
+        temp2 = two[0].getNum();
+        cout << "temp2 = " << temp2 << endl;
+        cout << "temp3 = " << temp3 << endl;
+        // for (int i=0; i<three.size(); i++){
+        //     cout << three[i].getNum() << endl;
+        // }
+        // for (int i=0; i<two.size(); i++){
+        //     cout << two[i].getNum() << endl;
+        // }
+        for (int i=0; i<three.size(); i++){
+            res.push_back(three[i]);
+        }
+        if(temp2 != temp3){
+            for (int j=0; j<two.size()-2; j++){
+                res.push_back(two[j]);
+            }
+        } else{
+            temp2 = two[2].getNum();
+            for (int j=2; j<two.size(); j++){
+                res.push_back(two[j]);
             }
         }
     }
 
     return res;
+}
+
+int Combination::color2Int(Card card)
+{
+    if(card.getWarna() == "hijau"){
+        return 0;
+    }
+    else if(card.getWarna() == "biru"){
+        return 1;
+    }
+    else if(card.getWarna() == "kuning"){
+        return 2;
+    }
+    else if(card.getWarna() == "merah"){
+        return 3;
+    }
+}
+
+void Combination::sortingWarna(vector<Card> card){
+    int w1, w2;
+    Card tempsort;
+    //sorting warna
+    for(int i=0; i<card.size(); i++){
+        for(int j = i+1; j<card.size();j++){
+            if (card[i].getNum() == card[j].getNum()){
+                int warna1 = color2Int(card[i]);
+                int warna2 = color2Int(card[j]);
+                if(w2 > w1){
+                    tempsort = card[i];
+                    card[i] = card[j];
+                    card[j] = tempsort;
+                }
+
+            }
+        }
+    }
+}
+
+double Combination::highVal(int angka, int warna) {
+    // High Card
+    double konstan = 0.1 * angka;
+
+    return konstan + warna * 0.03;
+    // MAX : 1.39
+}
+
+double Combination::pairVal(int angka, int warna1, int warna2) {
+    // Pair
+    double konstan = (angka * 10.1) - 13;
+    // Rumus dari 10.1 - 13 + -2.9 + 3(kemungkinan terkecil) = 1.49 
+
+    return 1.39 + konstan + (pow(2, warna1) + pow(2, warna2));
+    // MAX : 131.69
+}
+
+double Combination::twoPairVal(int angka1, int angka2, int warna1_a, int warna1_b, int warna2_a, int warna2_b) {
+    // TwoPair
+
+    // Pair kecil hanya punya porsi 0.3
+	if (angka1 > angka2) {
+		return 131.69 + pairVal(angka1, warna1_a, warna1_b) + pairVal(angka2, warna2_a, warna2_b) * 0.3;
+	} else {
+		return 131.69 + pairVal(angka2, warna2_a, warna2_b) + pairVal(angka1, warna1_a, warna1_b) * 0.3;
+	}
+	// MAX : 299.857
+}
+
+double Combination::threesVal(int angka, int warna1, int warna2, int warna3) {
+    // Threes
+    double konstan = (angka * 10.1) - 15;
+    // Rumus mirip pairVal
+
+    return 299.857 + (konstan) + (pow(2, warna1) + pow(2, warna2) + pow(2, warna3));
+    // MAX : 430.157
+}
+
+double Combination::straightVal(int angkaTerkecil, int warna1, int warna2, int warna3, int warna4, int warna5) {
+    // Straight
+    double konstan = angkaTerkecil * 1024;
+
+    // Menggunakan representasi 10 bit
+    int subset = 0;
+    subset = subset | (warna5 << 8);
+    subset = subset | (warna4 << 6);
+    subset = subset | (warna3 << 4);
+    subset = subset | (warna2 << 2);
+    subset = subset | warna1;
+
+    return 430.157 + konstan + subset;
+    // MAX : 10669.2
+}
+
+double Combination::flushVal(int angka1, int angka2, int angka3, int angka4, int angka5, int warna) {
+    // Flush
+    double konstan = warna * 0.2;
+    // Differs warna dengan 1 angka di belakang koma
+
+    return 10669.2 + konstan + pow(2, angka1) + pow(2, angka2) + pow(2, angka3) + pow(2, angka4) + pow(2, angka5);
+    // MAX : 50861.2
+}
+
+double Combination::fullHouseVal(int angka1, int angka2, int warna1_1, int warna1_2, int warna1_3, int warna2_1, int warna2_2) {
+    // FullHouse
+    // angka1 = 3 biji
+    // angka2 = 2 biji
+
+    double konstan1 = pow(2, warna1_1) + pow(2, warna1_2) + pow(2, warna1_3);
+    double konstan2 = pow(2, warna2_1) + pow(2, warna2_2);
+
+    // min 5 x 32 = 160
+    // max = 158 (dari kombinasi konstan1 dan konstan2)
+    // agar tidak overlap angka dikali agar mendekati 158, yakni 160
+
+    return 26285.8 + (pow(2, angka1) + pow(2, angka2)) * pow(2, 5) + (pow(konstan1, 2) + konstan2 - 50);
+    // MAX : 419660
+}
+
+double Combination::foursVal(int angka) {
+    // Fours
+
+    return 419660 + angka;
+    // MAX : 419673
+}
+
+double Combination::straightFlushVal(int angka1, int angka2, int angka3, int angka4, int angka5, int warna) {
+    // StraightFlush
+    double konstan = warna;
+
+    return 419673 + konstan + angka1 + angka2 + angka3 + angka4 + angka5;
+    // MAX : 419731
 }
