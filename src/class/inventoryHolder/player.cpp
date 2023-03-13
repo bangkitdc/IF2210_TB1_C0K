@@ -155,3 +155,9 @@ vector<Card> Player::evaluateCard(tableCard a){
 double Player::getValueGeneric() {
     return point; 
 }
+
+void Player::resetPlayerCard(){
+    while (!cardsP.empty()){
+        cardsP.pop_back();
+    }
+}

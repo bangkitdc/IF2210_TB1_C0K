@@ -53,6 +53,7 @@ class Player : public InventoryHolder {
         Player& operator=(const Player &);
         vector<Card> evaluateCard(tableCard a);
         double getValueGeneric();
+        void resetPlayerCard();
         static int totalPlayer;
         friend class DeckAbility;
         friend class Game;
