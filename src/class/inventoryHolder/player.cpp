@@ -17,10 +17,11 @@ Player::Player(string a) : InventoryHolder("player"), id(Player::totalPlayer + 1
     this->point=0;
     Player::totalPlayer++;
 }
-Player::Player(string a,DeckCard &b) : InventoryHolder("player"), id(Player::totalPlayer + 1) {
+
+Player::Player(string a,DeckCard &b, int n = 2) : InventoryHolder("player"), id(Player::totalPlayer + 1) {
     this->username=a;
     this->point=0;
-    setCard2(b);
+    setCardN(b, n);
     Player::totalPlayer++;
 }
 
@@ -28,9 +29,10 @@ void Player::setCard(DeckCard &a){
     this->cardsP.push_back(a.getCard());
 } 
 
-void Player::setCard2(DeckCard &a){
-    this->cardsP.push_back(a.getCard());
-    this->cardsP.push_back(a.getCard());
+void Player::setCardN(DeckCard &a, int n){
+    for (int i = 0; i < n; i ++) {
+        this->cardsP.push_back(a.getCard());
+    }
 }
 
 void Player::setCardDepan(Card a){
@@ -42,12 +44,16 @@ void Player::setCardBelakang(Card a){
 
 Card Player::getPlayerCard(int i){
     Card temp=cardsP[i];
-    if (i==1){
+    if (i == cardsP.size() - 1){
         cardsP.pop_back();
     }else{
-        cardsP.erase(cardsP.begin());
+        cardsP.erase(cardsP.begin() + i);
     }
     return temp;
+}
+
+Card Player::getPlayerCardWithoutPop(int i) {
+    return cardsP[i];
 }
 
 Ability* Player::getAbility(){
@@ -96,8 +102,14 @@ void Player::displayPlayer(){
     
 }
 
-void Player::displayPlayerCard(int i){
+void Player::displayPlayerCard(int i) {
     cardsP[i].displayCard();
+}
+
+void Player::displayPlayerCards(){
+    for (int i = 0; i < getCards().size(); i ++) {
+        cout << i + 1 << ". "; cardsP[i].displayCard();
+    }
 }
 
 Player& Player::operator+(const Card &a){
@@ -106,6 +118,10 @@ Player& Player::operator+(const Card &a){
     }
     cardsP.push_back(a);
     return *this;
+}
+
+void Player::addCard(const Card & a) {
+    cardsP.push_back(a);
 }
 
 Player& Player::operator+(DeckCard &a){
@@ -168,4 +184,13 @@ void Player::resetPlayerCard(){
     while (!cardsP.empty()){
         cardsP.pop_back();
     }
+}
+
+void moveAllTableCardToPlayer(Player& p, tableCard &t) {
+    int temp = t.getCards().size();
+    for (int i = 0; i < temp ; i ++) {
+        p.addCard(t.getCard());
+    }
+
+    t.clearMilik();
 }
