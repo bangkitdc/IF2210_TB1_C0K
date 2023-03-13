@@ -43,6 +43,8 @@ class Player : public InventoryHolder {
         void displayPlayerCard(int i);
         void setCard(DeckCard&);
         void setCard2(DeckCard &);
+        void setCardDepan(Card);
+        void setCardBelakang(Card);
         Card getPlayerCard(int i);
         Ability* getAbility();
         void setAbility(Ability*);
@@ -53,6 +55,7 @@ class Player : public InventoryHolder {
         Player& operator=(const Player &);
         vector<Card> evaluateCard(tableCard a);
         double getValueGeneric();
+        void resetPlayerCard();
         static int totalPlayer;
         friend class DeckAbility;
         friend class Game;

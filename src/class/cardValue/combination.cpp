@@ -667,3 +667,60 @@ int Combination::highestOnTable(vector<Card> card)
         return 0;
     }
 }
+
+// Player Combination::evaluate(deque<Player> players, vector<Card> tableCard)
+// {
+//     vector<Player> playersTemp;
+//     int ctr = 0;
+//     double max = 0.0;
+//     for(auto &p : players){
+//         vector<Card> temp;
+//         temp.insert(temp.end(), tableCard.begin(), tableCard.end());
+//         temp.insert(temp.end(), p.getCards().begin(), p.getCards().end());
+
+//         if(priorityCard(temp) > max){
+//             max = priorityCard(temp);
+//             while(playersTemp.size() != 0){
+//                 playersTemp.pop_back();
+//             }
+//             playersTemp.push_back(p);
+//         } else if (max == priorityCard(temp)){
+//             playersTemp.push_back(p);
+//         }
+
+//         if(players.size() != 1){ // 
+//             // evaluateAgain(playersTemp, temp);
+//         }
+//     }
+
+    
+
+//     return players[0];
+// }
+
+// Player Combination::evaluateAgain(vector<Player> players, vector<Card> tableCard, vect)
+// {
+//     Player res;
+//     double max = 0.0;
+//     if(hasStraightFlush(tableCard)){
+
+//     } else if (hasFourOfAKind(tableCard)){
+
+//     } else if (hasFullHouse(tableCard)){
+
+//     } else if (hasFlush(tableCard)){
+
+//     } else if (hasStraight(tableCard)){
+
+//     } else if (hasThreeOfAKind(tableCard)){
+
+//     } else if (hasTwoPair(tableCard)){
+
+//     } else if (hasPair(tableCard)){
+
+//     } else {
+
+//     }
+
+//     return p;
+// }

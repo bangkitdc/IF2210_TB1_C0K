@@ -33,6 +33,13 @@ void Player::setCard2(DeckCard &a){
     this->cardsP.push_back(a.getCard());
 }
 
+void Player::setCardDepan(Card a){
+    cardsP.insert(cardsP.begin(),a);
+}
+void Player::setCardBelakang(Card a){
+    cardsP.push_back(a);
+}
+
 Card Player::getPlayerCard(int i){
     Card temp=cardsP[i];
     if (i==1){
@@ -138,6 +145,7 @@ void Player::setCards(vector<Card> a){
     cardsP=a;
 }
 
+
 vector<Card> Player::evaluateCard(tableCard a){
     vector<Card> temp;
     vector<Card> tempTable=a.getCards();
@@ -154,4 +162,10 @@ vector<Card> Player::evaluateCard(tableCard a){
 
 double Player::getValueGeneric() {
     return point; 
+}
+
+void Player::resetPlayerCard(){
+    while (!cardsP.empty()){
+        cardsP.pop_back();
+    }
 }

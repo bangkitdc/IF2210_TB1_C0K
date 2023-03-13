@@ -34,6 +34,7 @@ class Combination : public CardValue {
         vector<Card> straightFlush(vector<Card>);
         double priorityCard(vector<Card> cards);
         int highestOnTable(vector<Card>);
+        // Player evaluate(vector<Card>);
 
         int color2Int(Card);
 
