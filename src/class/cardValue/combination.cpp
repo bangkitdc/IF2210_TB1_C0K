@@ -1,5 +1,5 @@
 #include "combination.hpp"
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
 // #include "testcombo.cpp"
 #include <string>
 
@@ -127,12 +127,15 @@ bool Combination::hasFlush(vector<Card> card)
 {
     int ctr = 0;
     for(int i = 1; i < card.size(); i++){
-        if(card[0].getWarna() == card[i].getWarna()){
-            ctr++;
+        for(int j = i+1; j < card.size() ; j++){
+            if(card[i].getWarna() == card[j].getWarna()){
+                ctr++;
+            }
         }
         if(ctr == 4){
             return 1;
         }
+        ctr = 0;
     }
 
     return 0;
@@ -639,5 +642,28 @@ double Combination::priorityCard(vector<Card> cards){
         int angka = cards[0].getNum();
         int warna = color2Int(cards[0]);
         return highVal(angka, warna);
+    }
+}
+
+int Combination::highestOnTable(vector<Card> card)
+{
+    if(hasStraightFlush(card)){
+        return 8;
+    } else if (hasFourOfAKind(card)){
+        return 7;
+    } else if (hasFullHouse(card)){
+        return 6;
+    } else if (hasFlush(card)){
+        return 5;
+    } else if (hasStraight(card)){
+        return 4;
+    } else if (hasThreeOfAKind(card)){
+        return 3;
+    } else if (hasTwoPair(card)){
+        return 2;
+    } else if (hasPair(card)){
+        return 1;
+    } else {
+        return 0;
     }
 }
