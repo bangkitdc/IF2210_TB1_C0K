@@ -37,6 +37,8 @@ void GameManager::startGame() {
         tableCard t;
 
         DeckAbility *da = new DeckAbility();
+        da->shuffleAbility(this);
+
         d.shuffleCard();
 
         while(round != 6 && !gameEnd) {
