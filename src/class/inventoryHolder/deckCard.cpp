@@ -120,6 +120,7 @@ DeckCard::~DeckCard(){}
 void DeckCard::addCard(Card a){
     cards.push_back(a);
 }
+
 void DeckCard::displayDeckCard(){
     cout << "======================Deck Card======================" << endl;
     for (auto elem : DeckCard::cards) {

@@ -13,8 +13,8 @@ class Combination : public CardValue {
         ~Combination();
 
         void sortingWarna(vector<Card> card);
-        void sortCard(vector<Card>);
-        
+        vector<Card> sortCard(vector<Card>);
+
         bool hasPair(vector<Card> card);
         bool hasTwoPair(vector<Card> card);
         bool hasThreeOfAKind(vector<Card> card);

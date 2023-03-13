@@ -1,4 +1,9 @@
 #include "gameManager.hpp"
+#include <filesystem>
+#include <iostream>
+#include <vector>
+#include <string>
+
 using namespace std;
 
 const string listCommand[] = {
@@ -29,6 +34,8 @@ void GameManager::startGame() {
     // da->shuffleAbility(this);
     // problem disini
 
+    string file = inputFile();
+
     while (!gameEnd) {
         // Initiate Main Deck Card
         DeckCard d;
@@ -38,7 +45,7 @@ void GameManager::startGame() {
         DeckAbility *da = new DeckAbility();
         d.shuffleCard();
 
-        while(round != 6) {
+        while(round != 6 && !gameEnd) {
             if (round == 1) {
                 // inisiasi awal deck, tablecard, playercard, dll
                 // kalau round 1 ditanya deck nya mau random apa dari file
@@ -64,6 +71,7 @@ void GameManager::startGame() {
         }
 
         // evaluate
+        // d.~DeckCard();
     }
 }
 
@@ -79,6 +87,51 @@ void GameManager::inputPlayer() {
         Player temp(username);
         this->enqueuePlayer(temp);
     } while (this->playerTurn.size() != 7);
+}
+
+string GameManager::inputFile() {
+    // Path to the directory
+    string path_string = "test";
+
+    filesystem::path path(path_string);
+
+    cout << "Files in directory " << path.filename() << ":" << endl;
+
+    vector<string> s;
+
+    int count = 0;
+    for (const auto &entry : filesystem::directory_iterator(path)) {
+        if (entry.is_regular_file()) {
+            count++;
+            cout << count << ". " << entry.path().filename() << endl;
+
+            s.push_back(entry.path().filename().string());
+        }
+    }
+
+    string i;
+    bool flag = true;
+    while(flag) {
+        try {
+            cout << "Masukkan nomor file:" << endl;
+            cout << "> ";
+            cin >> i;
+
+            if (!isInteger(i)) {
+                throw NotNumberException(i);
+            }
+            
+            if (!(stoi(i) >= 1 && stoi(i) <= count)) {
+                throw InvalidNumberException(i);
+            }
+
+            flag = false;
+        } catch(InvalidNumberException& e) {
+            cout << e.what() << endl;
+        }
+    }
+
+    return s[stoi(i) - 1];
 }
 
 string GameManager::reqCommand() {
@@ -250,4 +303,14 @@ void GameManager::printQueue() {
         count ++;
     }
     cout << ">" << endl;
+}
+
+bool GameManager::isInteger(const string& str) {
+    try {
+        stoi(str);
+        return true;
+    }
+    catch (const exception&) {
+        return false;
+    }
 }
