@@ -21,14 +21,8 @@ GameManager::GameManager() : Game() {}
 void GameManager::startGame() {
     cout << "Welcome to Poker KW" << endl << endl;
 
-    // Initiate Main Deck Card
-    DeckCard d;
-    // DeckAbility da;
-    DeckAbility* da = new DeckAbility();
-    d.shuffleCard();
-
     // Input Player
-    inputPlayer(d);
+    inputPlayer();
     printQueue();
 
     // sementara langsung gw bagiin ability dl
@@ -36,33 +30,44 @@ void GameManager::startGame() {
     // problem disini
 
     while (!gameEnd) {
-        if (round == 1) {
-            // inisiasi awal deck, tablecard, playercard, dll
-            // kalau round 1 ditanya deck nya mau random apa dari file
+        // Initiate Main Deck Card
+        DeckCard d;
+        // DeckAbility da;
+        tableCard t;
 
-            setPrize(64);
+        DeckAbility *da = new DeckAbility();
+        d.shuffleCard();
+
+        while(round != 6) {
+            if (round == 1) {
+                // inisiasi awal deck, tablecard, playercard, dll
+                // kalau round 1 ditanya deck nya mau random apa dari file
+                // if(pilihan == file) {
+
+                // }
+
+                setPrize(64);
+            }
+
+            cout << "prize: " << getPrize() << endl; 
+
+            string command = reqCommand();
+            process(command);
+
+            // Next Turn
+            Player temp = dequeuePlayer();
+            // cout << temp.getAbility()->getPower() << "\n";
+            enqueuePlayer(temp);
+
+            printQueue();
+            nextRound();
         }
 
-        if (round == 6) {
-            // evaluate
-        }
-
-        cout << "prize: " << getPrize() << endl; 
-
-        string command = reqCommand();
-        process(command);
-
-        // Next Turn
-        Player temp = dequeuePlayer();
-        // cout << temp.getAbility()->getPower() << "\n";
-        enqueuePlayer(temp);
-
-        printQueue();
-        nextRound();
+        // evaluate
     }
 }
 
-void GameManager::inputPlayer(DeckCard &d) {
+void GameManager::inputPlayer() {
     cout << "Jumlah player pada game : 7" << endl;
     cout << "Silahkan masukkan username tiap player!!" << endl;
 
@@ -71,7 +76,7 @@ void GameManager::inputPlayer(DeckCard &d) {
         cout << "Masukkan username [P" << this->playerTurn.size() + 1 << "]: " << endl;
         cin >> username;
 
-        Player temp(username, &d);
+        Player temp(username);
         this->enqueuePlayer(temp);
     } while (this->playerTurn.size() != 7);
 }

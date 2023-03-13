@@ -12,10 +12,8 @@ Player::Player() : InventoryHolder("player"), id(-1) {
     this->point = 0;
 }
 
-Player::Player(string a,DeckCard *deck) : InventoryHolder("player"), id(Player::totalPlayer + 1) {
+Player::Player(string a) : InventoryHolder("player"), id(Player::totalPlayer + 1) {
     this->username=a;
-    setCard(deck);
-    setCard(deck);
     this->point=0;
 
     Player::totalPlayer ++;
@@ -134,7 +132,6 @@ vector<Card> Player::evaluateCard(tableCard a){
     }
     return temp;
 
-    
 }
 
 double Player::getValueGeneric() {
