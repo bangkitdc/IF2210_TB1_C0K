@@ -33,6 +33,7 @@ class Combination : public CardValue {
         vector<Card> fourOfAKind(vector<Card>);
         vector<Card> straightFlush(vector<Card>);
         double priorityCard(vector<Card> cards);
+        int highestOnTable(vector<Card>);
 
         int color2Int(Card);
 
