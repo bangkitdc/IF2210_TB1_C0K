@@ -21,7 +21,9 @@ class Game {
         void nextRound();
         void setPrize(int);
         int getPrize();
-        deque<Player> getPlayer();
+        deque<Player> getPlayers();
+        Player getFirstPlayer();
+        Player getPlayer(int);
         friend class DeckAbility;
         friend class Swap;
         friend class Switch;

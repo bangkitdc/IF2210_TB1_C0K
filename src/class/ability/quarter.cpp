@@ -27,7 +27,7 @@ void Quarter::use(string power, GameManager* state) {
     else {
         int temp = state->getPrize();
         state->setPrize(temp / 4);
-        cout << state->getPlayer().front().getName() << " melakukan QUARTER! Poin hadiah naik dari" << endl;
+        cout << state->getFirstPlayer().getName() << " melakukan QUARTER! Poin hadiah naik dari" << endl;
         cout << temp << " menjadi " << state->getPrize() << "!" << endl;
         this->used = true;
     }

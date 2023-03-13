@@ -15,7 +15,7 @@ using namespace std;
 class Ability;
 class DeckAbility;
 class Game;
-class tablecard;
+class tableCard;
 
 class Player : public InventoryHolder {
     protected:
@@ -29,7 +29,7 @@ class Player : public InventoryHolder {
         // friend class DeckCard;
         Player();
         Player(string);
-        Player(string,DeckCard&);
+        Player(string,DeckCard&, int);
         ~Player();
         void setName(string);
         void addPoint(double);
@@ -40,16 +40,22 @@ class Player : public InventoryHolder {
         vector<Card> getCards();
         void setCards(vector<Card>);
         void displayPlayer();
-        void displayPlayerCard(int i);
+        void displayPlayerCard(int);
+        void displayPlayerCards();
         void setCard(DeckCard&);
-        void setCard2(DeckCard &);
+        void setCardN(DeckCard &, int);
         void setCardDepan(Card);
         void setCardBelakang(Card);
         Card getPlayerCard(int i);
+        Card getPlayerCardWithoutPop(int i);
+
         Ability* getAbility();
         void setAbility(Ability*);
         Player& operator+(const Card &);
         Player& operator+(DeckCard &);
+
+        void addCard(const Card &);
+
         Player& operator-(const Card &);
         Player& operator-(DeckCard &);
         Player& operator=(const Player &);
@@ -60,5 +66,7 @@ class Player : public InventoryHolder {
         friend class DeckAbility;
         friend class Game;
 };
+
+void moveAllTableCardToPlayer(Player &, tableCard &);
 
 #endif

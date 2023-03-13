@@ -23,6 +23,14 @@ int Game::getPrize() {
     return this->prize;
 }
 
-deque<Player> Game::getPlayer() {
+deque<Player> Game::getPlayers() {
     return this->playerTurn;
+}
+
+Player Game::getPlayer(int i) {
+    return this->playerTurn[i];
+}
+
+Player Game::getFirstPlayer() {
+    return this->playerTurn[0];
 }
