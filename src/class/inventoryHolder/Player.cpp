@@ -126,11 +126,11 @@ vector<Card> Player::evaluateCard(tableCard a){
     vector<Card> temp;
     vector<Card> tempTable=a.getCards();
     for(int i=0;i<cardsP.size();i++){
-        temp.push_back(cardsP[i]);
+        temp.push_back(Card(tempTable[i]));
     }
 
     for (int i=0;i<a.getCards().size();i++){
-        temp.push_back(tempTable[i]);
+        temp.push_back(Card(tempTable[i]));
     }
     return temp;
 
