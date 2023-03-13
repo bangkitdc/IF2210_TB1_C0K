@@ -28,7 +28,7 @@ class Player : public InventoryHolder {
         // friend class Card;
         // friend class DeckCard;
         Player();
-        Player(string,DeckCard*);
+        Player(string);
         ~Player();
         void setName(string);
         void addPoint(double);

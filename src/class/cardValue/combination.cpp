@@ -468,7 +468,7 @@ int Combination::color2Int(Card card)
     else if(card.getWarna() == "kuning"){
         return 2;
     }
-    else if(card.getWarna() == "merah"){
+    else {
         return 3;
     }
 }
