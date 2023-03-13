@@ -12,22 +12,38 @@ Player::Player() : InventoryHolder("player"), id(-1) {
     this->point = 0;
 }
 
-Player::Player(string a,DeckCard *deck) : InventoryHolder("player"), id(Player::totalPlayer + 1) {
+Player::Player(string a) : InventoryHolder("player"), id(Player::totalPlayer + 1) {
     this->username=a;
-    setCard(deck);
-    setCard(deck);
     this->point=0;
-
-    Player::totalPlayer ++;
+    Player::totalPlayer++;
+}
+Player::Player(string a,DeckCard &b) : InventoryHolder("player"), id(Player::totalPlayer + 1) {
+    this->username=a;
+    this->point=0;
+    setCard2(b);
+    Player::totalPlayer++;
 }
 
-void Player::setCard(DeckCard *deck){
-
-    this->cardsP.push_back(deck->getCard());
-    
+void Player::setCard(DeckCard &a){
+    this->cardsP.push_back(a.getCard());
 } 
 
-Ability* Player::getAbility() {
+void Player::setCard2(DeckCard &a){
+    this->cardsP.push_back(a.getCard());
+    this->cardsP.push_back(a.getCard());
+}
+
+Card Player::getPlayerCard(int i){
+    Card temp=cardsP[i];
+    if (i==1){
+        cardsP.pop_back();
+    }else{
+        cardsP.erase(cardsP.begin());
+    }
+    return temp;
+}
+
+Ability* Player::getAbility(){
     return this->ability;
 }
 
@@ -89,7 +105,7 @@ Player& Player::operator+(DeckCard &a){
     if(cardsP.size()==2){
         throw PlayerFullException();
     }
-    setCard(&a);
+    setCard(a);
     return *this;
 }
 
@@ -134,7 +150,6 @@ vector<Card> Player::evaluateCard(tableCard a){
     }
     return temp;
 
-    
 }
 
 double Player::getValueGeneric() {

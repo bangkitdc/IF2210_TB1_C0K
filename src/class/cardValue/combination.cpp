@@ -13,6 +13,21 @@ Combination::~Combination()
 
 }
 
+void Combination::sortCard(vector<Card> &card)
+{
+    //sorting
+    Card tempsort;
+    for(int i=0; i<card.size(); i++){
+        for(int j=0; j<card.size(); j++){
+            if(card[i].getNum() < card[j].getNum()){
+                tempsort = card[i];
+                card[i] = card[j];
+                card[j] = tempsort;
+            }
+        }
+    }
+}
+
 bool Combination::hasPair(vector<Card> card)
 {
     int ctr = 0;
@@ -59,16 +74,7 @@ bool Combination::hasThreeOfAKind(vector<Card> card)
     int temp, index;
     int ctr = 0;
 
-    //sorting
-    for(int i=0; i<card.size(); i++){
-        for(int j=1; j<card.size(); j++){
-            if(card[i].getNum() < card[j].getNum()){
-                tempsort = card[i];
-                card[i] = card[j];
-                card[j] = tempsort;
-            }
-        }
-    }
+    sortCard(card);
 
     for (int i=0; i<card.size(); i++){
         if (i == 0){
@@ -99,16 +105,7 @@ bool Combination::hasStraight(vector<Card> card)
     int temp;
     int ctr = 0;
 
-    //sorting
-    for(int i=0; i<card.size(); i++){
-        for(int j=0; j<card.size(); j++){
-            if(card[i].getNum() < card[j].getNum()){
-                tempsort = card[i];
-                card[i] = card[j];
-                card[j] = tempsort;
-            }
-        }
-    }
+    sortCard(card);
 
     for (int i=0; i<card.size()-4; i++){
         temp = card[i].getNum();
@@ -172,6 +169,7 @@ bool Combination::hasFourOfAKind(vector<Card> card)
     return 0;
 }
 
+
 bool Combination::hasStraightFlush(vector<Card> card)
 {
     int ctr = 0, temp;
@@ -179,16 +177,7 @@ bool Combination::hasStraightFlush(vector<Card> card)
     Card tempsort;
     string tempcolour;
 
-    //sorting
-    for(int i=0; i<card.size(); i++){
-        for(int j=0; j<card.size(); j++){
-            if(card[i].getNum() < card[j].getNum()){
-                tempsort = card[i];
-                card[i] = card[j];
-                card[j] = tempsort;
-            }
-        }
-    }
+    sortCard(card);
 
     for (int i=0; i<card.size()-4; i++){
         temp = card[i].getNum();
@@ -239,17 +228,7 @@ vector<Card> Combination::twoPair(vector<Card> card)
     int w1, w2;
     bool same = false;
 
-    //sorting
-    for(int i=0; i<card.size(); i++){
-        for(int j=0; j<card.size(); j++){
-            if(card[i].getNum() > card[j].getNum()){
-                tempsort = card[i];
-                card[i] = card[j];
-                card[j] = tempsort;
-            }
-        }
-    }
-
+    sortCard(card);
     sortingWarna(card);
 
     for(int i = 0; i < card.size()-1; i++){
@@ -279,9 +258,7 @@ vector<Card> Combination::fourOfAKind(vector<Card> card)
         for(int j = i+1; j < card.size(); j++){
             if(card[i].getNum() == card[j].getNum()){
                 temp.push_back(card[j]);
-                cout << card[j].getNum() << " <-" << endl;
                 if(card[i].getNum() > temp[0].getNum()){
-                    cout << card[j].getNum() << " ->" << endl;
                     temp.clear();
                     temp.push_back(card[j]);
                     ctr=0;
@@ -303,6 +280,9 @@ vector<Card> Combination::fourOfAKind(vector<Card> card)
 vector<Card> Combination::flush(vector<Card> card)
 {
     vector<Card> temp;
+
+    sortCard(card);
+
     for(int i = 0; i < card.size(); i++){
         for(int j = i+1; j < card.size(); j++){
             if(card[i].getWarna() == card[j].getWarna()){
@@ -326,16 +306,7 @@ vector<Card> Combination::threeOfAKind(vector<Card> cards){
     int temp, index;
     int ctr = 0;
 
-    //sorting
-    for(int i=0; i<cards.size(); i++){
-        for(int j=0; j<cards.size(); j++){
-            if(cards[i].getNum() < cards[j].getNum()){
-                tempsort = cards[i];
-                cards[i] = cards[j];
-                cards[j] = tempsort;
-            }
-        }
-    }
+    sortCard(cards);
 
     for (int i=0; i<cards.size(); i++){
         if (i == 0){
@@ -374,17 +345,7 @@ vector<Card> Combination::straight(vector<Card> cards){
     int temp, index, w1, w2;
     int ctr = 0;
 
-    //sorting
-    for(int i=0; i<cards.size(); i++){
-        for(int j=0; j<cards.size(); j++){
-            if(cards[i].getNum() < cards[j].getNum()){
-                tempsort = cards[i];
-                cards[i] = cards[j];
-                cards[j] = tempsort;
-            }
-        }
-    }
-
+    sortCard(cards);
     sortingWarna(cards);
 
     for (int i=0; i<cards.size()-4; i++){
@@ -424,22 +385,9 @@ vector<Card> Combination::straightFlush(vector<Card> cards){
     int temp, index, w1, w2;
     int ctr = 0;
 
-    //sorting
-    for(int i=0; i<cards.size(); i++){
-        for(int j=0; j<cards.size(); j++){
-            if(cards[i].getNum() < cards[j].getNum()){
-                tempsort = cards[i];
-                cards[i] = cards[j];
-                cards[j] = tempsort;
-            }
-        }
-    }
-
+    sortCard(cards);
     sortingWarna(cards);
 
-    for (int i=0; i<cards.size(); i++){
-        cout << res[i].getNum() << " " << res[i].getWarna() << endl;
-    }
 
     for (int i=0; i<cards.size()-4; i++){
         temp = cards[i].getNum();
@@ -514,12 +462,12 @@ int Combination::color2Int(Card card)
     else if(card.getWarna() == "kuning"){
         return 2;
     }
-    else if(card.getWarna() == "merah"){
+    else {
         return 3;
     }
 }
 
-void Combination::sortingWarna(vector<Card> card){
+void Combination::sortingWarna(vector<Card> &card){
     int w1, w2;
     Card tempsort;
     //sorting warna
@@ -631,4 +579,65 @@ double Combination::straightFlushVal(int angka1, int angka2, int angka3, int ang
 
     return 419673 + konstan + angka1 + angka2 + angka3 + angka4 + angka5;
     // MAX : 419731
+}
+
+double Combination::priorityCard(vector<Card> cards){
+    vector <Card> res;
+    if(hasStraightFlush(cards)){
+        cout << "straight flush" << endl;
+        res = straightFlush(cards);
+        int angka1 = res[0].getNum(), angka2 = res[1].getNum(), angka3 = res[2].getNum(), angka4 = res[3].getNum(), angka5 = res[4].getNum();
+        int warna = color2Int(res[0]);
+        return straightFlushVal(angka1, angka2, angka3, angka4, angka5, warna);
+    } else if (hasFourOfAKind(cards)){
+        cout << "4ofakind" << endl;
+        res = fourOfAKind(cards);
+        int angka = res[0].getNum();
+        return foursVal(angka);
+    } else if (hasFullHouse(cards)){
+        //angka1 threes, angka2 twopairnya
+        cout << "full house" << endl;
+        res = fullHouse(cards);
+        int angka1 = res[0].getNum(), angka2 = res[3].getNum();
+        int warna1_1 = color2Int(res[0]), warna1_2 = color2Int(res[1]), warna1_3 = color2Int(res[2]), warna2_1 = color2Int(res[3]), warna2_2 = color2Int(res[4]);
+        return fullHouseVal(angka1, angka2, warna1_1, warna1_2, warna1_3, warna2_1, warna2_2);
+    } else if (hasFlush(cards)){
+        cout << "flush" << endl;
+        res = flush(cards);
+        int angka1 = res[0].getNum(), angka2 = res[1].getNum(), angka3 = res[2].getNum(), angka4 = res[3].getNum(), angka5 = res[4].getNum();
+        int warna = color2Int(res[0]);
+        return flushVal(angka1, angka2, angka3, angka4, angka5, warna);
+    } else if(hasStraight(cards)){
+        cout << "straight" << endl;
+        res = straight(cards);
+        int angka1 = res[0].getNum();
+        int warna1 = color2Int(res[0]), warna2 = color2Int(res[1]), warna3 = color2Int(res[2]), warna4 = color2Int(res[3]), warna5 = color2Int(res[4]);
+        return straightVal(angka1, warna1, warna2, warna3, warna4, warna5);
+    } else if(hasThreeOfAKind(cards)){
+        cout << "3ofakind" << endl;
+        res = threeOfAKind(cards);
+        int angka = res[0].getNum();
+        int warna1 = color2Int(res[0]), warna2 = color2Int(res[1]), warna3 = color2Int(res[3]);
+        return threesVal(angka, warna1, warna2, warna3);
+    } else if(hasTwoPair(cards)){
+        cout << "2pair" << endl;
+        res = twoPair(cards);
+        int angkaA = res[0].getNum();
+        int warna1A = color2Int(res[0]), warna2A = color2Int(res[1]);
+        int angkaB = res[2].getNum();
+        int warna1B = color2Int(res[2]), warna2B = color2Int(res[3]);
+        return twoPairVal(angkaA, warna1A, warna2A, angkaB, warna1B, warna2B);
+    } else if(hasPair(cards)){
+        cout << "pair" << endl;
+        res = pair(cards);
+        int angka = res[0].getNum();
+        int warna1 = color2Int(res[0]), warna2 = color2Int(res[1]);
+        return pairVal(angka, warna1, warna2);
+    } else {
+        cout << "highcard" << endl;
+        // harusnya sorting dulu
+        int angka = cards[0].getNum();
+        int warna = color2Int(cards[0]);
+        return highVal(angka, warna);
+    }
 }

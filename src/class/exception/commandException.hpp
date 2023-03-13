@@ -2,7 +2,6 @@
 #define _COMMANDEXCEPTION_HPP_
 
 #include "exception.hpp"
-#include <algorithm>
 #include <string>
 using namespace std;
 

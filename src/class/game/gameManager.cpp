@@ -1,4 +1,9 @@
 #include "gameManager.hpp"
+#include <filesystem>
+#include <iostream>
+#include <vector>
+#include <string>
+
 using namespace std;
 
 const string listCommand[] = {
@@ -21,22 +26,48 @@ GameManager::GameManager() : Game() {}
 void GameManager::startGame() {
     cout << "Welcome to Poker KW" << endl << endl;
 
-    // Initiate Main Deck Card
-    DeckCard d;
-    // DeckAbility da;
-    DeckAbility* da = new DeckAbility();
-    d.shuffleCard();
-
     // Input Player
-    inputPlayer(d);
+    inputPlayer();
     printQueue();
 
-    while (!gameEnd) {
-        if (round == 1) {
-            // inisiasi awal deck, tablecard, playercard, dll
-            // kalau round 1 ditanya deck nya mau random apa dari file
+    // sementara langsung gw bagiin ability dl
+    da->shuffleAbility(this);
+    // problem disini
 
-            setPrize(64);
+    string file = inputFile();
+
+    while (!gameEnd) {
+        // Initiate Main Deck Card
+        DeckCard d;
+        // DeckAbility da;
+        tableCard t;
+
+        DeckAbility *da = new DeckAbility();
+        d.shuffleCard();
+
+        while(round != 6 && !gameEnd) {
+            if (round == 1) {
+                // inisiasi awal deck, tablecard, playercard, dll
+                // kalau round 1 ditanya deck nya mau random apa dari file
+                // if(pilihan == file) {
+
+                // }
+
+                setPrize(64);
+            }
+
+            cout << "prize: " << getPrize() << endl; 
+
+            string command = reqCommand();
+            process(command);
+
+            // Next Turn
+            Player temp = dequeuePlayer();
+            // cout << temp.getAbility()->getPower() << "\n";
+            enqueuePlayer(temp);
+
+            printQueue();
+            nextRound();
         }
 
         if (round == 2) {
@@ -63,7 +94,7 @@ void GameManager::startGame() {
     }
 }
 
-void GameManager::inputPlayer(DeckCard &d) {
+void GameManager::inputPlayer() {
     cout << "Jumlah player pada game : 7" << endl;
     cout << "Silahkan masukkan username tiap player!!" << endl;
 
@@ -72,9 +103,54 @@ void GameManager::inputPlayer(DeckCard &d) {
         cout << "Masukkan username [P" << this->playerTurn.size() + 1 << "]: " << endl;
         cin >> username;
 
-        Player temp(username, &d);
+        Player temp(username);
         this->enqueuePlayer(temp);
     } while (this->playerTurn.size() != 7);
+}
+
+string GameManager::inputFile() {
+    // Path to the directory
+    string path_string = "test";
+
+    filesystem::path path(path_string);
+
+    cout << "Files in directory " << path.filename() << ":" << endl;
+
+    vector<string> s;
+
+    int count = 0;
+    for (const auto &entry : filesystem::directory_iterator(path)) {
+        if (entry.is_regular_file()) {
+            count++;
+            cout << count << ". " << entry.path().filename() << endl;
+
+            s.push_back(entry.path().filename().string());
+        }
+    }
+
+    string i;
+    bool flag = true;
+    while(flag) {
+        try {
+            cout << "Masukkan nomor file:" << endl;
+            cout << "> ";
+            cin >> i;
+
+            if (!isInteger(i)) {
+                throw NotNumberException(i);
+            }
+            
+            if (!(stoi(i) >= 1 && stoi(i) <= count)) {
+                throw InvalidNumberException(i);
+            }
+
+            flag = false;
+        } catch(InvalidNumberException& e) {
+            cout << e.what() << endl;
+        }
+    }
+
+    return s[stoi(i) - 1];
 }
 
 string GameManager::reqCommand() {
@@ -257,4 +333,14 @@ void GameManager::printQueue() {
         count ++;
     }
     cout << ">" << endl;
+}
+
+bool GameManager::isInteger(const string& str) {
+    try {
+        stoi(str);
+        return true;
+    }
+    catch (const exception&) {
+        return false;
+    }
 }

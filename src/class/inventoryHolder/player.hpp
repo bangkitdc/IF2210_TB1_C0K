@@ -28,7 +28,8 @@ class Player : public InventoryHolder {
         // friend class Card;
         // friend class DeckCard;
         Player();
-        Player(string,DeckCard*);
+        Player(string);
+        Player(string,DeckCard&);
         ~Player();
         void setName(string);
         void addPoint(double);
@@ -40,7 +41,9 @@ class Player : public InventoryHolder {
         void setCards(vector<Card>);
         void displayPlayer();
         void displayPlayerCard(int i);
-        void setCard(DeckCard*);
+        void setCard(DeckCard&);
+        void setCard2(DeckCard &);
+        Card getPlayerCard(int i);
         Ability* getAbility();
         void setAbility(Ability*);
         Player& operator+(const Card &);
