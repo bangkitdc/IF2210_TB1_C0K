@@ -50,4 +50,12 @@ class DeckPenuhException : public BaseException {
         return "Deck sudah habis!";
     }
 };
+
+class fileInvalidException : public BaseException {
+    public : 
+    fileInvalidException(){}
+        const string what() const noexcept {
+        return "Isi file invalid!";
+    }
+}
 #endif
