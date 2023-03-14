@@ -4,9 +4,6 @@
 #include "ability.hpp"
 
 class Switch : public Ability {
-    private:
-        string power;
-        bool used;
     public:
         Switch();
         void use(string, GameManager*);

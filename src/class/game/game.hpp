@@ -31,6 +31,7 @@ class Game {
         friend class DeckAbility;
         friend class Swap;
         friend class Switch;
+        friend class Reverse;
 };
 
 #endif

@@ -15,12 +15,14 @@ class Ability {
     protected:
         string power;
         bool used;
+        bool active;
     public:
         Ability(string);
         ~Ability();
 
         string getPower() const;
         bool getUsage() const;
+        bool isActive() const;
         virtual void use(string, GameManager*) = 0;
 };
 

@@ -4,9 +4,6 @@
 #include "ability.hpp"
 
 class Quadruple : public Ability {
-    private:
-        string power;
-        bool used;
     public:
         Quadruple();
         void use(string, GameManager*);

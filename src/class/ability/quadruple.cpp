@@ -1,6 +1,5 @@
 #include "quadruple.hpp"
 #include "../game/gameManager.hpp"
-#include "../inventoryHolder/player.hpp"
 
 Quadruple::Quadruple() : Ability("QUADRUPLE") {}
 

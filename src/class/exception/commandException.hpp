@@ -44,4 +44,24 @@ class UsedCardException : public BaseException {
         }
 };
 
+class NoAbilityException : public BaseException {
+    public:
+        NoAbilityException() {}
+        const string what() const noexcept {
+            return "Kartu Ability belum dibagiin nih :).";
+        }
+};
+
+class AbilityOffException : public BaseException {
+    private:
+        string ability;
+    public:
+        AbilityOffException(string ability) {
+            this->ability = ability;
+        }
+        const string what() const noexcept {
+            return "Oops, kartu ability " + this->ability + " milikmu telah dimatikan sebelumnya :(.";
+        }
+};
+
 #endif
