@@ -5,6 +5,7 @@
 #include <vector>
 #include "../cardValue/card.hpp"
 #include "inventoryHolder.hpp"
+#include "../exception/cardException.hpp"
 using namespace std;
 
 class DeckCard : public InventoryHolder {
@@ -22,7 +23,10 @@ class DeckCard : public InventoryHolder {
         void setCards(vector<Card>);
         void addCard(Card a);
         Card getCard();
+        Card getTopCard();
         vector<Card> getCards();
+        bool isDeckEmpty();
+
         DeckCard& operator+(const Card &);
         DeckCard& operator-(const Card &);
         DeckCard& operator=(const DeckCard &);

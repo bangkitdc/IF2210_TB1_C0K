@@ -36,4 +36,18 @@ class TablePenuhException : public BaseException {
         return "Table Card sudah ada 5";
     }
 };
+class DeckKosongException : public BaseException {
+    public : 
+    DeckKosongException(){}
+    const string what() const noexcept {
+        return "Deck sudah habis!";
+    }
+};
+class DeckPenuhException : public BaseException {
+    public : 
+    DeckPenuhException(){}
+    const string what() const noexcept {
+        return "Deck sudah habis!";
+    }
+};
 #endif

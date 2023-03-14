@@ -29,7 +29,7 @@ class Player : public InventoryHolder {
         // friend class DeckCard;
         Player();
         Player(string);
-        Player(string,DeckCard&, int);
+        Player(string,DeckCard&,int);
         ~Player();
         void setName(string);
         void addPoint(double);
@@ -55,6 +55,7 @@ class Player : public InventoryHolder {
         Player& operator+(DeckCard &);
 
         void addCard(const Card &);
+        void addCardFromDeck(DeckCard &);
 
         Player& operator-(const Card &);
         Player& operator-(DeckCard &);

@@ -138,13 +138,19 @@ void DeckCard::displayDeckCard(){
 }
 
 void DeckCard::shuffleCard(){
-    auto rng = std::default_random_engine {};
-    std::shuffle(begin(cards), end(cards), rng);
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(cards.begin(), cards.end(), g);
 }
 
 vector<Card> DeckCard::getCards(){
     return cards;
 }
+
+bool DeckCard::isDeckEmpty() {
+    return cards.empty();
+}
+
 DeckCard& DeckCard::operator-(const Card & a){
     for(int i=0;i<cards.size();i++){
         if (cards[i].getNum()==a.getNum() && cards[i].getWarna().compare(a.getWarna())==0 ){
@@ -164,9 +170,17 @@ void DeckCard::deleteCard(Card a){
 
 Card DeckCard::getCard(){
     // shuffleCard();
+    if(cards.size()==0){
+        throw DeckKosongException();
+    }
     Card temp=cards[cards.size()-1];
     cards.pop_back();
     return temp;   
+}
+
+Card DeckCard::getTopCard() {
+    Card temp = cards[cards.size() - 1];
+    return temp;
 }
 
 DeckCard& DeckCard::operator+(const Card &a){
