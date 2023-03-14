@@ -24,7 +24,6 @@ class GameManager : public Game {
         int inputGame();
 
         string reqCommand();
-        // string reqCommand2();
         void process(string);
 
         void enqueuePlayer(Player);
