@@ -1,20 +1,7 @@
 #include "reverse.hpp"
 #include "../game/gameManager.hpp"
 
-Reverse::Reverse() {
-    this->power = "REVERSE";
-    this->used = false;
-}
-
-Reverse::~Reverse() { }
-
-string Reverse::getPower() const {
-    return this->power;
-}
-
-bool Reverse::getUsage() const {
-    return this->used;
-}
+Reverse::Reverse() : Ability("REVERSE") {}
 
 void Reverse::use(string power, GameManager* state) {
     if (this->power != power) {

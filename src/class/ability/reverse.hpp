@@ -9,10 +9,6 @@ class Reverse : public Ability {
         bool used;
     public:
         Reverse();
-        ~Reverse();
-
-        string getPower() const override;
-        bool getUsage() const override;
         void use(string, GameManager*);
 };
 

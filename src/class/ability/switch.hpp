@@ -9,10 +9,6 @@ class Switch : public Ability {
         bool used;
     public:
         Switch();
-        ~Switch();
-
-        string getPower() const override;
-        bool getUsage() const override;
         void use(string, GameManager*);
 };
 

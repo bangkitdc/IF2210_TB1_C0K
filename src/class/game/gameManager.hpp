@@ -26,8 +26,6 @@ class GameManager : public Game {
         string reqCommand();
         void process(string);
 
-        void enqueuePlayer(Player);
-        Player dequeuePlayer();
         void printQueue();
 
         bool isInteger(const string &);

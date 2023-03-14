@@ -12,16 +12,20 @@ class Player;
 
 class Game {
     protected:
+        int turn;
         int round;
         int prize;
         bool gameEnd;
         deque<Player> playerTurn;
     public:
         Game();
+        void nextTurn();
         void nextRound();
         void setPrize(int);
         int getPrize();
         deque<Player> getPlayers();
+        void enqueuePlayer(Player);
+        Player dequeuePlayer();
         Player getFirstPlayer();
         Player getPlayer(int);
         friend class DeckAbility;

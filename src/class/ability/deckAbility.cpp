@@ -1,13 +1,9 @@
 #include "deckAbility.hpp"
 
 DeckAbility::DeckAbility() {
-    this->aDeck[1] = new AbilityLess;
-    this->aDeck[2] = new Quadruple;
-    this->aDeck[3] = new Quarter;
-    this->aDeck[4] = new ReRoll;
-    this->aDeck[5] = new Reverse;
-    this->aDeck[6] = new Swap;
-    this->aDeck[7] = new Switch;
+    for (int i=1; i<=7; i++) {
+        this->aDeck[i] = new NoAbility;
+    }
 }
 
 DeckAbility::~DeckAbility() {
@@ -25,14 +21,28 @@ map<int, Ability*> DeckAbility::getAbilityDeck() {
 }
 
 void DeckAbility::shuffleAbility(Game* state) {
+    for (int i=1; i<=7; i++) {
+        delete this->aDeck[i];
+    }
+
     vector<int> keys = {1,2,3,4,5,6,7};
+    unsigned seed = chrono::system_clock::now().time_since_epoch().count();
+    mt19937 g(seed);
+    shuffle(keys.begin(), keys.end(), g);
 
-    auto rng = std::default_random_engine {};
-    shuffle(keys.begin(), keys.end(), rng);
+    this->aDeck[keys[0]] = new AbilityLess;
+    this->aDeck[keys[1]] = new Quadruple;
+    this->aDeck[keys[2]] = new Quarter;
+    this->aDeck[keys[3]] = new ReRoll;
+    this->aDeck[keys[4]] = new Reverse;
+    this->aDeck[keys[5]] = new Swap;
+    this->aDeck[keys[6]] = new Switch;
+}
 
-    int i = 0;
+void DeckAbility::distributeAbility(Game* state) {
+    int i = 1;
     for (Player& p : state->playerTurn) {
-        p.setAbility(aDeck[keys[i]]);
+        p.setAbility(aDeck[i]);
         cout << p.getAbility()->getPower() << " ";
         i++;
     }

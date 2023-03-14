@@ -9,10 +9,6 @@ class ReRoll : public Ability {
         bool used;
     public:
         ReRoll();
-        ~ReRoll();
-
-        string getPower() const override;
-        bool getUsage() const override;
         void use(string, GameManager*);
 };
 

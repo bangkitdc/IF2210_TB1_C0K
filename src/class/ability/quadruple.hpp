@@ -9,10 +9,6 @@ class Quadruple : public Ability {
         bool used;
     public:
         Quadruple();
-        ~Quadruple();
-
-        string getPower() const override;
-        bool getUsage() const override;
         void use(string, GameManager*);
 };
 

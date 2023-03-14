@@ -16,6 +16,7 @@ const string listCommand[] = {
     "REVERSE",
     "SWAPCARD",
     "SWITCH",
+    "SWAP",
     "ABILITYLESS",
     "HELP",
     "QUIT"
@@ -36,16 +37,18 @@ void GameManager::startGame() {
         while (!gameEnd) {
             // Initiate Main Deck Card, Table Card
             DeckCard d;
-            // DeckAbility da;
             tableCard t;
 
+            // DeckAbility da;
             DeckAbility *da = new DeckAbility();
-            da->shuffleAbility(this);
+            cout << "pepek\n";
+            da->distributeAbility(this);
+            // da->shuffleAbility(this);
 
             d.shuffleCard();
 
             while(round != 6 && !gameEnd) {
-                if (round == 1) {
+                if (round == 1 && turn == 1) {
                     // inisiasi awal deck, tablecard, playercard, dll
                     // kalau round 1 ditanya deck nya mau random apa dari file
                     int pil = inputOpsi();
@@ -57,8 +60,27 @@ void GameManager::startGame() {
                     setPrize(64);
                 }
 
+                if (round == 2 && turn == 1) {
+                    da->shuffleAbility(this);
+                    da->distributeAbility(this);
+                }
+
+                if (round == 6) {
+                    // evaluate
+                    // Combination c;
+
+                    // Player p1;
+                    // p1 = c.evaluate(getPlayers())
+
+
+                }
+
                 cout << endl << "Prize saat ini: " << getPrize() << endl; 
                 cout << endl << "Giliran saat ini: p" << getFirstPlayer().getId() << endl;
+                cout << "Round: " << round << "\n";
+                // if (round > 1) {
+                    cout << "Kamu punya ability: " << getFirstPlayer().getAbility()->getPower() << endl;
+                // }
 
                 string command = reqCommand();
                 process(command);
@@ -67,37 +89,14 @@ void GameManager::startGame() {
                 Player temp = dequeuePlayer();
                 enqueuePlayer(temp);
 
+                
+                nextTurn();
                 printQueue();
-                nextRound();
             }
 
-            if (round == 2) {
-                da->shuffleAbility(this);
-            }
+            
 
-            if (round == 6) {
-                // evaluate
-                // Combination c;
-
-                // Player p1;
-                // p1 = c.evaluate(getPlayers())
-
-
-            }
-
-            cout << "prize: " << getPrize() << endl; 
-
-            string command = reqCommand();
-            process(command);
-
-            // Next Turn
-            Player temp = dequeuePlayer();
-            // cout << temp.getAbility()->getPower() << "\n";
-            enqueuePlayer(temp);
-
-            printQueue();
-            nextRound();
-            cout << "Round: " << round << "\n";
+            
         }
     } else {
         cout << "Welcome to Cangkulan" << endl << endl;
@@ -406,17 +405,6 @@ void GameManager::process(string command) {
         cout << e.what() << endl;
         // process(reqCommand());
     }
-}
-
-void GameManager::enqueuePlayer(Player player) {
-    this->playerTurn.push_back(player);
-}
-
-Player GameManager::dequeuePlayer() {
-    Player player = this->playerTurn.front();
-
-    this->playerTurn.pop_front();
-    return player;
 }
 
 void GameManager::printQueue() {

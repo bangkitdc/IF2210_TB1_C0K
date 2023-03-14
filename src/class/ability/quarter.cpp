@@ -2,20 +2,7 @@
 #include "../game/gameManager.hpp"
 #include "../inventoryHolder/player.hpp"
 
-Quarter::Quarter() {
-    this->power = "QUARTER";
-    this->used = false;
-}
-
-Quarter::~Quarter() { }
-
-string Quarter::getPower() const {
-    return this->power;
-}
-
-bool Quarter::getUsage() const {
-    return this->used;
-}
+Quarter::Quarter() : Ability("QUARTER") {}
 
 void Quarter::use(string power, GameManager* state) {
     if (this->power != power) {
