@@ -2,20 +2,7 @@
 #include "../game/gameManager.hpp"
 #include "../inventoryHolder/player.hpp"
 
-Quadruple::Quadruple() {
-    this->power = "QUADRUPLE";
-    this->used = false;
-}
-
-Quadruple::~Quadruple() { }
-
-string Quadruple::getPower() const {
-    return this->power;
-}
-
-bool Quadruple::getUsage() const {
-    return this->used;
-}
+Quadruple::Quadruple() : Ability("QUADRUPLE") {}
 
 void Quadruple::use(string power, GameManager* state) {
     if (this->power != power) {

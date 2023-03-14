@@ -3,16 +3,36 @@
 using namespace std;
 
 Game::Game() {
+    this->turn = 1;
     this->round = 1;
     this->gameEnd = false;
 }
 
-void Game::nextRound() {
-    if (this->round == 6) {
-        this->round = 1;
-    } else {
-        this->round += 1;
+void Game::nextTurn() {
+    if (this->turn == 7) {
+        nextRound();
     }
+    else {
+        this->turn += 1;
+    }
+}
+
+void Game::nextRound() {
+    this->turn = 1;
+    this->round += 1;
+    Player temp = dequeuePlayer();
+    enqueuePlayer(temp);
+}
+
+void Game::enqueuePlayer(Player player) {
+    this->playerTurn.push_back(player);
+}
+
+Player Game::dequeuePlayer() {
+    Player player = this->playerTurn.front();
+
+    this->playerTurn.pop_front();
+    return player;
 }
 
 void Game::setPrize(int prize) {

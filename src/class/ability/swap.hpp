@@ -9,10 +9,6 @@ class Swap : public Ability {
         bool used;
     public:
         Swap();
-        ~Swap();
-
-        string getPower() const override;
-        bool getUsage() const override;
         void use(string, GameManager*);
 };
 

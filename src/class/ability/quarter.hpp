@@ -9,10 +9,6 @@ class Quarter : public Ability {
         bool used;
     public:
         Quarter();
-        ~Quarter();
-
-        string getPower() const override;
-        bool getUsage() const override;
         void use(string, GameManager*);
 };
 

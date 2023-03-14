@@ -15,6 +15,7 @@
 #include "reverse.hpp"
 #include "swap.hpp"
 #include "switch.hpp"
+#include "noAbility.hpp"
 #include "../game/gameManager.hpp"
 #include "../game/game.hpp"
 #include "../inventoryHolder/player.hpp"
@@ -29,6 +30,7 @@ class DeckAbility {
 
         map<int, Ability*> getAbilityDeck();
         void shuffleAbility(Game*);
+        void distributeAbility(Game*);
 };
 
 #endif

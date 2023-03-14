@@ -1,20 +1,7 @@
 #include "switch.hpp"
 #include "../game/gameManager.hpp"
 
-Switch::Switch() {
-    this->power = "SWITCH";
-    this->used = false;
-}
-
-Switch::~Switch() { }
-
-string Switch::getPower() const {
-    return this->power;
-}
-
-bool Switch::getUsage() const {
-    return this->used;
-}
+Switch::Switch() : Ability("SWITCH") {}
 
 void Switch::use(string power, GameManager* state) {
     if (this->power != power) {

@@ -12,9 +12,15 @@ class GameManager;
 class Player;
 
 class Ability {
+    protected:
+        string power;
+        bool used;
     public:
-        virtual string getPower() const = 0;
-        virtual bool getUsage() const = 0;
+        Ability(string);
+        ~Ability();
+
+        string getPower() const;
+        bool getUsage() const;
         virtual void use(string, GameManager*) = 0;
 };
 

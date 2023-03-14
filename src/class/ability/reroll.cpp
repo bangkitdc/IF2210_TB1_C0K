@@ -1,20 +1,7 @@
 #include "reroll.hpp"
 #include "../game/gameManager.hpp"
 
-ReRoll::ReRoll() {
-    this->power = "RE-ROLL";
-    this->used = false;
-}
-
-ReRoll::~ReRoll() { }
-
-string ReRoll::getPower() const {
-    return this->power;
-}
-
-bool ReRoll::getUsage() const {
-    return this->used;
-}
+ReRoll::ReRoll() : Ability("RE-ROLL") {}
 
 void ReRoll::use(string power, GameManager* state) {
     if (this->power != power) {
