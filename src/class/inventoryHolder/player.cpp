@@ -18,7 +18,7 @@ Player::Player(string a) : InventoryHolder("player"), id(Player::totalPlayer + 1
     Player::totalPlayer++;
 }
 
-Player::Player(string a,DeckCard &b, int n = 2) : InventoryHolder("player"), id(Player::totalPlayer + 1) {
+Player::Player(string a,DeckCard &b,int n=2) : InventoryHolder("player"), id(Player::totalPlayer + 1) {
     this->username=a;
     this->point=0;
     setCardN(b, n);
