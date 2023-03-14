@@ -55,3 +55,13 @@ Player Game::getPlayer(int i) {
 Player Game::getFirstPlayer() {
     return this->playerTurn[0];
 }
+
+void Game::gameReset() {
+    turn = 1;
+    round = 1;
+    prize = 0;
+    gameEnd = false;
+    programEnd = false;
+    playerTurn.clear();
+    d.resetDeckCard();
+}

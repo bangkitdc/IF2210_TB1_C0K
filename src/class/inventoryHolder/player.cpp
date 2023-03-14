@@ -95,8 +95,9 @@ string Player::getName()const{
 void Player::displayPlayer(bool displayPoint){
     cout << "Name : " << this->getName() <<endl;
 
-    if (!displayPoint)
-        cout << "Point : " << this->getPoint() <<endl;
+    if (displayPoint) {
+        cout << "Point : " << this->getPoint() << endl;
+    }
 
     cout << "Card : \n" ;
     // for (int i=0;i<cardsP.size();i++){
@@ -112,13 +113,13 @@ void Player::displayPlayerCard(int i) {
 
 void Player::displayPlayerCards(){
     for (int i = 0; i < getCards().size(); i ++) {
-        cout << i + 1 << ". "; cardsP[i].displayCard();
+        cout << i + 1 << ". "; cardsP[i].displayCard(); cout << endl;
     }
 }
 
 Player& Player::operator+(const Card &a){
     if(cardsP.size()==2){
-        throw "Player sudah memiliki 2 kartu";
+        throw PlayerFullException();
     }
     cardsP.push_back(a);
     return *this;
