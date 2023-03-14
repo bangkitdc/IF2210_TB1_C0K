@@ -2,6 +2,7 @@
 #define _SWITCH_HPP_
 
 #include "ability.hpp"
+#include "../cardValue/card.hpp"
 
 class Switch : public Ability {
     public:

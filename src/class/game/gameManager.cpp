@@ -78,14 +78,16 @@ void GameManager::startGame() {
                     // p1 = c.evaluate(getPlayers())
 
                 }
-
-                cout << endl << "Prize saat ini: " << getPrize() << endl; 
-                cout << endl << "Giliran saat ini: p" << getFirstPlayer().getId() << endl;
+                cout << "\n===================================\n";
+                cout << "Round : " << round << "\n";
+                cout << "Turn  : " << turn << "\n";
+                cout << "Prize : " << getPrize() << endl; 
+                cout << "Giliran saat ini: p" << getFirstPlayer().getId() << endl;
                 cout << "Player cards:\n";
-                playerTurn[0].displayPlayerCards();
-                cout << endl;
-                cout << "Round: " << round << "\n";
-                cout << "Turn " << turn << "\n";
+                playerTurn.front().displayPlayerCard(0);
+                cout << " && ";
+                playerTurn.front().displayPlayerCard(1);
+                cout << endl << endl;
                 if (round > 1) {
                     cout << "Kamu punya ability: " << getFirstPlayer().getAbility()->getPower() << endl;
                 }
