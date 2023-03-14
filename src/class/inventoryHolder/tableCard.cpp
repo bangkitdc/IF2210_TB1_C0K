@@ -32,6 +32,9 @@ Card tableCard::getFirstCard() {
 }
 
 Card tableCard::getCard() {
+    if(Tcards.size()==0){
+        throw TableKosongException();
+    }
     Card temp = Tcards[Tcards.size() - 1];
     Tcards.pop_back();
     return temp;

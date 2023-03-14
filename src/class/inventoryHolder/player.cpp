@@ -44,6 +44,9 @@ void Player::setCardBelakang(Card a){
 
 Card Player::getPlayerCard(int i){
     Card temp=cardsP[i];
+    if(cardsP.size()==0){
+        throw PlayerKosongException();
+    }
     if (i == cardsP.size() - 1){
         cardsP.pop_back();
     }else{
@@ -100,10 +103,6 @@ void Player::displayPlayer(bool displayPoint){
     }
 
     cout << "Card : \n" ;
-    // for (int i=0;i<cardsP.size();i++){
-    //     cout << i + 1 << ". ";
-    //     cardsP[i].displayCard();
-    // } 
     displayPlayerCards();
 }
 
