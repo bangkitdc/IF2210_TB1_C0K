@@ -6,8 +6,12 @@ using namespace std;
 
 class CardValue {
     public:
-        CardValue();
-        virtual ~CardValue();
+        CardValue() {
+
+        }
+        virtual ~CardValue() {
+            
+        }
         virtual double getValue() const = 0;
 };
 

@@ -54,11 +54,16 @@ void GameManager::startGame() {
                     int pil = inputOpsi();
                     if (pil == 2) {
                         string fileInput = inputFile();
-                        d.readFromFile(fileInput);
-                    } else {
-                        for (auto &p : playerTurn) {
-                            p.setCardN(d, 2);
+                        if (fileInput == "nofile") {
+                            cout << "Tidak terdapat file di dalam directory /test, Deck Card akan di-random" << endl;
+                        } else {
+                            d.readFromFile(fileInput);
                         }
+                    }
+
+                    // Assing deck ke masing-masing player
+                    for (auto &p : playerTurn) {
+                        p.setCardN(d, 2);
                     }
 
                     setPrize(64);
@@ -105,11 +110,14 @@ void GameManager::startGame() {
 
         // Input Player
         inputPlayer(4, d, 3);
-        printQueue();
 
         for (int i = 0; i < 4; i ++) {
-            playerTurn[i].displayPlayer();
+            playerTurn[i].displayPlayer(false);
+            cout << endl;
         }
+
+        cout << "Urutan giliran: ";
+        printQueue();
 
         while (!gameEnd) {
             bool flag = true;
@@ -122,8 +130,6 @@ void GameManager::startGame() {
                 int x = inputCangkul(1, playerTurn[0].getCards().size());
 
                 addPlayerCard(t, playerTurn[0], x - 1);
-
-                CheckWin2(playerTurn);
             } else {
                 t.displayTCard();
                 string warna = t.getFirstCard().getWarna();
@@ -138,7 +144,7 @@ void GameManager::startGame() {
 
                     addPlayerCard(t, playerTurn[0], listIndex[x - 1]);
                 } else {
-                    cout << "Pemain tidak memiliki kartu dengan warna" << warna << "!" << endl;
+                    cout << "Pemain tidak memiliki kartu dengan warna " << warna << "!" << endl;
                     cout << "Silahkan mengambil kartu di cangkulan sampe dapet, hehe" << endl;
 
                     bool dapet = false;
@@ -161,22 +167,24 @@ void GameManager::startGame() {
                     }
                     flag = false;
                 }
-                CheckWin2(playerTurn);
             }
 
             if(t.getCards().size() == 4) {
-                int idKalah = evaluate(t);
-                int idxKartuDiTable = evaluateIdxTable(t);
+                t.sortTableCard();
 
-                // evaluate
-                int idxKalah = findIdxWithId(idKalah);
-                cout << "Player dengan username " << playerTurn[idxKalah].getName() << " memiliki kartu paling kecil, yaitu ";
-                t.getCardWithoutPop(idxKartuDiTable).displayCard();
-                cout << "Dia harus mengambil semua kartu yang ada di meja :p" << endl;
+                cout << endl << "Player dengan username " << playerTurn[0].getName() << " memiliki kartu paling besar, yaitu: ";
+                t.getCardWithoutPop(0).displayCard();
 
-                if (idxKalah != -1) {
-                    moveAllTableCardToPlayer(playerTurn[idxKalah], t);
-                }
+                evaluateQueue(t);
+
+                cout << endl << "Urutan giliran yang baru: ";
+
+                printQueue();
+
+                flag = false;
+                t.clearCards();
+                t.clearMilik();
+                CheckWin2(playerTurn);
             }
 
             if (flag) {
@@ -454,7 +462,12 @@ int GameManager::inputCangkul(int a, int b) {
     bool flag = true;
     while(flag) {
         try {
-            cout << "Silahkan pilih kartu yang ingin dikeluarkan: " << "(" << a << " - " << b << ")" << endl;
+            if (a != b) {
+                cout << "Silahkan pilih kartu yang ingin dikeluarkan: " << "(" << a << " - " << b << ")" << endl;
+            } else {
+                cout << "Silahkan pilih kartu yang ingin dikeluarkan: (1) pilihan saja" << endl;
+            }
+
             cout << "> ";
             cin >> i;
 
@@ -510,37 +523,28 @@ vector<int> GameManager::countPlayerCardWithColor(Player &p, string warna) {
     return temp;
 }
 
-int GameManager::evaluate(tableCard &t) {
-    int min = t.getCardWithoutPop(0).getNum();
-    int id = t.getMilik(0);
+void GameManager::evaluateQueue(tableCard &t) {
+    int count = t.getCards().size();
+    int i = 0;
 
-    for (int i = 1; i < t.getCards().size(); i ++) {
-        if (t.getCardWithoutPop(i).getNum() < min) {
-            min = t.getCardWithoutPop(i).getNum();
-            id = t.getMilik(i);
-        }
+    t.displayTCard();
+    while (i < count) {
+        int id = t.getMilik(i);
+        int idx = findIdxWithId(id);
+        Player temp = getPlayer(idx);
+
+        enqueuePlayer(temp);
+        i ++;
     }
 
-    return id;
-}
-
-int GameManager::evaluateIdxTable(tableCard &t) {
-    int min = t.getCardWithoutPop(0).getNum();
-    int idx = 0;
-
-    for (int i = 1; i < t.getCards().size(); i ++) {
-        if (t.getCardWithoutPop(i).getNum() < min) {
-            min = t.getCardWithoutPop(i).getNum();
-            idx = i;
-        }
+    for (int j = 0; j < count; j ++) {
+        playerTurn.pop_front();
     }
-
-    return idx;
 }
 
-int GameManager::findIdxWithId(int idKalah) {
+int GameManager::findIdxWithId(int id) {
     for (int i = 0; i < this->playerTurn.size(); i ++) {
-        if (playerTurn[i].getId() == idKalah) {
+        if (playerTurn[i].getId() == id) {
             return i;
         }
     }

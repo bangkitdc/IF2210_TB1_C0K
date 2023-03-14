@@ -36,6 +36,7 @@ class Combination : public CardValue {
         int highestOnTable(vector<Card>);
         // Player evaluate(vector<Card>);
 
+        // double getValue() const;
         int color2Int(Card);
 
         double highVal(int angka, int warna);
