@@ -30,7 +30,7 @@ void Card::setWarna(string warna) {
     card.second = warna;
 }
 void Card::displayCard() {
-    cout << this->getNum() << " (" << this->getWarna() << ")\n";
+    cout << this->getNum() << " (" << this->getWarna() << ")";
 }
 
 bool Card::isValidCard() const {

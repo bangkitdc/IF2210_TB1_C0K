@@ -24,13 +24,13 @@ class Combination : public CardValue {
         bool hasFourOfAKind(vector<Card> card);
         bool hasStraightFlush(vector<Card> card);
 
-        vector<Card> pair(vector<Card>);
-        vector<Card> twoPair(vector<Card>);
+        vector<vector<Card> > pair(vector<Card>);
+        vector<vector<Card> > twoPair(vector<Card>);
         vector<Card> threeOfAKind(vector<Card>);
         vector<Card> straight(vector<Card>);
-        vector<Card> flush(vector<Card>);
+        vector<vector<Card> > flush(vector<Card>);
         vector<Card> fullHouse(vector<Card>);
-        vector<Card> fourOfAKind(vector<Card>);
+        vector<vector<Card> > fourOfAKind(vector<Card>);
         vector<Card> straightFlush(vector<Card>);
         double priorityCard(vector<Card> cards);
         int highestOnTable(vector<Card>);

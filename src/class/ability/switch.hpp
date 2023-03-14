@@ -2,11 +2,9 @@
 #define _SWITCH_HPP_
 
 #include "ability.hpp"
+#include "../cardValue/card.hpp"
 
 class Switch : public Ability {
-    private:
-        string power;
-        bool used;
     public:
         Switch();
         void use(string, GameManager*);

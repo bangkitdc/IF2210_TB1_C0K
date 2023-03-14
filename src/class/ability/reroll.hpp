@@ -4,9 +4,6 @@
 #include "ability.hpp"
 
 class ReRoll : public Ability {
-    private:
-        string power;
-        bool used;
     public:
         ReRoll();
         void use(string, GameManager*);

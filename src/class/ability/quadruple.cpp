@@ -1,6 +1,5 @@
 #include "quadruple.hpp"
 #include "../game/gameManager.hpp"
-#include "../inventoryHolder/player.hpp"
 
 Quadruple::Quadruple() : Ability("QUADRUPLE") {}
 
@@ -10,6 +9,9 @@ void Quadruple::use(string power, GameManager* state) {
     }
     else if (this->used) {
         throw UsedCardException(power);
+    }
+    else if (!isActive()) {
+        throw AbilityOffException(power);
     }
     else {
         int temp = state->getPrize();

@@ -28,9 +28,12 @@ class Game {
         Player dequeuePlayer();
         Player getFirstPlayer();
         Player getPlayer(int);
+
         friend class DeckAbility;
         friend class Swap;
         friend class Switch;
+        friend class Reverse;
+        friend class AbilityLess;
 };
 
 #endif

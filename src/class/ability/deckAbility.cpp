@@ -21,9 +21,10 @@ map<int, Ability*> DeckAbility::getAbilityDeck() {
 }
 
 void DeckAbility::shuffleAbility(Game* state) {
-    for (int i=1; i<=7; i++) {
-        delete this->aDeck[i];
+    for (auto it = this->aDeck.begin(); it != this->aDeck.end(); it++) {
+        delete it->second;
     }
+    this->aDeck.clear();
 
     vector<int> keys = {1,2,3,4,5,6,7};
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();

@@ -41,9 +41,10 @@ void GameManager::startGame() {
 
             // DeckAbility da;
             DeckAbility *da = new DeckAbility();
-            cout << "pepek\n";
             da->distributeAbility(this);
             // da->shuffleAbility(this);
+            // da->distributeAbility(this);
+            
 
             d.shuffleCard();
 
@@ -82,13 +83,19 @@ void GameManager::startGame() {
                     // p1 = c.evaluate(getPlayers())
 
                 }
-
-                cout << endl << "Prize saat ini: " << getPrize() << endl; 
-                cout << endl << "Giliran saat ini: p" << getFirstPlayer().getId() << endl;
-                cout << "Round: " << round << "\n";
-                // if (round > 1) {
+                cout << "\n===================================\n";
+                cout << "Round : " << round << "\n";
+                cout << "Turn  : " << turn << "\n";
+                cout << "Prize : " << getPrize() << endl; 
+                cout << "Giliran saat ini: p" << getFirstPlayer().getId() << endl;
+                cout << "Player cards:\n";
+                playerTurn.front().displayPlayerCard(0);
+                cout << " && ";
+                playerTurn.front().displayPlayerCard(1);
+                cout << endl << endl;
+                if (round > 1) {
                     cout << "Kamu punya ability: " << getFirstPlayer().getAbility()->getPower() << endl;
-                // }
+                }
 
                 string command = reqCommand();
                 process(command);
@@ -386,7 +393,7 @@ void GameManager::process(string command) {
                 cout << playerTurn.front().getName() << " melakukan HALF! Poin hadiah turun dari" << endl;
                 cout << temp << " menjadi " << getPrize() << "!" << endl;
             } else {
-                cout << playerTurn.front().getName() << " melakukan HALF! Sayangnya poin hadiah sudah bernilai" << endl;
+                cout << playerTurn.front().getName() << " melakukan HALF! Sayangnya poin hadiah sudah bernilai";
                 cout << temp << ". Poin hadiah tidak berubah.. Giliran dilanjut!" << endl;
             }
 
@@ -414,11 +421,17 @@ void GameManager::process(string command) {
             cout << "Terima kasih telah bermain :p" << endl;
         } else {
             try {
-                playerTurn.front().getAbility()->use(command, this);
+                getFirstPlayer().getAbility()->use(command, this);
             } catch (NoCardException &e) {
                 cout << e.what() << endl;
                 process(reqCommand());
             } catch (UsedCardException &e) {
+                cout << e.what() << endl;
+                process(reqCommand());
+            } catch (NoAbilityException &e) {
+                cout << e.what() << endl;
+                process(reqCommand());
+            } catch (AbilityOffException &e) {
                 cout << e.what() << endl;
                 process(reqCommand());
             }
@@ -432,17 +445,11 @@ void GameManager::process(string command) {
 
 void GameManager::printQueue() {
     int count = 0;
-    cout << "<";
     for (auto &t : playerTurn) {
-        cout << "p" << t.getId();
-
-        if (count < playerTurn.size() - 1) {
-            cout << ",";
-        }
-
+        cout << "<p" << t.getId() << "> ";
         count ++;
     }
-    cout << ">" << endl;
+    cout << endl;
 }
 
 bool GameManager::isInteger(const string& str) {
