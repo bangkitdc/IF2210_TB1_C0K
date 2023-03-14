@@ -15,7 +15,7 @@ void Switch::use(string power, GameManager* state) {
     }
     else {
         cout << "<p" << state->playerTurn.front().getId() << "> - ";
-        cout << state->playerTurn.front().getName() << " melakukan switch!\n";
+        cout << state->playerTurn.front().getName() << " melakukan SWITCH\n";
         cout << "Silahkan pilih pemain yang kartunya ingin anda tukar :\n";
         cout << "   no - <id> - name\n";
         for (int i=1; i<7; i++) {
@@ -51,7 +51,7 @@ void Switch::use(string power, GameManager* state) {
         state->playerTurn.at(0).setCards(temp);
 
         cout << "Kedua kartu <p" << state->playerTurn.front().getId() << "> - ";
-        cout << state->playerTurn.front().getName() << " telah ditukar dengan";
+        cout << state->playerTurn.front().getName() << " telah ditukar dengan ";
         cout << "<p" << state->playerTurn.at(stoi(id)).getId() << "> - ";
         cout << state->playerTurn.front().getName() << ".\n"; 
 

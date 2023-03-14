@@ -5,10 +5,12 @@
 #include <deque>
 // #include "../inventoryHolder/player.hpp"
 // #include "../cardValue/cardValue.hpp"
+#include "../inventoryHolder/deckCard.hpp"
 using namespace std;
 
 #pragma once
 class Player;
+class DeckCard;
 
 class Game {
     protected:
@@ -17,6 +19,8 @@ class Game {
         int prize;
         bool gameEnd;
         deque<Player> playerTurn;
+        DeckCard d;
+
     public:
         Game();
         void nextTurn();
@@ -34,6 +38,7 @@ class Game {
         friend class Switch;
         friend class Reverse;
         friend class AbilityLess;
+        friend class ReRoll;
 };
 
 #endif

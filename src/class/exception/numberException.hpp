@@ -31,4 +31,11 @@ class NotNumberException : public BaseException {
         }
 };
 
+class SameNumberException : public BaseException {
+    public:
+        const string what() const noexcept {
+            return "Angka tidak boleh sama. Silahkan pilih angka yang tersedia!";
+        }
+};
+
 #endif

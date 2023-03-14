@@ -36,7 +36,7 @@ void GameManager::startGame() {
 
         while (!gameEnd) {
             // Initiate Main Deck Card, Table Card
-            DeckCard d;
+            // DeckCard d;
             tableCard t;
 
             // DeckAbility da;
