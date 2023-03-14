@@ -2,6 +2,8 @@
 #include <random>
 #include <algorithm>
 #include <fstream>
+#include <set>
+using namespace std;
 
 DeckCard::DeckCard() : InventoryHolder ("DeckCard"){
     for(int i=1;i<=13;i++){
@@ -20,14 +22,19 @@ DeckCard::DeckCard() : InventoryHolder ("DeckCard"){
 
 void DeckCard::readFromFile(string filename){
     fstream f;
-    vector<Card> temp;
-    f.open(filename+".txt",ios::in);    
+    vector<Card> temp1234;
+    set<string> temp1;
+    f.open(filename,ios::in);    
+    int lineCount=1;
     while(!f.eof()){
         string line;
         string cardColor;
         int cardNum;
 
         f>>line;
+        if(line.size()>3){
+            throw fileInvalidException(lineCount);
+        }
         switch (line[0])
         {
         case '1':
@@ -47,7 +54,25 @@ void DeckCard::readFromFile(string filename){
                 cardNum=13;
                 break;
             }else{
-                cardNum= 1;
+                switch (line[1])
+                {
+                case 'm':
+                    cardNum= 1;
+                    break;
+                case 'k':
+                    cardNum= 1;
+                    break;
+                case 'b':
+                    cardNum= 1;
+                    break;
+                case 'h':
+                    cardNum= 1;
+                    break;
+                default:
+                    throw fileInvalidException(lineCount);
+                    break;
+                   
+                }
                 break;
             }
         case '2':
@@ -75,7 +100,7 @@ void DeckCard::readFromFile(string filename){
             cardNum = 9;
             break;
         default:
-            throw fileInvalidException();
+            throw fileInvalidException(lineCount);
             break;
         }
         
@@ -109,19 +134,55 @@ void DeckCard::readFromFile(string filename){
                 cardColor = "hijau";
                 break;
             default : 
-                throw fileInvalidException();
+                throw fileInvalidException(lineCount);
                 break;
             
             break;
             }   
         }
-        temp.push_back(Card(cardNum,cardColor));
+        // vector<string> color= {"m","k","b","h"};
+        // bool isValid=false;
+        // for (int i=1;i<=13;i++){
+        //     for(int j=0;j<4;i++){
+        //         if(line.compare(to_string(i)+color[j])==0){
+        //             cardNum=i;
+        //             if(color[j].compare("m")==0){
+        //                 cardColor="merah";
+        //             }
+        //             else if(color[j].compare("k")==0){
+        //                 cardColor="kuning";
+        //             }
+        //             else if(color[j].compare("b")==0){
+        //                 cardColor="biru";
+        //             }
+        //             else if(color[j].compare("h")==0){
+        //                 cardColor="hijau";
+        //             }
+        //             isValid=true;                    
+        //             break;
+        //         }
+        //     }
+        // }
+
+        // if (!isValid)
+        // {
+        //     throw fileInvalidException();
+        // }
+        
+        int copyCardNum=cardNum;
+        string copyCardColor=cardColor;
+        temp1.insert(to_string(copyCardNum)+copyCardColor);
+        temp1234.push_back(Card(cardNum,cardColor));
+        if(temp1.size()!=temp1234.size()){
+            throw fileInvalidDuplicateException(lineCount);
+        }
+        lineCount++;
     }
     f.close();
-    if (temp.size()!= 52){
-        throw fileInvalidException();
+    if (temp1234.size()!= 52){
+        throw fileInvalidUkuranException();
     }
-    cards=temp;
+    cards=temp1234;
 }
 
 DeckCard::~DeckCard(){}
@@ -134,6 +195,7 @@ void DeckCard::displayDeckCard(){
     cout << "======================Deck Card======================" << endl;
     for (auto elem : DeckCard::cards) {
         elem.displayCard();
+        cout<<endl;
     }
 }
 

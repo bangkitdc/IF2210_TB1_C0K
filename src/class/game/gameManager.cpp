@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <conio.h>
 
 using namespace std;
 
@@ -46,7 +47,7 @@ void GameManager::startGame() {
             // da->distributeAbility(this);
             
 
-            d.shuffleCard();
+            // d.shuffleCard();
 
             while(round != 6 && !gameEnd) {
                 if (round == 1 && turn == 1) {
@@ -58,17 +59,34 @@ void GameManager::startGame() {
                         if (fileInput == "nofile") {
                             cout << "Tidak terdapat file di dalam directory /test, Deck Card akan di-random" << endl;
                         } else {
-                            try
-                            {
-                                d.readFromFile(fileInput);
-                            }
-                            catch(fileInvalidException &e)
-                            {
-                                cout << e.what() << '\n';
-                                cout << "Deck Card akan di-random" << endl;
-                            }
-                            
-                            
+                            while(true){   
+                                try
+                                {
+                                    d.readFromFile("..\\IF2210_TB1_C0K\\test\\"+fileInput); 
+                                    break;
+                                }
+                                catch(fileInvalidException &e)
+                                {
+                                    cout << endl << e.what() << endl;
+                                    cout << "Mohon perbaiki fileinput..." << endl;
+                                    cout << "Press Anything to Continue\n";
+                                    getch();
+                                }
+                                catch(fileInvalidUkuranException &e)
+                                {
+                                    cout << endl << e.what() << endl;
+                                    cout << "Mohon perbaiki fileinput..." << endl;
+                                    cout << "Press Anything to Continue\n";
+                                    getch();                                    
+                                }
+                                catch(fileInvalidDuplicateException &e)
+                                {
+                                    cout << endl << e.what() << endl;
+                                    cout << "Mohon perbaiki fileinput..." << endl;
+                                    cout << "Press Anything to Continue\n";
+                                    getch();                                
+                                }
+                            }       
                         }
                     }
 
