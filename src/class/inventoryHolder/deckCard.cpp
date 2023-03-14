@@ -152,6 +152,9 @@ bool DeckCard::isDeckEmpty() {
 }
 
 DeckCard& DeckCard::operator-(const Card & a){
+    if(cards.size()==0){
+        throw DeckKosongException();
+    }
     for(int i=0;i<cards.size();i++){
         if (cards[i].getNum()==a.getNum() && cards[i].getWarna().compare(a.getWarna())==0 ){
             cards.erase(cards.begin()+i);
@@ -161,6 +164,9 @@ DeckCard& DeckCard::operator-(const Card & a){
 }
 
 void DeckCard::deleteCard(Card a){
+    if(cards.size()==0){
+        throw DeckKosongException();
+    }
     for(int i=0;i<cards.size();i++){
         if (cards[i].getNum()==a.getNum() && cards[i].getWarna().compare(a.getWarna())==0 ){
             cards.erase(cards.begin()+i);
@@ -179,6 +185,9 @@ Card DeckCard::getCard(){
 }
 
 Card DeckCard::getTopCard() {
+    if(cards.size()==0){
+        throw DeckKosongException();
+    }
     Card temp = cards[cards.size() - 1];
     return temp;
 }
