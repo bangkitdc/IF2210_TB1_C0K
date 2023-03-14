@@ -61,7 +61,12 @@ void GameManager::startGame() {
                             if (fileInput == "nofile") {
                                 cout << "Tidak terdapat file di dalam directory /test, Deck Card akan di-random" << endl;
                             } else {
-                                d.readFromFile(fileInput);
+                                try {
+                                    d.readFromFile(fileInput);
+                                } catch(fileInvalidException &e) {
+                                    cout << RED << endl << e.what() << RESET << endl << endl;
+                                    cout << "Deck Card akan di-random" << endl;
+                                }
                             }
                         }
 
