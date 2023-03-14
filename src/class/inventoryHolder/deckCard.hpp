@@ -31,6 +31,8 @@ class DeckCard : public InventoryHolder {
         DeckCard& operator-(const Card &);
         DeckCard& operator=(const DeckCard &);
         void displayDeckCard();
+
+        void resetDeckCard();
 };
 
 #endif

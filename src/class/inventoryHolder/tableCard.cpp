@@ -11,13 +11,15 @@ void tableCard::setTCard(DeckCard *deck){
 }
 
 void tableCard::displayTCard(){
+    cout << "=================Kartu Meja Sekarang=================" << endl;
     if (Tcards.size() != 0) {
-        cout << "=================Kartu Meja Sekarang=================" << endl;
         for(int i=0;i<Tcards.size();i++){
-            Tcards[i].displayCard();   
+            cout << i + 1 << ". ";
+            Tcards[i].displayCard();
+            cout << endl;
         }
     } else {
-        cout << "Kartu meja saat ini kosong :(" << endl;
+        cout << "             Kartu meja saat ini kosong :(           " << endl;
     }
 }
 

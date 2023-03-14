@@ -1,4 +1,5 @@
 #include "gameManager.hpp"
+#include "../../utility/utility.hpp"
 #include <filesystem>
 #include <iostream>
 #include <vector>
@@ -25,192 +26,207 @@ const string listCommand[] = {
 GameManager::GameManager() : Game() {}
 
 void GameManager::startGame() {
-    int inpGame = inputGame();
+    do {
+        gameReset();
+        int inpGame = inputGame();
 
-    if (inpGame == 1) {
-        cout << "Welcome to Poker KW" << endl << endl;
+        if (inpGame == 1) {
+            cout << "Welcome to Poker KW" << endl << endl;
 
-        // Input Player
-        inputPlayer(7);
-        printQueue();
+            // Input Player
+            inputPlayer(7);
 
-        while (!gameEnd) {
-            // Initiate Main Deck Card, Table Card
+            while (!gameEnd) {
+                // Initiate Main Deck Card, Table Card
+                DeckCard d;
+                tableCard t;
+
+                DeckAbility *da = new DeckAbility();
+                da->distributeAbility(this);
+                
+                d.shuffleCard();
+
+                while(round != 6 && !gameEnd) {
+                    if (round == 1 && turn == 1) {
+                        // inisiasi awal deck, tablecard, playercard, dll
+                        // kalau round 1 ditanya deck nya mau random apa dari file
+                        int pil = inputOpsi();
+
+                        if (pil == -1) {
+                            break;
+                        }
+
+                        if (pil == 2) {
+                            string fileInput = inputFile();
+                            if (fileInput == "nofile") {
+                                cout << "Tidak terdapat file di dalam directory /test, Deck Card akan di-random" << endl;
+                            } else {
+                                try {
+                                    d.readFromFile(fileInput);
+                                } catch(fileInvalidException &e) {
+                                    cout << RED << endl << e.what() << RESET << endl << endl;
+                                    cout << "Deck Card akan di-random" << endl;
+                                }
+                            }
+                        }
+
+                        // Assign deck ke masing-masing player
+                        for (auto &p : playerTurn) {
+                            p.setCardN(d, 2);
+                        }
+
+                        setPrize(64);
+                    }
+
+                    if (round == 2 && turn == 1) {
+                        da->shuffleAbility(this);
+                        da->distributeAbility(this);
+                    }
+
+                    t.displayTCard();
+                    cout << "\n===================================\n";
+                    cout << "Round : " << round << "\n";
+                    cout << "Turn  : " << turn << "\n";
+                    cout << "Prize : " << getPrize() << endl; 
+                    cout << "Queue : ";
+                    printQueue();
+                    cout << "Giliran saat ini: p" << getFirstPlayer().getId() << endl;
+                    cout << "Player cards:\n";
+                    playerTurn.front().displayPlayerCard(0);
+                    cout << " & ";
+                    playerTurn.front().displayPlayerCard(1);
+                    cout << endl << endl;
+                    if (round > 1) {
+                        cout << "Kamu punya ability: " << getFirstPlayer().getAbility()->getPower() << endl;
+                    }
+
+                    if (round == 6) {
+                        // evaluate
+                        // Combination c;
+
+                        // Player p1;
+                        // p1 = c.evaluate(getPlayers())
+
+                    }
+
+                    string command = reqCommand();
+                    process(command);
+
+                    // Next Turn
+                    Player temp = dequeuePlayer();
+                    enqueuePlayer(temp);
+
+                    nextTurn();
+                }   
+
+                CheckWin(playerTurn);
+                delete da;
+            }
+        } else if (inpGame == 2) {
+            cout << "Welcome to Cangkulan" << endl;
+            
             DeckCard d;
             tableCard t;
-
-            // DeckAbility da;
-            DeckAbility *da = new DeckAbility();
-            da->distributeAbility(this);
-            // da->shuffleAbility(this);
-            // da->distributeAbility(this);
-            
-
             d.shuffleCard();
 
-            while(round != 6 && !gameEnd) {
-                if (round == 1 && turn == 1) {
-                    // inisiasi awal deck, tablecard, playercard, dll
-                    // kalau round 1 ditanya deck nya mau random apa dari file
-                    int pil = inputOpsi();
-                    if (pil == 2) {
-                        string fileInput = inputFile();
-                        if (fileInput == "nofile") {
-                            cout << "Tidak terdapat file di dalam directory /test, Deck Card akan di-random" << endl;
-                        } else {
-                            try
-                            {
-                                d.readFromFile(fileInput);
-                            }
-                            catch(fileInvalidException &e)
-                            {
-                                cout << e.what() << '\n';
-                                cout << "Deck Card akan di-random" << endl;
-                            }
-                            
-                            
-                        }
+            // Input Player
+            inputPlayer(4, d, 3);
+
+            for (int i = 0; i < 4; i ++) {
+                playerTurn[i].displayPlayer(false);
+                cout << endl;
+            }
+
+            cout << "Urutan giliran: ";
+            printQueue();
+
+            while (!gameEnd) {
+                bool flag = true;
+                cout << endl << "Giliran saat ini: p" << getFirstPlayer().getId() << endl;
+
+                if (t.isTCardEmpty()) {
+                    cout << "Silahkan mengeluarkan kartu bebas!" << endl;
+                    playerTurn[0].displayPlayerCards();
+
+                    int x = inputCangkul(1, playerTurn[0].getCards().size());
+                    if (x == -1) {
+
+                       break;     
                     }
 
-                    // Assing deck ke masing-masing player
-                    for (auto &p : playerTurn) {
-                        p.setCardN(d, 2);
-                    }
-
-                    setPrize(64);
-                }
-
-                if (round == 2 && turn == 1) {
-                    da->shuffleAbility(this);
-                    da->distributeAbility(this);
-                }
-
-                if (round == 6) {
-                    // evaluate
-                    // Combination c;
-
-                    // Player p1;
-                    // p1 = c.evaluate(getPlayers())
-
-                }
-                cout << "\n===================================\n";
-                cout << "Round : " << round << "\n";
-                cout << "Turn  : " << turn << "\n";
-                cout << "Prize : " << getPrize() << endl; 
-                cout << "Giliran saat ini: p" << getFirstPlayer().getId() << endl;
-                cout << "Player cards:\n";
-                playerTurn.front().displayPlayerCard(0);
-                cout << " && ";
-                playerTurn.front().displayPlayerCard(1);
-                cout << endl << endl;
-                if (round > 1) {
-                    cout << "Kamu punya ability: " << getFirstPlayer().getAbility()->getPower() << endl;
-                }
-
-                string command = reqCommand();
-                process(command);
-
-                // Next Turn
-                Player temp = dequeuePlayer();
-                enqueuePlayer(temp);
-
-                nextTurn();
-                printQueue();
-            }            
-        }
-    } else {
-        cout << "Welcome to Cangkulan" << endl << endl;
-        
-        DeckCard d;
-        tableCard t;
-        d.shuffleCard();
-
-        // Input Player
-        inputPlayer(4, d, 3);
-
-        for (int i = 0; i < 4; i ++) {
-            playerTurn[i].displayPlayer(false);
-            cout << endl;
-        }
-
-        cout << "Urutan giliran: ";
-        printQueue();
-
-        while (!gameEnd) {
-            bool flag = true;
-            cout << endl << "Giliran saat ini: p" << getFirstPlayer().getId() << endl;
-
-            if (t.isTCardEmpty()) {
-                cout << "Silahkan mengeluarkan kartu bebas!" << endl;
-                playerTurn[0].displayPlayerCards();
-
-                int x = inputCangkul(1, playerTurn[0].getCards().size());
-
-                addPlayerCard(t, playerTurn[0], x - 1);
-            } else {
-                t.displayTCard();
-                string warna = t.getFirstCard().getWarna();
-                vector<int> listIndex;
-                listIndex = countPlayerCardWithColor(playerTurn[0], warna);
-
-                if (listIndex.size() != 0) {
-                    cout << "Berikut kartu yang dimiliki player dengan warna " << warna << "!" << endl;
-                    displayPlayerCardWithColor(playerTurn[0], warna);
-
-                    int x = inputCangkul(1, listIndex.size());
-
-                    addPlayerCard(t, playerTurn[0], listIndex[x - 1]);
+                    addPlayerCard(t, playerTurn[0], x - 1);
                 } else {
-                    cout << "Pemain tidak memiliki kartu dengan warna " << warna << "!" << endl;
-                    cout << "Silahkan mengambil kartu di cangkulan sampe dapet, hehe" << endl;
+                    t.displayTCard();
+                    string warna = t.getFirstCard().getWarna();
+                    vector<int> listIndex;
+                    listIndex = countPlayerCardWithColor(playerTurn[0], warna);
 
-                    bool dapet = false;
-                    while (!d.isDeckEmpty() && !dapet) {
-                        Card temp = d.getTopCard();
-                        cout << "Player mendapat kartu "; temp.displayCard();
+                    if (listIndex.size() != 0) {
+                        cout << "Berikut kartu yang dimiliki player dengan warna " << warna << "!" << endl;
+                        displayPlayerCardWithColor(playerTurn[0], warna);
 
-                        playerTurn[0].addCardFromDeck(d); // sekalian dipop dari deck
-                        if (temp.getWarna() == warna) {
-                            dapet = true;
-                            cout << "Player mendapat kartu dengan warna yang sama dengan table" << endl;
-                        } else {
-                            cout << "Player mendapat kartu dengan warna berbeda dengan table, silahkan cangkul lagi :D" << endl;
+                        int x = inputCangkul(1, listIndex.size());
+                        if (x == -1) {
+                            break;
                         }
-                    }
 
-                    if (!dapet && d.isDeckEmpty()) {
-                        moveAllTableCardToPlayer(playerTurn[0], t);
-                        cout << "Cangkulan habis, silahkan ambil kartu di table, xixixixi" << endl;
+                        addPlayerCard(t, playerTurn[0], listIndex[x - 1]);
+                    } else {
+                        cout << "Pemain tidak memiliki kartu dengan warna " << warna << "!" << endl;
+                        cout << "Silahkan mengambil kartu di cangkulan sampe dapet, hehe" << endl;
+
+                        bool dapet = false;
+                        while (!d.isDeckEmpty() && !dapet) {
+                            Card temp = d.getTopCard();
+                            cout << "Player mendapat kartu "; temp.displayCard();
+
+                            playerTurn[0].addCardFromDeck(d); // sekalian dipop dari deck
+                            if (temp.getWarna() == warna) {
+                                dapet = true;
+                                cout << "Player mendapat kartu dengan warna yang sama dengan table" << endl;
+                            } else {
+                                cout << "Player mendapat kartu dengan warna berbeda dengan table, silahkan cangkul lagi :D" << endl;
+                            }
+                        }
+
+                        if (!dapet && d.isDeckEmpty()) {
+                            moveAllTableCardToPlayer(playerTurn[0], t);
+                            cout << "Cangkulan habis, silahkan ambil kartu di table, xixixixi" << endl;
+                        }
+                        flag = false;
                     }
+                }
+
+                if(t.getCards().size() == 4) {
+                    t.sortTableCard();
+
+                    cout << endl << "Player dengan username " << playerTurn[0].getName() << " memiliki kartu paling besar, yaitu: ";
+                    t.getCardWithoutPop(0).displayCard(); cout << endl;
+
+                    evaluateQueue(t);
+
+                    cout << endl << "Urutan giliran yang baru: ";
+
+                    printQueue();
+
                     flag = false;
+                    t.clearCards();
+                    t.clearMilik();
+                    CheckWin2(playerTurn);
+                }
+
+                if (flag) {
+                    // Next Turn
+                    Player temp = dequeuePlayer();
+                    enqueuePlayer(temp);
                 }
             }
-
-            if(t.getCards().size() == 4) {
-                t.sortTableCard();
-
-                cout << endl << "Player dengan username " << playerTurn[0].getName() << " memiliki kartu paling besar, yaitu: ";
-                t.getCardWithoutPop(0).displayCard();
-
-                evaluateQueue(t);
-
-                cout << endl << "Urutan giliran yang baru: ";
-
-                printQueue();
-
-                flag = false;
-                t.clearCards();
-                t.clearMilik();
-                CheckWin2(playerTurn);
-            }
-
-            if (flag) {
-                // Next Turn
-                Player temp = dequeuePlayer();
-                enqueuePlayer(temp);
-            }
+        } else { // EXIT
+            programEnd = true;
         }
-    }
+    } while(!programEnd);
+
+    cout << "Program selesai, sampai jumpa lagi" << endl;
 }
 
 void GameManager::inputPlayer(int x) {
@@ -283,9 +299,9 @@ string GameManager::inputFile() {
 
             flag = false;
         } catch(InvalidNumberException& e) {
-            cout << e.what() << endl;
+            cout << RED << endl << e.what() << RESET << endl << endl;
         } catch(NotNumberException& e) {
-            cout << e.what() << endl;
+            cout << RED << endl << e.what() << RESET << endl << endl;
         }
     }
 
@@ -298,6 +314,7 @@ int GameManager::inputOpsi() {
     while(flag) {
         try {
             cout << "Untuk urutan Deck Card, terdapat 2 Opsi" << endl;
+            cout << "Ketik `-1` jika ingin keluar dari game" << endl << endl;
             cout << "1. Opsi Random" << endl;
             cout << "2. Opsi Baca File" << endl;
             cout << "Masukkan pilihan: " << endl;
@@ -307,6 +324,13 @@ int GameManager::inputOpsi() {
             if (!isInteger(i)) {
                 throw NotNumberException(i);
             }
+
+            if (stoi(i) == -1) {
+                this->gameEnd = true;
+
+                cout << endl << "Terima kasih telah bermain Poker KW :p" << endl;
+                return -1;
+            }
             
             if (!(stoi(i) >= 1 && stoi(i) <= 2)) {
                 throw InvalidNumberException(i);
@@ -314,9 +338,9 @@ int GameManager::inputOpsi() {
 
             flag = false;
         } catch(InvalidNumberException& e) {
-            cout << e.what() << endl;
+            cout << RED << endl << e.what() << RESET << endl << endl;
         } catch(NotNumberException& e) {
-            cout << e.what() << endl;
+            cout << RED << endl << e.what() << RESET << endl << endl;
         }
     }
 
@@ -331,6 +355,7 @@ int GameManager::inputGame() {
             cout << "Terdapat 2 Permainan" << endl;
             cout << "1. Poker KW" << endl;
             cout << "2. Cangkulan" << endl;
+            cout << "3. Quit Game" << endl;
             cout << "Masukkan pilihan: " << endl;
             cout << "> ";
             cin >> i;
@@ -339,15 +364,15 @@ int GameManager::inputGame() {
                 throw NotNumberException(i);
             }
             
-            if (!(stoi(i) >= 1 && stoi(i) <= 2)) {
+            if (!(stoi(i) >= 1 && stoi(i) <= 3)) {
                 throw InvalidNumberException(i);
             }
 
             flag = false;
         } catch(InvalidNumberException& e) {
-            cout << e.what() << endl;
+            cout << RED << endl << e.what() << RESET << endl << endl;
         } catch(NotNumberException& e) {
-            cout << e.what() << endl;
+            cout << RED << endl << e.what() << RESET << endl << endl;
         }
     }
 
@@ -370,7 +395,7 @@ string GameManager::reqCommand() {
 
             throw InvalidCommandException(command);
         } catch(InvalidCommandException& e) {
-            cout << e.what() << endl;
+            cout << RED << endl << e.what() << RESET << endl << endl;
         }
     }
     return "GAME END";
@@ -380,21 +405,12 @@ void GameManager::process(string command) {
     try {
         if (command == "NEXT") {
             cout << "Giliran dilanjut ke pemain berikutnya" << endl;
-
-            if (true) {
-                // throw exception
-            }
-        
         } else if (command == "DOUBLE") {
             int temp = getPrize();
             setPrize(temp * 2);
 
             cout << playerTurn.front().getName() << " melakukan DOUBLE! Poin hadiah naik dari" << endl;
             cout << temp << " menjadi " << getPrize() << "!" << endl;
-
-            if (true) {
-                // throw exception
-            }
         } else if (command == "HALF") {
             int temp = getPrize();
             if (temp != 1) {
@@ -405,10 +421,6 @@ void GameManager::process(string command) {
             } else {
                 cout << playerTurn.front().getName() << " melakukan HALF! Sayangnya poin hadiah sudah bernilai";
                 cout << temp << ". Poin hadiah tidak berubah.. Giliran dilanjut!" << endl;
-            }
-
-            if (true) {
-                // throw exception
             }
         } else if (command == "HELP") {
             cout << endl << "Command yang tersedia: " << endl;
@@ -428,38 +440,42 @@ void GameManager::process(string command) {
             this->gameEnd = true;
             // print skor terakhir
 
-            cout << "Terima kasih telah bermain :p" << endl;
+            cout << endl << "Terima kasih telah bermain Poker KW :p" << endl;
         } else {
             try {
                 getFirstPlayer().getAbility()->use(command, this);
             } catch (NoCardException &e) {
-                cout << e.what() << endl;
+                cout << RED << endl << e.what() << RESET << endl << endl;
                 process(reqCommand());
             } catch (UsedCardException &e) {
-                cout << e.what() << endl;
+                cout << RED << endl << e.what() << RESET << endl << endl;
                 process(reqCommand());
             } catch (NoAbilityException &e) {
-                cout << e.what() << endl;
+                cout << RED << endl << e.what() << RESET << endl << endl;
                 process(reqCommand());
             } catch (AbilityOffException &e) {
-                cout << e.what() << endl;
+                cout << RED << endl << e.what() << RESET << endl << endl;
                 process(reqCommand());
             }
             
         }
     } catch (InvalidCommandException &e) {
-        cout << e.what() << endl;
-        // process(reqCommand());
+        cout << RED << endl << e.what() << RESET << endl << endl;
     }
 }
 
 void GameManager::printQueue() {
     int count = 0;
+    cout << "<";
     for (auto &t : playerTurn) {
-        cout << "<p" << t.getId() << "> ";
+        cout << "p" << t.getId();
         count ++;
+
+        if (count != playerTurn.size()) {
+            cout << ",";
+        }
     }
-    cout << endl;
+    cout << ">" << endl;
 }
 
 bool GameManager::isInteger(const string& str) {
@@ -469,6 +485,18 @@ bool GameManager::isInteger(const string& str) {
     }
     catch (const exception&) {
         return false;
+    }
+}
+
+void GameManager::CheckWin(deque<Player> & p) {
+    for (int i = 0; i < 7; i ++) {
+        if (p[i].getPoint() >= pow(2, 32)) {
+            cout << "Selamat!! Pemain dengan username " << p[i].getName() << " memenangkan permainan!" << endl;
+            cout << "Pemain telah mencapai poin: " << p[i].getPoint() << endl;
+            cout << "Poin sudah melebihi 2^(32)" << endl;
+
+            this->gameEnd = true;
+        }
     }
 }
 
@@ -484,12 +512,20 @@ int GameManager::inputCangkul(int a, int b) {
             } else {
                 cout << "Silahkan pilih kartu yang ingin dikeluarkan: (1) pilihan saja" << endl;
             }
+            cout << "Ketik `-1` jika ingin keluar dari game" << endl << endl;
 
             cout << "> ";
             cin >> i;
 
             if (!isInteger(i)) {
                 throw NotNumberException(i);
+            }
+
+            if (stoi(i) == -1) {
+                this->gameEnd = true;
+
+                cout << endl << "Terima kasih telah bermain Poker KW :p" << endl;
+                return -1;
             }
             
             if (!(stoi(i) >= a && stoi(i) <= b)) {
@@ -498,9 +534,9 @@ int GameManager::inputCangkul(int a, int b) {
 
             flag = false;
         } catch(InvalidNumberException& e) {
-            cout << e.what() << endl;
+            cout << RED << endl << e.what() << RESET << endl << endl;
         } catch(NotNumberException& e) {
-            cout << e.what() << endl;
+            cout << RED << endl << e.what() << RESET << endl << endl;
         }
     }
 
@@ -526,6 +562,7 @@ void GameManager::displayPlayerCardWithColor(Player &p, string warna) {
             count ++;
             cout << count << ". ";
             p.getPlayerCardWithoutPop(i).displayCard();
+            cout << endl;
         }
     }
 }
