@@ -201,7 +201,7 @@ void GameManager::startGame() {
                     t.sortTableCard();
 
                     cout << endl << "Player dengan username " << playerTurn[0].getName() << " memiliki kartu paling besar, yaitu: ";
-                    t.getCardWithoutPop(0).displayCard();
+                    t.getCardWithoutPop(0).displayCard(); cout << endl;
 
                     evaluateQueue(t);
 
