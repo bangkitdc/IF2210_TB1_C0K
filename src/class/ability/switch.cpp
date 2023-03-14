@@ -10,6 +10,9 @@ void Switch::use(string power, GameManager* state) {
     else if (this->used) {
         throw UsedCardException(power);
     }
+    else if (!isActive()) {
+        throw AbilityOffException(power);
+    }
     else {
         cout << "dipake ya sayang\n";
         cout << "p" << state->playerTurn.front().getId() << "melakukan switch!" << endl;

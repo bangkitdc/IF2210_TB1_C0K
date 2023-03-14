@@ -21,9 +21,13 @@ class Ability {
         ~Ability();
 
         string getPower() const;
-        bool getUsage() const;
+        bool isUsed() const;
         bool isActive() const;
+        void setActive(bool);
+
         virtual void use(string, GameManager*) = 0;
+
+        bool isInteger(const string&);
 };
 
 #endif

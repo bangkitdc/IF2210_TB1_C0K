@@ -10,6 +10,9 @@ void Quadruple::use(string power, GameManager* state) {
     else if (this->used) {
         throw UsedCardException(power);
     }
+    else if (!isActive()) {
+        throw AbilityOffException(power);
+    }
     else {
         int temp = state->getPrize();
         state->setPrize(temp * 4);

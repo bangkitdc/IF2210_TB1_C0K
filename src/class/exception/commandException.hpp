@@ -27,7 +27,8 @@ class NoCardException : public BaseException {
         }
 
         const string what() const noexcept {
-            return "Ets, tidak bisa. Kamu tidak punya kartu Ability " + this->ability + ".";
+            return "Ets, tidak bisa. Kamu tidak punya kartu Ability " 
+            + this->ability + ".\nSilahkan lakukan perintah lain.";
         }
 };
 
@@ -40,7 +41,8 @@ class UsedCardException : public BaseException {
         }
 
         const string what() const noexcept {
-            return "Ets, Kamu udah pakai kartu Ability " + this->ability + ".";
+            return "Ets, Kamu udah pakai kartu Ability " 
+            + this->ability + ".\nSilahkan lakukan perintah lain.";
         }
 };
 
@@ -48,7 +50,7 @@ class NoAbilityException : public BaseException {
     public:
         NoAbilityException() {}
         const string what() const noexcept {
-            return "Kartu Ability belum dibagiin nih :).";
+            return "Kartu Ability belum dibagiin nih :).\nSilahkan lakukan perintah lain.";
         }
 };
 
@@ -60,7 +62,8 @@ class AbilityOffException : public BaseException {
             this->ability = ability;
         }
         const string what() const noexcept {
-            return "Oops, kartu ability " + this->ability + " milikmu telah dimatikan sebelumnya :(.";
+            return "Oops, kartu ability " + this->ability + 
+            " milikmu telah dimatikan sebelumnya :(.\nSilahkan lakukan perintah lain.";
         }
 };
 

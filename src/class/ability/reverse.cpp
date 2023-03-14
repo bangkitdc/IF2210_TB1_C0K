@@ -12,6 +12,9 @@ void Reverse::use(string power, GameManager* state) {
     else if (this->used) {
         throw UsedCardException(power);
     }
+    else if (!isActive()) {
+        throw AbilityOffException(power);
+    }
     else {
         this->used = true;
 
@@ -40,6 +43,8 @@ void Reverse::use(string power, GameManager* state) {
             cout << "<p" << state->playerTurn.at(i).getId() << "> ";
         }
         cout << "<p" << state->playerTurn.at(0).getId() << ">\n";
+
+        cout << "Silahkan lakukan perintah selanjutnya.\n";
         state->process(state->reqCommand());
         for (int i=1; i<state->turn; i++) {
             Player temp = state->dequeuePlayer();
@@ -47,11 +52,3 @@ void Reverse::use(string power, GameManager* state) {
         }       
     }
 }
-
-/*
-1
-2
-3 4 5 6 7 1 2
-4
-
-*/

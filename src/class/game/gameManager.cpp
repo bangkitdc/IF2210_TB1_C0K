@@ -81,7 +81,7 @@ void GameManager::startGame() {
 
                 cout << endl << "Prize saat ini: " << getPrize() << endl; 
                 cout << endl << "Giliran saat ini: p" << getFirstPlayer().getId() << endl;
-                cout << "Player cards: ";
+                cout << "Player cards:\n";
                 playerTurn[0].displayPlayerCards();
                 cout << endl;
                 cout << "Round: " << round << "\n";
@@ -419,6 +419,9 @@ void GameManager::process(string command) {
                 cout << e.what() << endl;
                 process(reqCommand());
             } catch (NoAbilityException &e) {
+                cout << e.what() << endl;
+                process(reqCommand());
+            } catch (AbilityOffException &e) {
                 cout << e.what() << endl;
                 process(reqCommand());
             }
