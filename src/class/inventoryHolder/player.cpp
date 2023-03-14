@@ -92,9 +92,12 @@ string Player::getName()const{
 }
 
 
-void Player::displayPlayer(){
+void Player::displayPlayer(bool displayPoint){
     cout << "Name : " << this->getName() <<endl;
-    cout << "Point : " << this->getPoint() <<endl;
+
+    if (!displayPoint)
+        cout << "Point : " << this->getPoint() <<endl;
+
     cout << "Card : \n" ;
     // for (int i=0;i<cardsP.size();i++){
     //     cout << i + 1 << ". ";
