@@ -36,11 +36,11 @@ Player Game::dequeuePlayer() {
     return player;
 }
 
-void Game::setPrize(int prize) {
+void Game::setPrize(long long prize) {
     this->prize = prize;
 }
 
-int Game::getPrize() {
+long long Game::getPrize() {
     return this->prize;
 }
 

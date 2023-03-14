@@ -16,7 +16,7 @@ class Game {
     protected:
         int turn;
         int round;
-        int prize;
+        long long unsigned prize;
         bool gameEnd;
         deque<Player> playerTurn;
         DeckCard d;
@@ -25,8 +25,8 @@ class Game {
         Game();
         void nextTurn();
         void nextRound();
-        void setPrize(int);
-        int getPrize();
+        void setPrize(long long);
+        long long getPrize();
         deque<Player> getPlayers();
         void enqueuePlayer(Player);
         Player dequeuePlayer();
