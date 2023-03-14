@@ -57,5 +57,5 @@ class fileInvalidException : public BaseException {
         const string what() const noexcept {
         return "Isi file invalid!";
     }
-}
+};
 #endif

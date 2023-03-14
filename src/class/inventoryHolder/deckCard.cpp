@@ -75,7 +75,7 @@ void DeckCard::readFromFile(string filename){
             cardNum = 9;
             break;
         default:
-            throw "Input tidak valid";
+            throw fileInvalidException();
             break;
         }
         
@@ -109,7 +109,7 @@ void DeckCard::readFromFile(string filename){
                 cardColor = "hijau";
                 break;
             default : 
-                throw "Input tidak valid";
+                throw fileInvalidException();
                 break;
             
             break;
@@ -119,7 +119,7 @@ void DeckCard::readFromFile(string filename){
     }
     f.close();
     if (temp.size()!= 52){
-        throw "Input kartu kurang";
+        throw fileInvalidException();
     }
     cards=temp;
 }
