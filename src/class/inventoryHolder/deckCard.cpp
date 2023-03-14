@@ -146,6 +146,11 @@ void DeckCard::shuffleCard(){
 vector<Card> DeckCard::getCards(){
     return cards;
 }
+
+bool DeckCard::isDeckEmpty() {
+    return cards.empty();
+}
+
 DeckCard& DeckCard::operator-(const Card & a){
     for(int i=0;i<cards.size();i++){
         if (cards[i].getNum()==a.getNum() && cards[i].getWarna().compare(a.getWarna())==0 ){
@@ -171,6 +176,11 @@ Card DeckCard::getCard(){
     Card temp=cards[cards.size()-1];
     cards.pop_back();
     return temp;   
+}
+
+Card DeckCard::getTopCard() {
+    Card temp = cards[cards.size() - 1];
+    return temp;
 }
 
 DeckCard& DeckCard::operator+(const Card &a){

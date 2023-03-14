@@ -24,7 +24,6 @@ class GameManager : public Game {
         int inputGame();
 
         string reqCommand();
-        // string reqCommand2();
         void process(string);
 
         void printQueue();
@@ -38,6 +37,7 @@ class GameManager : public Game {
         void displayPlayerCardWithColor(Player &, string);
         vector<int> countPlayerCardWithColor(Player &, string);
         int evaluate(tableCard &);
+        int evaluateIdxTable(tableCard &t);
         int findIdxWithId(int);
 };
 

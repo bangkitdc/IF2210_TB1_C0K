@@ -96,10 +96,11 @@ void Player::displayPlayer(){
     cout << "Name : " << this->getName() <<endl;
     cout << "Point : " << this->getPoint() <<endl;
     cout << "Card : \n" ;
-    for (int i=0;i<cardsP.size();i++){
-        cardsP[i].displayCard();
-    }
-    
+    // for (int i=0;i<cardsP.size();i++){
+    //     cout << i + 1 << ". ";
+    //     cardsP[i].displayCard();
+    // } 
+    displayPlayerCards();
 }
 
 void Player::displayPlayerCard(int i) {
@@ -130,6 +131,10 @@ Player& Player::operator+(DeckCard &a){
     }
     setCard(a);
     return *this;
+}
+
+void Player::addCardFromDeck(DeckCard &a) {
+    setCard(a);
 }
 
 Player& Player::operator-(const Card &a){
