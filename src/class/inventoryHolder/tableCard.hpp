@@ -22,6 +22,8 @@ class tableCard : public InventoryHolder{
         Card getFirstCard();
         Card getCard();
         Card getCardWithoutPop(int i);
+        void clearCards();
+
 
         void addCard(Card);
         void addMilik(int i);
@@ -34,6 +36,8 @@ class tableCard : public InventoryHolder{
         tableCard& operator-(DeckCard &);
 
         bool isTCardEmpty();
+
+        void sortTableCard();
 };
 
 void addPlayerCard(tableCard &, Player &, int);

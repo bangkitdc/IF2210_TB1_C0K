@@ -39,7 +39,7 @@ class Player : public InventoryHolder {
         string getName()const;
         vector<Card> getCards();
         void setCards(vector<Card>);
-        void displayPlayer();
+        void displayPlayer(bool displayPoint = true);
         void displayPlayerCard(int);
         void displayPlayerCards();
         void setCard(DeckCard&);

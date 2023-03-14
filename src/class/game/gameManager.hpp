@@ -36,8 +36,7 @@ class GameManager : public Game {
         void CheckWin2(deque<Player> &);
         void displayPlayerCardWithColor(Player &, string);
         vector<int> countPlayerCardWithColor(Player &, string);
-        int evaluate(tableCard &);
-        int evaluateIdxTable(tableCard &t);
+        void evaluateQueue(tableCard &);
         int findIdxWithId(int);
 };
 
