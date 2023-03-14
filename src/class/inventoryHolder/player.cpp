@@ -118,7 +118,7 @@ void Player::displayPlayerCards(){
 
 Player& Player::operator+(const Card &a){
     if(cardsP.size()==2){
-        throw "Player sudah memiliki 2 kartu";
+        throw PlayerFullException();
     }
     cardsP.push_back(a);
     return *this;
@@ -141,6 +141,9 @@ void Player::addCardFromDeck(DeckCard &a) {
 }
 
 Player& Player::operator-(const Card &a){
+    if(cardsP.size()==0){
+        throw PlayerKosongException();
+    }
     for(int i=0;i<cardsP.size();i++){
         if (cardsP[i].getNum()==a.getNum() && cardsP[i].getWarna().compare(a.getWarna())==0 ){
             cardsP.erase(cardsP.begin()+i);
