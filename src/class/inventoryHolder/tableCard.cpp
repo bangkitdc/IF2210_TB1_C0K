@@ -14,7 +14,7 @@ void tableCard::displayTCard(){
     if (Tcards.size() != 0) {
         cout << "=================Kartu Meja Sekarang=================" << endl;
         for(int i=0;i<Tcards.size();i++){
-            Tcards[i].displayCard();
+            Tcards[i].displayCard();   
         }
     } else {
         cout << "Kartu meja saat ini kosong :(" << endl;

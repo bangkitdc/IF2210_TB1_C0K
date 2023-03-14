@@ -138,8 +138,9 @@ void DeckCard::displayDeckCard(){
 }
 
 void DeckCard::shuffleCard(){
-    auto rng = std::default_random_engine {};
-    std::shuffle(begin(cards), end(cards), rng);
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(cards.begin(), cards.end(), g);
 }
 
 vector<Card> DeckCard::getCards(){
@@ -169,6 +170,9 @@ void DeckCard::deleteCard(Card a){
 
 Card DeckCard::getCard(){
     // shuffleCard();
+    if(cards.size()==0){
+        throw DeckKosongException();
+    }
     Card temp=cards[cards.size()-1];
     cards.pop_back();
     return temp;   

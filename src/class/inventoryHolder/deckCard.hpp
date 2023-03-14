@@ -5,6 +5,7 @@
 #include <vector>
 #include "../cardValue/card.hpp"
 #include "inventoryHolder.hpp"
+#include "../exception/cardException.hpp"
 using namespace std;
 
 class DeckCard : public InventoryHolder {
