@@ -55,6 +55,7 @@ class Player : public InventoryHolder {
         Player& operator+(DeckCard &);
 
         void addCard(const Card &);
+        void addCardFromDeck(DeckCard &);
 
         Player& operator-(const Card &);
         Player& operator-(DeckCard &);

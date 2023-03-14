@@ -55,6 +55,10 @@ void GameManager::startGame() {
                     if (pil == 2) {
                         string fileInput = inputFile();
                         d.readFromFile(fileInput);
+                    } else {
+                        for (auto &p : playerTurn) {
+                            p.setCardN(d, 2);
+                        }
                     }
 
                     setPrize(64);
@@ -72,7 +76,6 @@ void GameManager::startGame() {
                     // Player p1;
                     // p1 = c.evaluate(getPlayers())
 
-
                 }
 
                 cout << endl << "Prize saat ini: " << getPrize() << endl; 
@@ -89,14 +92,9 @@ void GameManager::startGame() {
                 Player temp = dequeuePlayer();
                 enqueuePlayer(temp);
 
-                
                 nextTurn();
                 printQueue();
-            }
-
-            
-
-            
+            }            
         }
     } else {
         cout << "Welcome to Cangkulan" << endl << endl;
@@ -141,9 +139,26 @@ void GameManager::startGame() {
                     addPlayerCard(t, playerTurn[0], listIndex[x - 1]);
                 } else {
                     cout << "Pemain tidak memiliki kartu dengan warna" << warna << "!" << endl;
-                    cout << "Silahkan mengambil semua kartu di meja, hehe" << endl; 
+                    cout << "Silahkan mengambil kartu di cangkulan sampe dapet, hehe" << endl;
 
-                    moveAllTableCardToPlayer(playerTurn[0], t);
+                    bool dapet = false;
+                    while (!d.isDeckEmpty() && !dapet) {
+                        Card temp = d.getTopCard();
+                        cout << "Player mendapat kartu "; temp.displayCard();
+
+                        playerTurn[0].addCardFromDeck(d); // sekalian dipop dari deck
+                        if (temp.getWarna() == warna) {
+                            dapet = true;
+                            cout << "Player mendapat kartu dengan warna yang sama dengan table" << endl;
+                        } else {
+                            cout << "Player mendapat kartu dengan warna berbeda dengan table, silahkan cangkul lagi :D" << endl;
+                        }
+                    }
+
+                    if (!dapet && d.isDeckEmpty()) {
+                        moveAllTableCardToPlayer(playerTurn[0], t);
+                        cout << "Cangkulan habis, silahkan ambil kartu di table, xixixixi" << endl;
+                    }
                     flag = false;
                 }
                 CheckWin2(playerTurn);
@@ -151,9 +166,13 @@ void GameManager::startGame() {
 
             if(t.getCards().size() == 4) {
                 int idKalah = evaluate(t);
+                int idxKartuDiTable = evaluateIdxTable(t);
 
                 // evaluate
                 int idxKalah = findIdxWithId(idKalah);
+                cout << "Player dengan username " << playerTurn[idxKalah].getName() << " memiliki kartu paling kecil, yaitu ";
+                t.getCardWithoutPop(idxKartuDiTable).displayCard();
+                cout << "Dia harus mengambil semua kartu yang ada di meja :p" << endl;
 
                 if (idxKalah != -1) {
                     moveAllTableCardToPlayer(playerTurn[idxKalah], t);
@@ -165,10 +184,6 @@ void GameManager::startGame() {
                 Player temp = dequeuePlayer();
                 enqueuePlayer(temp);
             }
-            
-            // for (int i = 0; i < 4; i ++) {
-            //     playerTurn[i].displayPlayer();
-            // }
         }
     }
 }
@@ -507,6 +522,20 @@ int GameManager::evaluate(tableCard &t) {
     }
 
     return id;
+}
+
+int GameManager::evaluateIdxTable(tableCard &t) {
+    int min = t.getCardWithoutPop(0).getNum();
+    int idx = 0;
+
+    for (int i = 1; i < t.getCards().size(); i ++) {
+        if (t.getCardWithoutPop(i).getNum() < min) {
+            min = t.getCardWithoutPop(i).getNum();
+            idx = i;
+        }
+    }
+
+    return idx;
 }
 
 int GameManager::findIdxWithId(int idKalah) {

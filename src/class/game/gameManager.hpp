@@ -37,6 +37,7 @@ class GameManager : public Game {
         void displayPlayerCardWithColor(Player &, string);
         vector<int> countPlayerCardWithColor(Player &, string);
         int evaluate(tableCard &);
+        int evaluateIdxTable(tableCard &t);
         int findIdxWithId(int);
 };
 

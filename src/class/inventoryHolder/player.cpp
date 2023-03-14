@@ -133,6 +133,10 @@ Player& Player::operator+(DeckCard &a){
     return *this;
 }
 
+void Player::addCardFromDeck(DeckCard &a) {
+    setCard(a);
+}
+
 Player& Player::operator-(const Card &a){
     for(int i=0;i<cardsP.size();i++){
         if (cardsP[i].getNum()==a.getNum() && cardsP[i].getWarna().compare(a.getWarna())==0 ){
