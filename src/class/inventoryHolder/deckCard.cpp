@@ -140,35 +140,6 @@ void DeckCard::readFromFile(string filename){
             break;
             }   
         }
-        // vector<string> color= {"m","k","b","h"};
-        // bool isValid=false;
-        // for (int i=1;i<=13;i++){
-        //     for(int j=0;j<4;i++){
-        //         if(line.compare(to_string(i)+color[j])==0){
-        //             cardNum=i;
-        //             if(color[j].compare("m")==0){
-        //                 cardColor="merah";
-        //             }
-        //             else if(color[j].compare("k")==0){
-        //                 cardColor="kuning";
-        //             }
-        //             else if(color[j].compare("b")==0){
-        //                 cardColor="biru";
-        //             }
-        //             else if(color[j].compare("h")==0){
-        //                 cardColor="hijau";
-        //             }
-        //             isValid=true;                    
-        //             break;
-        //         }
-        //     }
-        // }
-
-        // if (!isValid)
-        // {
-        //     throw fileInvalidException();
-        // }
-        
         int copyCardNum=cardNum;
         string copyCardColor=cardColor;
         temp1.insert(to_string(copyCardNum)+copyCardColor);

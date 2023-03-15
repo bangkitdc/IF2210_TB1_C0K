@@ -61,6 +61,8 @@ class Player : public InventoryHolder {
         Player& operator-(const Card &);
         Player& operator-(DeckCard &);
         Player& operator=(const Player &);
+        bool operator>(const Player &);
+        bool operator<(const Player &);
         vector<Card> evaluateCard(tableCard a);
         double getValueGeneric();
         void resetPlayerCard();

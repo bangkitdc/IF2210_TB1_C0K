@@ -209,3 +209,13 @@ void moveAllTableCardToPlayer(Player& p, tableCard &t) {
 
     t.clearMilik();
 }
+
+bool Player::operator>(const Player &a)[
+    return this->poiint>a.point;
+]
+bool Player::operator<(const Player &a){
+    return this->poiint<a.point;
+}
+bool Player::operator==(const Player &a){
+    return this->poiint==a.point;
+}
