@@ -796,7 +796,7 @@ Player Combination::evaluate(vector<Player> players, vector<Card> tableCard)
             playersTemp.push_back(p);
         }
 
-        if(playersTemp.size() == 4){ // 
+        if(playersTemp.size() == 7){ // 
             // cout << "TEST4" << endl;
             return evaluateAgain(playersTemp, tableCard, max);
         }
@@ -851,11 +851,11 @@ Player Combination::evaluateAgain(vector<Player> players, vector<Card> t, double
 
             // for(int i=0; i< )
             // cout << val[0] << endl;
-            // if(val[0] == m){
-            //     cout << "bug" << endl;
-            //     com.erase(com.begin());
-            //     val.erase(val.begin());
-            // }
+            if(val[0] == m){
+                // cout << "bug" << endl;
+                com.erase(com.begin());
+                val.erase(val.begin());
+            }
 
             // cout << val[0] << endl;
             if(val[0] > max){
