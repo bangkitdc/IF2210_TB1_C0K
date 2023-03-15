@@ -38,8 +38,6 @@ void GameManager::startGame() {
             // Input Player
             inputPlayer(7);
 
-            printPlayersPoint();
-
             while (!gameEnd) {
                 // Initiate Main Deck Card, Table Card
                 
@@ -570,7 +568,7 @@ void GameManager::CheckWin(deque<Player> & p) {
             cout << "Selamat!! Pemain dengan username " << p[i].getName() << " memenangkan permainan!" << endl;
             cout << "Pemain telah mencapai poin: ";
             printPrize(p[i].getPoint());
-            cout << "\nPoin sudah melebihi " << pow(2,32) << endl;
+            cout << "\nPoin sudah melebihi 4294967296" << endl;
 
             this->gameEnd = true;
         }

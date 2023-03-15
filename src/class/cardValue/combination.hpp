@@ -41,7 +41,7 @@ class Combination : public CardValue {
         void eraseFirst(vector<vector<Card>>&);
         ::pair<vector<vector<Card>>, vector<double>> concatCombi(vector<Card>);
 
-        Player evaluate(deque<Player>, vector<Card>);
+        // Player evaluate(deque<Player>, vector<Card>);
         Player evaluateAgain(vector<Player>, vector<Card>, double);
 
         int color2Int(Card);
