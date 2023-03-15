@@ -59,12 +59,12 @@ class fileInvalidException : public BaseException {
         this->line=a;
     }
         const string what() const noexcept {
-        return "Pastikan input file sesuai, contoh : \n<1-13>m\n<1-13>k\n<1-13>b\n<1-13>h\ncek line " + to_string(line) + "\n";
+        return "Pastikan input file sesuai, contoh : \n<1-13>m\n<1-13>k\n<1-13>b\n<1-13>h\ncek line " + to_string(line);
     }
 };
 class fileInvalidUkuranException : public BaseException {
     public : 
-    fileInvalidUkuranException(){\
+    fileInvalidUkuranException(){
     }
         const string what() const noexcept {
         return "Jumlah kartu kurang atau melebihi 52!";

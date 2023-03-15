@@ -5,12 +5,12 @@
 #include <filesystem>
 #include <iostream>
 #include <string>
-#include <conio.h>
 
 #include "game.hpp"
 #include "../../utility/utility.hpp"
 #include "../exception/exception.hpp"
 #include "../exception/commandException.hpp"
+#include "../exception/nameException.hpp"
 #include "../exception/cardException.hpp"
 #include "../exception/numberException.hpp"
 #include "../inventoryHolder/player.hpp"
