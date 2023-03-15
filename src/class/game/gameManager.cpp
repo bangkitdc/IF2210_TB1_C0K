@@ -96,7 +96,7 @@ void GameManager::startGame() {
                                 cout << "Tidak terdapat file di dalam directory /test, Deck Card akan di-random" << endl;
                             } else {
                                 while(true){   
-                                    try
+                                try
                                     {
                                         d.readFromFile("..\\IF2210_TB1_C0K\\test\\"+fileInput); 
                                         break;
@@ -124,10 +124,11 @@ void GameManager::startGame() {
                                     }
                                 }       
                             }
+
                         } else {
                             this->d.shuffleCard();
+
                         }
-                    }
                         
 
                         // Assign deck ke masing-masing player
@@ -177,7 +178,7 @@ void GameManager::startGame() {
                 printQueue();
             }            
         }
-    } else {
+    } else if (inpGame==2){
         cout << "Welcome to Cangkulan" << endl << endl;
         
         DeckCard d;
