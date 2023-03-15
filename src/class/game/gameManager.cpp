@@ -143,8 +143,8 @@ void GameManager::startGame() {
 
                 nextTurn();
                 printQueue();
-            }            
-        }
+                }            
+            }
     } else if (inpGame==2){
         cout << "Welcome to Cangkulan" << endl << endl;
         
