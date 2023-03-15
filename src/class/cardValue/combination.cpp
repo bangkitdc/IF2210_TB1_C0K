@@ -780,19 +780,19 @@ Player Combination::evaluate(vector<Player> players, vector<Card> tableCard)
         }
         // tempGabungan.insert(tempGabungan.end(), table.begin(), table.end());
         // tempGabungan.insert(tempGabungan.end(), p.getCards().begin(), p.getCards().end());
-        cout << "TEST1.1" << endl;
-        cout << concatCombi(tempGabungan).second[0]  << endl;
+        // cout << "TEST1.1" << endl;
+        // cout << concatCombi(tempGabungan).second[0]  << endl;
         if(concatCombi(tempGabungan).second[0] > max){
-            cout << "TEST2" << endl;
+            // cout << "TEST2" << endl;
             // max = priorityCard(tempGabungan);
             max = concatCombi(tempGabungan).second[0];
             while(playersTemp.size() != 0){
-                cout << "POP" << endl;
+                // cout << "POP" << endl;
                 playersTemp.pop_back();
             }
             playersTemp.push_back(p);
         } else if (max == concatCombi(tempGabungan).second[0]){
-            cout << "TEST3" << endl;
+            // cout << "TEST3" << endl;
             playersTemp.push_back(p);
         }
 
@@ -810,65 +810,65 @@ Player Combination::evaluateAgain(vector<Player> players, vector<Card> t, double
 {
     Player res;
     vector<Player> player;
-    cout << "bug1" << endl;
+    // cout << "bug1" << endl;
     while(player.size() != 1){
-        cout << "bug2" << endl;
+        // cout << "bug2" << endl;
         player.clear();
         double max = 0.0;
-        cout << "bug3" << endl;
+        // cout << "bug3" << endl;
         for(auto &p : players){
-            cout << "Player ke :" << p.getId() << endl;
+            // cout << "Player ke :" << p.getId() << endl;
             vector<Card> tempGabungan;
-            cout << "bug4" << endl;
+            // cout << "bug4" << endl;
             vector<Card> kartuplayer = p.getCards();
             tempGabungan.insert(tempGabungan.end(), t.begin(), t.end());
             tempGabungan.insert(tempGabungan.end(), kartuplayer.begin(), kartuplayer.end());
-            cout << "bug5" << endl;
+            // cout << "bug5" << endl;
 
-            for(int i=0; i<tempGabungan.size(); i++){
-                cout << tempGabungan[i].getNum() << tempGabungan[i].getWarna() << endl;
-            }
+            // for(int i=0; i<tempGabungan.size(); i++){
+            //     cout << tempGabungan[i].getNum() << tempGabungan[i].getWarna() << endl;
+            // }
 
             pair<vector<vector<Card>>, vector<double>> combi = concatCombi(tempGabungan);
-            cout << "bug6" << endl;
+            // cout << "bug6" << endl;
             vector<vector<Card>> com = combi.first;
             vector<double> val = combi.second;
 
-            cout << "================" << endl;
-            for(int i=0; i<com.size(); i++){
-                for(int j=0; j<com[i].size(); j++){
-                    cout << com[i][j].getNum() << com[i][j].getWarna() << " " << endl;
-                }
-                cout << endl;
-            }
-            cout << "================" << endl;
-            cout << "================" << endl;
-            for(int i=0; i<val.size(); i++){
-                cout << val[i] << endl;
-            }
-            cout << "================" << endl;
+            // cout << "================" << endl;
+            // for(int i=0; i<com.size(); i++){
+            //     for(int j=0; j<com[i].size(); j++){
+            //         cout << com[i][j].getNum() << com[i][j].getWarna() << " " << endl;
+            //     }
+            //     cout << endl;
+            // }
+            // cout << "================" << endl;
+            // cout << "================" << endl;
+            // for(int i=0; i<val.size(); i++){
+            //     cout << val[i] << endl;
+            // }
+            // cout << "================" << endl;
             //kalo sebelumnya dia punya straight flush
 
             // for(int i=0; i< )
-            cout << val[0] << endl;
-            if(val[0] == m){
-                cout << "bug" << endl;
-                com.erase(com.begin());
-                val.erase(val.begin());
-            }
+            // cout << val[0] << endl;
+            // if(val[0] == m){
+            //     cout << "bug" << endl;
+            //     com.erase(com.begin());
+            //     val.erase(val.begin());
+            // }
 
-            cout << val[0] << endl;
+            // cout << val[0] << endl;
             if(val[0] > max){
-                cout << "bug8" << endl;
+                // cout << "bug8" << endl;
                 max = val[0];
                 while(player.size() != 0){
                     player.pop_back();
-                    cout << "bug9" << endl;
+                    // cout << "bug9" << endl;
                 }
                 player.push_back(p);
             } else if(val[0] == max){
                 player.push_back(p);
-                cout << "bug10" << endl;
+                // cout << "bug10" << endl;
             }
             tempGabungan.clear();
         }
