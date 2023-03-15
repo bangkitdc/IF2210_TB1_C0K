@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <deque>
+#include <cstdint>
+#include <cstdio>
 // #include "../inventoryHolder/player.hpp"
 // #include "../cardValue/cardValue.hpp"
 #include "../inventoryHolder/deckCard.hpp"
@@ -16,7 +18,7 @@ class Game {
     protected:
         int turn;
         int round;
-        long long int prize;
+        __uint128_t prize;
         bool gameEnd;
         bool programEnd;
         deque<Player> playerTurn;
@@ -26,9 +28,11 @@ class Game {
         Game();
         void nextTurn();
         void nextRound();
-        void setPrize(long long);
-        long long getPrize();
+        void setPrize(__uint128_t);
+        __uint128_t getPrize();
+        void printPrize(__uint128_t);
         deque<Player> getPlayers();
+        void printPlayersPoint();
         void enqueuePlayer(Player);
         Player dequeuePlayer();
         Player getFirstPlayer();

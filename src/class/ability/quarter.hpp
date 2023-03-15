@@ -2,6 +2,7 @@
 #define _QUARTER_HPP_
 
 #include "ability.hpp"
+#include <cstdint>
 
 class Quarter : public Ability {
     public:

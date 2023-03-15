@@ -29,6 +29,7 @@ class DeckAbility {
         ~DeckAbility();
 
         map<int, Ability*> getAbilityDeck();
+        void resetAbilityDeck();
         void shuffleAbility(Game*);
         void distributeAbility(Game*);
 };

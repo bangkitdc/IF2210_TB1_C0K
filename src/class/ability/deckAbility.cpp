@@ -16,6 +16,12 @@ DeckAbility::~DeckAbility() {
     this->aDeck.clear();
 }
 
+void DeckAbility::resetAbilityDeck() {
+    for (int i=1; i<=7; i++) {
+        this->aDeck[i] = new NoAbility;
+    }
+}
+
 map<int, Ability*> DeckAbility::getAbilityDeck() {
     return this->aDeck;
 }

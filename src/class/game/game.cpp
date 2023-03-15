@@ -3,7 +3,7 @@
 // #include "../inventoryHolder/deckCard.hpp"
 using namespace std;
 
-Game::Game() {
+Game::Game() : d() {
     this->turn = 1;
     this->round = 1;
     this->gameEnd = false;
@@ -36,12 +36,29 @@ Player Game::dequeuePlayer() {
     return player;
 }
 
-void Game::setPrize(long long prize) {
+void Game::setPrize(__uint128_t prize) {
     this->prize = prize;
 }
 
-long long Game::getPrize() {
+void Game::printPrize(__uint128_t prize) {
+    printf("%llu", (unsigned long long) prize);
+}
+
+__uint128_t Game::getPrize() {
     return this->prize;
+}
+
+void Game::printPlayersPoint() {
+    cout << "<id> - name - point\n";
+    for (auto &p : playerTurn) {
+        cout << "<p" << p.getId() << "> - " << p.getName() << "    - ";
+        printPrize(p.getPoint());
+        cout << endl;
+    }
+    cout << endl;
+    // for (auto &p : playerTurn) {
+    //                         p.setCardN(d, 2);
+    //                     }
 }
 
 deque<Player> Game::getPlayers() {
