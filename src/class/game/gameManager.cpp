@@ -1,12 +1,4 @@
 #include "gameManager.hpp"
-#include "../../utility/utility.hpp"
-#include <filesystem>
-#include <iostream>
-#include <vector>
-#include <string>
-#include <conio.h>
-
-using namespace std;
 
 const string listCommand[] = {
     "NEXT",
@@ -59,8 +51,8 @@ void GameManager::startGame() {
                         playerTurn.front().addPoint(prize);
                         cout << "\n\n";
                         printPrize(prize);
-                        cout << " DIBERIKAN KE P1!\n\n"
-                        cout << "====================================================="
+                        cout << " DIBERIKAN KE P1!\n\n";
+                        cout << "=====================================================" << endl;
                         cout << "\nPoint player:\n";
                         
                         printPlayersPoint();
@@ -130,7 +122,6 @@ void GameManager::startGame() {
 
                         }
                         
-
                         // Assign deck ke masing-masing player
                         for (auto &p : playerTurn) {
                             p.setCardN(d, 2);
@@ -178,12 +169,12 @@ void GameManager::startGame() {
                 printQueue();
                 }            
             }
-    } else if (inpGame==2){
-        cout << "Welcome to Cangkulan" << endl << endl;
-        
-        DeckCard d;
-        tableCard t;
-        d.shuffleCard();
+        } else if (inpGame==2){
+            cout << "Welcome to Cangkulan" << endl << endl;
+            
+            DeckCard d;
+            tableCard t;
+            d.shuffleCard();
 
             // Input Player
             inputPlayer(4, d, 3);

@@ -3,10 +3,12 @@
 
 #include "ability.hpp"
 #include "../inventoryHolder/player.hpp"
+#include "../game/gameManager.hpp"
+
 class Swap : public Ability {
     public:
-        Swap();
-        void use(string, GameManager*);
+        Swap();                         /* Default Constructor */
+        void use(string, GameManager*); /* Implementor */
 };
 
 #endif

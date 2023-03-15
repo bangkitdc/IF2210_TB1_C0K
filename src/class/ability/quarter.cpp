@@ -1,5 +1,4 @@
 #include "quarter.hpp"
-#include "../game/gameManager.hpp"
 
 Quarter::Quarter() : Ability("QUARTER") {}
 

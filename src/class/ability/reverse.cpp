@@ -1,7 +1,4 @@
 #include "reverse.hpp"
-#include "../game/gameManager.hpp"
-#include <algorithm>
-#include <deque>
 
 Reverse::Reverse() : Ability("REVERSE") {}
 

@@ -1,7 +1,5 @@
 #include "swap.hpp"
 
-#include "../game/gameManager.hpp"
-
 Swap::Swap() : Ability("SWAP") {}
 
 void Swap::use(string power, GameManager* state) {

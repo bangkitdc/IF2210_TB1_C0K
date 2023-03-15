@@ -1,21 +1,8 @@
 #include "combination.hpp"
-// #include <bits/stdc++.h>
-// #include "testcombo.cpp"
-#include <string>
-#include <utility>
-#include <iostream>
 
-using namespace std;
+Combination::Combination() { }
 
-Combination::Combination()
-{
-    
-}
-
-Combination::~Combination()
-{
-
-}
+Combination::~Combination() { }
 
 void Combination::sortCard(vector<Card> &card)
 {

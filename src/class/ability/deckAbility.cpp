@@ -50,8 +50,6 @@ void DeckAbility::distributeAbility(Game* state) {
     int i = 1;
     for (Player& p : state->playerTurn) {
         p.setAbility(aDeck[i]);
-        // cout << p.getAbility()->getPower() << " ";
         i++;
     }
-    // cout << "\n";
 }

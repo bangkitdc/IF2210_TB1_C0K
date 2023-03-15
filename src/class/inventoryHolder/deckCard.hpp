@@ -3,37 +3,38 @@
 
 #include <iostream>
 #include <vector>
+#include <fstream>
+#include <random>
+#include <algorithm>
+#include <set>
+
 #include "../cardValue/card.hpp"
 #include "inventoryHolder.hpp"
 #include "../exception/cardException.hpp"
-#include <fstream>
+
 using namespace std;
 
 class DeckCard : public InventoryHolder {
     protected:
         vector<Card> cards;
-        void deleteCard(Card);
-        
     public:
-        // friend class Player;
-        // friend class Card;
-        DeckCard();
-        ~DeckCard();
-        void readFromFile(string);
-        void shuffleCard();
-        void setCards(vector<Card>);
-        void addCard(Card a);
-        Card getCard();
-        Card getTopCard();
-        vector<Card> getCards();
-        bool isDeckEmpty();
+        DeckCard();                             /* Default Constructor */
+        ~DeckCard();                            /* Destructor  */
+        void readFromFile(string);              /* I/O File */
+        void shuffleCard();                     /* Shuffle Card */
+        void setCards(vector<Card>);            /* Setter */
+        void addCard(Card a);                   /* Setter */
+        Card getCard();                         /* Getter */                
+        Card getTopCard();                      /* Getter */
+        vector<Card> getCards();                /* Getter */
 
-        DeckCard& operator+(const Card &);
-        DeckCard& operator-(const Card &);
-        DeckCard& operator=(const DeckCard &);
-        void displayDeckCard();
-
-        void resetDeckCard();
+        DeckCard& operator+(const Card &);      /* Operator Overloading */
+        DeckCard &operator-(const Card &);      /* Operator Overloading */
+        DeckCard &operator=(const DeckCard &);  /* Operator Overloading */
+        
+        void displayDeckCard();                 /* Display Deck */
+        bool isDeckEmpty();                     /* Boolean Check Empty */
+        void resetDeckCard();                   /* Reset Deck Card */
 };
 
 #endif
