@@ -8,7 +8,7 @@ using namespace std;
 class UsernameException : public BaseException {
     public:
         const string what() const noexcept {
-            return "Masksimum panjang Username 10 karakter!\n";
+            return "Masksimum panjang Username 10 karakter!";
         }
 };
 
