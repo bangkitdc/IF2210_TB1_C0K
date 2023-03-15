@@ -14,10 +14,13 @@ void Quadruple::use(string power, GameManager* state) {
         throw AbilityOffException(power);
     }
     else {
-        int temp = state->getPrize();
+        __uint128_t temp = state->getPrize();
         state->setPrize(temp * 4);
         cout << state->getFirstPlayer().getName() << " melakukan QUADRUPLE! Poin hadiah naik dari" << endl;
-        cout << temp << " menjadi " << state->getPrize() << "!" << endl;
+        state->printPrize(temp);
+        cout << " menjadi ";
+        state->printPrize(state->getPrize());
+        cout << "!" << endl;
         this->used = true;
     }
 }

@@ -2,6 +2,7 @@
 #define _QUADRUPLE_HPP_
 
 #include "ability.hpp"
+#include <cstdint>
 
 class Quadruple : public Ability {
     public:

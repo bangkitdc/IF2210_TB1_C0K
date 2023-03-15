@@ -38,15 +38,48 @@ void GameManager::startGame() {
 
             while (!gameEnd) {
                 // Initiate Main Deck Card, Table Card
-                DeckCard d;
+                
+                this->d = DeckCard();
+                this->d.shuffleCard();
+                // this->d.displayDeckCard();
                 tableCard t;
 
                 DeckAbility *da = new DeckAbility();
                 da->distributeAbility(this);
                 
-                d.shuffleCard();
 
-                while(round != 6 && !gameEnd) {
+                while(!gameEnd) {
+                    if (round == 7) {
+                        // EVALUATE
+                        Player temp = dequeuePlayer();
+                        enqueuePlayer(temp);
+
+                        // SEMENTARA PRIZE GW ASSIGN LANGSUNG KE P1
+                        playerTurn.front().addPoint(prize);
+                        cout << "\n\n";
+                        printPrize(prize);
+                        cout << " DIBERIKAN KE P1!\n\n"
+                        cout << "====================================================="
+                        cout << "\nPoint player:\n";
+                        
+                        printPlayersPoint();
+
+                        if (getFirstPlayer().getPoint() >= pow(2,32)) {
+                            cout << "\nP1 MENANG!!!!!!!!!!!\n\n";
+                            gameEnd = true;
+                            break;
+                        } else {
+                            cout << "\nPermainan diulang!\n";
+                            this->d = DeckCard();
+                            this->d.shuffleCard();
+                            t = tableCard();
+                            setPrize(64);
+                            this->round = 1;
+                            this->turn = 1;
+                            da->resetAbilityDeck();
+                            da->distributeAbility(this);
+                        }
+                    }
                     if (round == 1 && turn == 1) {
                         // inisiasi awal deck, tablecard, playercard, dll
                         // kalau round 1 ditanya deck nya mau random apa dari file
@@ -68,6 +101,8 @@ void GameManager::startGame() {
                                     cout << "Deck Card akan di-random" << endl;
                                 }
                             }
+                        } else {
+                            this->d.shuffleCard();
                         }
 
                         // Assign deck ke masing-masing player
@@ -78,16 +113,22 @@ void GameManager::startGame() {
                         setPrize(64);
                     }
 
+                    if (round != 6 && turn == 1) {
+                        t.addCard(d.getCard());
+                    }
+
                     if (round == 2 && turn == 1) {
                         da->shuffleAbility(this);
                         da->distributeAbility(this);
                     }
-
+                    
                     t.displayTCard();
-                    cout << "\n===================================\n";
+                    cout << "\n=====================================================\n";
                     cout << "Round : " << round << "\n";
                     cout << "Turn  : " << turn << "\n";
-                    cout << "Prize : " << getPrize() << endl; 
+                    cout << "Prize : ";
+                    printPrize(prize);
+                    cout << endl;
                     cout << "Queue : ";
                     printQueue();
                     cout << "Giliran saat ini: p" << getFirstPlayer().getId() << endl;
@@ -98,15 +139,6 @@ void GameManager::startGame() {
                     cout << endl << endl;
                     if (round > 1) {
                         cout << "Kamu punya ability: " << getFirstPlayer().getAbility()->getPower() << endl;
-                    }
-
-                    if (round == 6) {
-                        // evaluate
-                        // Combination c;
-
-                        // Player p1;
-                        // p1 = c.evaluate(getPlayers())
-
                     }
 
                     string command = reqCommand();
@@ -406,21 +438,28 @@ void GameManager::process(string command) {
         if (command == "NEXT") {
             cout << "Giliran dilanjut ke pemain berikutnya" << endl;
         } else if (command == "DOUBLE") {
-            int temp = getPrize();
+            __uint128_t temp = getPrize();
             setPrize(temp * 2);
 
             cout << playerTurn.front().getName() << " melakukan DOUBLE! Poin hadiah naik dari" << endl;
-            cout << temp << " menjadi " << getPrize() << "!" << endl;
+            printPrize(temp);
+            cout << " menjadi ";
+            printPrize(prize);
+            cout << "!" << endl;
+
         } else if (command == "HALF") {
-            int temp = getPrize();
+            __uint128_t temp = getPrize();
             if (temp != 1) {
                 setPrize(temp / 2);
 
                 cout << playerTurn.front().getName() << " melakukan HALF! Poin hadiah turun dari" << endl;
-                cout << temp << " menjadi " << getPrize() << "!" << endl;
+                printPrize(temp);
+                cout << " menjadi ";
+                printPrize(prize);
+                cout << "!" << endl;
             } else {
-                cout << playerTurn.front().getName() << " melakukan HALF! Sayangnya poin hadiah sudah bernilai";
-                cout << temp << ". Poin hadiah tidak berubah.. Giliran dilanjut!" << endl;
+                cout << playerTurn.front().getName() << " melakukan HALF! Sayangnya poin hadiah sudah bernilai 1. ";
+                cout << "Poin hadiah tidak berubah.. Giliran dilanjut!" << endl;
             }
         } else if (command == "HELP") {
             cout << endl << "Command yang tersedia: " << endl;
@@ -465,17 +504,10 @@ void GameManager::process(string command) {
 }
 
 void GameManager::printQueue() {
-    int count = 0;
-    cout << "<";
     for (auto &t : playerTurn) {
-        cout << "p" << t.getId();
-        count ++;
-
-        if (count != playerTurn.size()) {
-            cout << ",";
-        }
+        cout << "<p" << t.getId() << "> ";
     }
-    cout << ">" << endl;
+    cout << endl;
 }
 
 bool GameManager::isInteger(const string& str) {
@@ -492,8 +524,9 @@ void GameManager::CheckWin(deque<Player> & p) {
     for (int i = 0; i < 7; i ++) {
         if (p[i].getPoint() >= pow(2, 32)) {
             cout << "Selamat!! Pemain dengan username " << p[i].getName() << " memenangkan permainan!" << endl;
-            cout << "Pemain telah mencapai poin: " << p[i].getPoint() << endl;
-            cout << "Poin sudah melebihi 2^(32)" << endl;
+            cout << "Pemain telah mencapai poin: ";
+            printPrize(p[i].getPoint());
+            cout << "\nPoin sudah melebihi " << pow(2,32) << endl;
 
             this->gameEnd = true;
         }

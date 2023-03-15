@@ -29,6 +29,8 @@ void Player::setCard(DeckCard &a){
     this->cardsP.push_back(a.getCard());
 } 
 
+// "REROLL ABILITYLESS QUADRUPLE REVERSE SWAP SWITCH QUARTER"
+
 void Player::setCardN(DeckCard &a, int n){
     for (int i = 0; i < n; i ++) {
         this->cardsP.push_back(a.getCard());
@@ -78,7 +80,7 @@ void Player::setName(string name){
     this->username=name;
 }
 
-void Player::addPoint(double addP){
+void Player::addPoint(__uint128_t addP){
     this->point+=addP;
 }
 
@@ -86,7 +88,7 @@ int Player::getId() const {
     return this->id;
 }
 
-double Player::getPoint()const{
+__uint128_t Player::getPoint()const{
     return this->point;
 }
 
@@ -99,7 +101,9 @@ void Player::displayPlayer(bool displayPoint){
     cout << "Name : " << this->getName() <<endl;
 
     if (displayPoint) {
-        cout << "Point : " << this->getPoint() << endl;
+        cout << "Point : ";
+        printf("%llu", (unsigned long long) this->getPoint());
+        cout << endl;
     }
 
     cout << "Card : \n" ;
