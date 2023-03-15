@@ -20,9 +20,11 @@ GameManager::GameManager() : Game() {}
 
 void GameManager::startGame() {
     do {
+        // reset every loop
         gameReset();
         int inpGame = inputGame();
-
+        
+        // POKER
         if (inpGame == 1) {
             cout << "Welcome to Poker KW" << endl << endl;
 
@@ -41,16 +43,18 @@ void GameManager::startGame() {
                 
 
                 while(!gameEnd) {
+                    
+                    // Evaluate player cards in round 7
                     if (round == 7) {
-                        Combination c;
                         // Evaluate
+                        Combination c;
                         vector<Player> evaluator = getPlayers();
-
                         Player temp = c.evaluate(evaluator, t.getCards());
                         vector<Card> kartuMenang = c.winnerCard(temp, t.getCards(), c.getValue());
 
                         int idxPemenang = findIdxWithId(temp.getId());
 
+                        // Give prize to player with most value
                         playerTurn[idxPemenang].addPoint(prize);
                         cout << endl << "Poin sebesar: ";
                         printPrize(prize);
@@ -65,35 +69,56 @@ void GameManager::startGame() {
 
                         CheckWin(playerTurn);
 
+                        // There is NO WINNER yet, restart game
                         if (!gameEnd) {
                             cout << "\nPermainan diulang!\n";
+
+                            // re-initialize DeckCard, TableCard, and AbilityCard
                             this->d = DeckCard();
                             this->d.shuffleCard();
                             t.clearCards();
+                            da->resetAbilityDeck();
+                            da->distributeAbility(this);
+
+                            // reset prize, round, and turn
                             setPrize(64);
                             this->round = 1;
                             this->turn = 1;
-                            da->resetAbilityDeck();
-                            da->distributeAbility(this);
-                        } else {
+                        } 
+
+                        // WINNER FOUND, end the game
+                        else {
                             break;
                         }
                     }
+
+                    // round 1 turn 1, initialize EVERYTHING
+                    // (DeckCard, TableCard, PlayerCard, AbilityCard, so on)
                     if (round == 1 && turn == 1) {
                         // Inisiasi awal deck, tablecard, playercard, dll
                         // Kalau round 1 ditanya deck nya mau random apa dari file
                         int pil = inputOpsi();
 
+                        // exit if pil == -1
                         if (pil == -1) {
                             break;
                         }
 
-                        if (pil == 2) {
+                        // shuffle card if pil == 1
+                        else if (pil == 1) {
+                            this->d.shuffleCard();
+
+                        }
+
+                        // input deck from file if pil == 2
+                        else {
                             string fileInput = inputFile();
                             cin.ignore();
                             if (fileInput == "nofile") {
                                 cout << "Tidak terdapat file di dalam directory /test, Deck Card akan di-random" << endl;
-                            } else {
+                            } 
+                            // validate file input
+                            else {
                                 while(true){   
                                 try
                                     {
@@ -124,28 +149,29 @@ void GameManager::startGame() {
                                 }       
                             }
 
-                        } else {
-                            this->d.shuffleCard();
-
                         }
                         
-                        // Assign deck ke masing-masing player
+                        // Assign cards to each players
                         for (auto &p : playerTurn) {
                             p.setCardN(d, 2);
                         }
 
+                        // set prize to 64
                         setPrize(64);
                     }
 
+                    // add a card to table every new round excep 6th round
                     if (round != 6 && turn == 1) {
                         t.addCard(d.getCard());
                     }
 
+                    // shuffle then distribute ability in round 2
                     if (round == 2 && turn == 1) {
                         da->shuffleAbility(this);
                         da->distributeAbility(this);
                     }
                     
+                    // display table card
                     t.displayTCard();
                     displayCardUI(t.getCards());
 
@@ -169,6 +195,7 @@ void GameManager::startGame() {
                     }
                     cout << "=====================================================" << endl;
 
+                    // requesting and process command input
                     string command = reqCommand();
                     process(command);
 
@@ -177,25 +204,32 @@ void GameManager::startGame() {
                     enqueuePlayer(temp);
 
                     nextTurn();
-                    }   
-
-                delete da;
                 }
-        } else if (inpGame==2) {
+
+                // delete abilityDeck pointer when the game ended
+                delete da;
+            }
+        } 
+        
+        // CANGKUL
+        else if (inpGame==2) {
             cout << "Welcome to Cangkulan" << endl;
             
+            // Initialize DeckCard and TableCard
             DeckCard d;
             tableCard t;
             d.shuffleCard();
 
             // Input Player
             inputPlayer(4, d, 3);
-
+            
+            // Display all player
             for (int i = 0; i < 4; i ++) {
                 playerTurn[i].displayPlayer(false);
                 cout << endl;
             }
-
+            
+            // Display Queue
             cout << "Urutan giliran: ";
             printQueue();
 
@@ -209,7 +243,6 @@ void GameManager::startGame() {
 
                     int x = inputCangkul(1, playerTurn[0].getCards().size());
                     if (x == -1) {
-
                        break;     
                     }
 
@@ -481,9 +514,13 @@ string GameManager::reqCommand() {
 
 void GameManager::process(string command) {
     try {
+        // NEXT, proceed to next player
         if (command == "NEXT") {
             cout << "Giliran dilanjut ke pemain berikutnya" << endl;
-        } else if (command == "DOUBLE") {
+        } 
+
+        // DOUBLE, double the prize
+        else if (command == "DOUBLE") {
             __uint128_t temp = getPrize();
             setPrize(temp * 2);
 
@@ -493,11 +530,13 @@ void GameManager::process(string command) {
             printPrize(prize);
             cout << "!" << endl;
 
-        } else if (command == "HALF") {
+        } 
+        
+        // HALF, half the prize
+        else if (command == "HALF") {
             __uint128_t temp = getPrize();
             if (temp != 1) {
                 setPrize(temp / 2);
-
                 cout << playerTurn.front().getName() << " melakukan HALF! Poin hadiah turun dari" << endl;
                 printPrize(temp);
                 cout << " menjadi ";
@@ -507,7 +546,10 @@ void GameManager::process(string command) {
                 cout << playerTurn.front().getName() << " melakukan HALF! Sayangnya poin hadiah sudah bernilai 1. ";
                 cout << "Poin hadiah tidak berubah.. Giliran dilanjut!" << endl;
             }
-        } else if (command == "HELP") {
+        } 
+        
+        // HELP, show all valid commands
+        else if (command == "HELP") {
             cout << endl << "Command yang tersedia: " << endl;
             cout << "NEXT \t: " << "Perintah untuk tidak melakukan apa-apa. Giliran dilanjutkan ke pemain berikutnya" << endl;
             cout << "RE-ROLL \t: " << "PreReq: Re-Roll Card. Perintah untuk membuang 2 kartu tangan pemanggil dan mengambil ulang 2 kartu baru dari deck" << endl;
@@ -521,12 +563,16 @@ void GameManager::process(string command) {
             cout << "ABILITYLESS \t: " << "Perintah untuk mematikan kemampuan kartu lawan" << endl;
             cout << "HELP \t: " << "Perintah untuk menampilkan semua command yang tersedia" << endl;
             cout << "QUIT \t: " << "Perintah untuk keluar game" << endl;
-        } else if (command == "QUIT") {
+        } 
+        
+        // QUIT, end the game
+        else if (command == "QUIT") {
             this->gameEnd = true;
-            // print skor terakhir
-
             cout << endl << "Terima kasih telah bermain Poker KW :p" << endl;
-        } else {
+        } 
+        
+        // else, use card ability according to command
+        else {
             try {
                 getFirstPlayer().getAbility()->use(command, this);
             } catch (NoCardException &e) {

@@ -876,29 +876,29 @@ vector<Card> Combination::winnerCard(Player winner, vector<Card> tableCard, doub
 
 string Combination::displayHandInfo(vector<Card> card)
 {
-    if(hasPair(card)){
-        return "Pair";
-    }
-    if(hasTwoPair(card)){
-        return "Two Pair";
-    }
-    if(hasThreeOfAKind(card)){
-        return "Three Of A Kind";
-    }
-    if(hasStraight(card)){
-        return "Straight";
-    }
-    if(hasFlush(card)){
-        return "Flush";
-    }
-    if(hasFullHouse(card)){
-        return "Full House";
+    if(hasStraightFlush(card)){
+        return "Straight Flush";
     }
     if(hasFourOfAKind(card)){
         return "For Of A Kind";
     }
-    if(hasStraightFlush(card)){
-        return "Straight Flush";
+    if(hasFullHouse(card)){
+        return "Full House";
+    }
+    if(hasFlush(card)){
+        return "Flush";
+    }
+    if(hasStraight(card)){
+        return "Straight";
+    }
+    if(hasThreeOfAKind(card)){
+        return "Three Of A Kind";
+    }
+    if(hasTwoPair(card)){
+        return "Two Pair";
+    }
+    if(hasPair(card)){
+        return "Pair";
     }
     return "High Card";
 }
