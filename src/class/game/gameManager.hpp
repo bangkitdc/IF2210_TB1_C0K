@@ -6,6 +6,7 @@
 #include <string>
 #include "../exception/exception.hpp"
 #include "../exception/commandException.hpp"
+#include "../exception/cardException.hpp"
 #include "../exception/numberException.hpp"
 #include "../inventoryHolder/player.hpp"
 #include "../inventoryHolder/tableCard.hpp"

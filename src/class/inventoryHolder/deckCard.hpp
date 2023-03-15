@@ -6,6 +6,7 @@
 #include "../cardValue/card.hpp"
 #include "inventoryHolder.hpp"
 #include "../exception/cardException.hpp"
+#include <fstream>
 using namespace std;
 
 class DeckCard : public InventoryHolder {
