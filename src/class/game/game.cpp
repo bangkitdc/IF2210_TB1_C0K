@@ -46,8 +46,11 @@ __uint128_t Game::getPrize() {
 }
 
 void Game::printPlayersPoint() {
+    deque<Player> temp = playerTurn;
+    sort_container(temp);
     cout << "<id> - name       - point\n";
-    for (auto &p : playerTurn) {
+    for (int i=0; i<7; i++) {
+        Player p = temp[i];
         cout << "<p" << p.getId() << "> - " << left << setw(10) << p.getName() << " - ";
         printPrize(p.getPoint());
         cout << endl;

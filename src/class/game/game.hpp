@@ -5,10 +5,11 @@
 #include <deque>
 #include <cstdint>
 #include <cstdio>
+#include <iomanip>
 
 #include "../inventoryHolder/player.hpp"
-#include <iomanip>
 #include "../inventoryHolder/deckCard.hpp"
+#include "genericFunction.hpp"
 
 using namespace std;
 

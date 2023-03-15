@@ -17,7 +17,7 @@
 #include "../inventoryHolder/tableCard.hpp"
 #include "../ability/deckAbility.hpp"
 #include "../cardValue/combination.hpp"
-#include "genericFunction.hpp"
+#include "../exception/nameException.hpp"
 
 using namespace std;
 

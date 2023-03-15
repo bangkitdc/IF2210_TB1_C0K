@@ -189,11 +189,17 @@ void moveAllTableCardToPlayer(Player& p, tableCard &t) {
 }
 
 bool Player::operator>(const Player &a){
-    return this->point>a.point;
+    if (this->point==a.point) {
+        return a.id>this->id;
+    }
+    return a.point>this->point;
 }
 
 bool Player::operator<(const Player &a){
-    return this->point<a.point;
+    if (this->point==a.point) {
+        return a.id>this->id;
+    }
+    return a.point<this->point;
 }
 
 bool Player::operator==(const Player &a){
