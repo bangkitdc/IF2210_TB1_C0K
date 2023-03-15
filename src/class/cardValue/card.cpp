@@ -81,3 +81,13 @@ double Card::getValueGeneric() {
     }
     return card.first+temp; 
 }
+
+bool Card::operator>(Card &a){
+    return this->getValue() > a.getValue();
+}
+bool Card::operator<(Card &a){
+    return this->getValue() < a.getValue();
+}
+bool operator==(Card &){
+    return this->getValue() == a.getValue();
+}
