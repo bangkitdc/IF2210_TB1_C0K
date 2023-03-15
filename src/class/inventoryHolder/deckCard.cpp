@@ -266,3 +266,7 @@ DeckCard& DeckCard::operator=(const DeckCard &a){
 void DeckCard::setCards(vector<Card> a){
     cards=a;
 }
+
+void DeckCard::resetDeckCard() {
+    cards.clear();
+}

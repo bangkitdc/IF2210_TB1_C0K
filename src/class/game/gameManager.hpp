@@ -30,6 +30,7 @@ class GameManager : public Game {
         void printQueue();
 
         bool isInteger(const string &);
+        void CheckWin(deque<Player> &);
 
         /* BONUS */
 
