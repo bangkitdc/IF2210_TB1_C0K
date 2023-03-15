@@ -12,35 +12,36 @@ class Combination : public CardValue {
         Combination();
         ~Combination();
 
-        void sortingWarna(vector<Card> &card);
-        void sortVector(vector<vector<Card>> &result, vector<double> &val);
+        void sortingWarna(vector<Card> &);
+        void sortVector(vector<vector<Card>> &, vector<double> &);
         void sortCard(vector<Card>&);
         
-        bool hasPair(vector<Card> card);
-        bool hasTwoPair(vector<Card> card);
-        bool hasThreeOfAKind(vector<Card> card);
-        bool hasStraight(vector<Card> card);
-        bool hasFlush(vector<Card> card);
-        bool hasFullHouse(vector<Card> card);
-        bool hasFourOfAKind(vector<Card> card);
-        bool hasStraightFlush(vector<Card> card);
+        bool hasPair(vector<Card>);
+        bool hasTwoPair(vector<Card>);
+        bool hasThreeOfAKind(vector<Card>);
+        bool hasStraight(vector<Card>);
+        bool hasFlush(vector<Card>);
+        bool hasFullHouse(vector<Card>);
+        bool hasFourOfAKind(vector<Card>);
+        bool hasStraightFlush(vector<Card>);
 
-        pair<vector<vector<Card>>, vector<double>> highCard(vector<Card> card);
-        pair<vector<vector<Card>>, vector<double>> Pair(vector<Card>);
-        pair<vector<vector<Card>>, vector<double>> twoPair(vector<Card>);
-        pair<vector<vector<Card>>, vector<double>> threeOfAKind(vector<Card>);
-        pair<vector<vector<Card>>, vector<double>> straight(vector<Card>);
-        pair<vector<vector<Card>>, vector<double>> flush(vector<Card>);
-        pair<vector<vector<Card>>, vector<double>> fullHouse(vector<Card>);
-        pair<vector<vector<Card>>, vector<double>> fourOfAKind(vector<Card>);
-        pair<vector<vector<Card>>, vector<double>> straightFlush(vector<Card>);
-        double priorityCard(vector<Card> cards);
+        ::pair<vector<vector<Card>>, vector<double>> highCard(vector<Card>);
+        ::pair<vector<vector<Card>>, vector<double>> pair(vector<Card>);
+        ::pair<vector<vector<Card>>, vector<double>>twoPair(vector<Card>);
+        ::pair<vector<vector<Card>>, vector<double>>threeOfAKind(vector<Card>);
+        ::pair<vector<vector<Card>>, vector<double>> straight(vector<Card>);
+        ::pair<vector<vector<Card>>, vector<double>> flush(vector<Card>);
+        ::pair<vector<vector<Card>>, vector<double>> fullHouse(vector<Card>);
+        ::pair<vector<vector<Card>>, vector<double>>  fourOfAKind(vector<Card>);
+        ::pair<vector<vector<Card>>, vector<double>> straightFlush(vector<Card>);
+        double priorityCard(vector<Card>);
         // pair<vector<vector<Card>>, int> highestOnTable(vector<Card>);
         // Player evaluate(vector<Card>);
-        void eraseFirst(vector<vector<Card>> &card);
-        pair<vector<vector<Card>>, vector<double>> concatCombi(vector<Card>card);
+        void eraseFirst(vector<vector<Card>>&);
+        ::pair<vector<vector<Card>>, vector<double>> concatCombi(vector<Card>);
 
-        Player evaluateAgain(vector<Player> players, vector<Card> t, double m);
+        Player evaluate(deque<Player>, vector<Card>);
+        Player evaluateAgain(vector<Player>, vector<Card>, double);
 
         int color2Int(Card);
 
