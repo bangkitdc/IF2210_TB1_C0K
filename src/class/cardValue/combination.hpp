@@ -14,6 +14,8 @@
 using namespace std;
 
 class Combination : public CardValue {
+    private:
+        double value;
     public:
         Combination();
         ~Combination();
@@ -40,16 +42,17 @@ class Combination : public CardValue {
         ::pair<vector<vector<Card>>, vector<double>> fullHouse(vector<Card>);
         ::pair<vector<vector<Card>>, vector<double>>  fourOfAKind(vector<Card>);
         ::pair<vector<vector<Card>>, vector<double>> straightFlush(vector<Card>);
-        double priorityCard(vector<Card>);
-        // pair<vector<vector<Card>>, int> highestOnTable(vector<Card>);
-        // Player evaluate(vector<Card>);
+
         void eraseFirst(vector<vector<Card>>&);
         ::pair<vector<vector<Card>>, vector<double>> concatCombi(vector<Card>);
 
         Player evaluate(vector<Player>, vector<Card>);
         Player evaluateAgain(vector<Player>, vector<Card>, double);
+        vector<Card> winnerCard(Player, vector<Card>, double);
 
         int color2Int(Card);
+
+        string displayHandInfo(vector<Card> );
 
         double getValue() const;
 
