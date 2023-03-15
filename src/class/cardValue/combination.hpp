@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <iostream>
+#include <cmath>
 #include "cardValue.hpp"
 #include "../inventoryHolder/player.hpp"
 using namespace std;

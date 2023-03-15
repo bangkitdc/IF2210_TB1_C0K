@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <conio.h>
+#include "../exception/nameException.hpp"
 
 using namespace std;
 
@@ -35,6 +37,8 @@ void GameManager::startGame() {
 
             // Input Player
             inputPlayer(7);
+
+            printPlayersPoint();
 
             while (!gameEnd) {
                 // Initiate Main Deck Card, Table Card
@@ -178,7 +182,7 @@ void GameManager::startGame() {
                 CheckWin(playerTurn);
                 delete da;
                 }
-        } else if (inpGame==2)if (inpGame == 2) {
+        } else if (inpGame==2) {
             cout << "Welcome to Cangkulan" << endl;
             
             DeckCard d;
@@ -290,12 +294,20 @@ void GameManager::inputPlayer(int x) {
     cout << "Silahkan masukkan username tiap player!!" << endl;
 
     do {
-        string username;
-        cout << "Masukkan username [P" << this->playerTurn.size() + 1 << "]: " << endl;
-        cin >> username;
+        try {
+            string username;
+            cout << "Masukkan username <p" << this->playerTurn.size() + 1 << "> : " << endl << "> ";
+            cin >> username;
 
-        Player temp(username);
-        this->enqueuePlayer(temp);
+            if (username.size() > 10) {
+                throw UsernameException();
+            }
+
+            Player temp(username);
+            this->enqueuePlayer(temp);
+        } catch (UsernameException& e) {
+            cout << e.what();
+        }
     } while (this->playerTurn.size() != x);
 }
 
@@ -304,12 +316,20 @@ void GameManager::inputPlayer(int x, DeckCard& d, int n) {
     cout << "Silahkan masukkan username tiap player!!" << endl;
 
     do {
-        string username;
-        cout << "Masukkan username [P" << this->playerTurn.size() + 1 << "]: " << endl;
-        cin >> username;
+        try {
+            string username;
+            cout << "Masukkan username <p" << this->playerTurn.size() + 1 << "> : " << endl << "> ";
+            cin >> username;
 
-        Player temp(username, d, n);
-        this->enqueuePlayer(temp);
+            if (username.size() > 10) {
+                throw UsernameException();
+            }
+
+            Player temp(username, d, n);
+            this->enqueuePlayer(temp);
+        } catch (UsernameException& e) {
+            cout << e.what();
+        }
     } while (this->playerTurn.size() != x);
 }
 
