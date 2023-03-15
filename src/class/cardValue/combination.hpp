@@ -13,7 +13,6 @@ class Combination : public CardValue {
         ~Combination();
 
         void sortingWarna(vector<Card> &card);
-        void sortVector(vector<vector<Card>> &result, vector<double> &val);
         void sortCard(vector<Card>&);
         
         bool hasPair(vector<Card> card);
@@ -25,22 +24,17 @@ class Combination : public CardValue {
         bool hasFourOfAKind(vector<Card> card);
         bool hasStraightFlush(vector<Card> card);
 
-        pair<vector<vector<Card>>, vector<double>> highCard(vector<Card> card);
-        pair<vector<vector<Card>>, vector<double>> pair(vector<Card>);
-        pair<vector<vector<Card>>, vector<double>> twoPair(vector<Card>);
-        pair<vector<vector<Card>>, vector<double>> threeOfAKind(vector<Card>);
-        pair<vector<vector<Card>>, vector<double>> straight(vector<Card>);
-        pair<vector<vector<Card>>, vector<double>> flush(vector<Card>);
-        pair<vector<vector<Card>>, vector<double>> fullHouse(vector<Card>);
-        pair<vector<vector<Card>>, vector<double>> fourOfAKind(vector<Card>);
-        pair<vector<vector<Card>>, vector<double>> straightFlush(vector<Card>);
+        vector<vector<Card> > pair(vector<Card>);
+        vector<vector<Card> > twoPair(vector<Card>);
+        vector<Card> threeOfAKind(vector<Card>);
+        vector<Card> straight(vector<Card>);
+        vector<vector<Card> > flush(vector<Card>);
+        vector<Card> fullHouse(vector<Card>);
+        vector<vector<Card> > fourOfAKind(vector<Card>);
+        vector<Card> straightFlush(vector<Card>);
         double priorityCard(vector<Card> cards);
-        // pair<vector<vector<Card>>, int> highestOnTable(vector<Card>);
+        int highestOnTable(vector<Card>);
         // Player evaluate(vector<Card>);
-        void eraseFirst(vector<vector<Card>> &card);
-        pair<vector<vector<Card>>, vector<double> concatCombi(vector<Card>card);
-
-        Player evaluateAgain(vector<Player> players, vector<Card> t, double m);
 
         int color2Int(Card);
 
