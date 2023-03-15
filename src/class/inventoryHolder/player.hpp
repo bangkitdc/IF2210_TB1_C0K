@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cstdint>
 #include "../cardValue/card.hpp"
 // #include "../ability/ability.hpp"
 #include "inventoryHolder.hpp"
@@ -23,7 +24,7 @@ class Player : public InventoryHolder {
         string username;
         Ability * ability;
         vector<Card> cardsP;
-        double point;
+        __uint128_t point;
     public:
         // friend class Card;
         // friend class DeckCard;
@@ -32,10 +33,10 @@ class Player : public InventoryHolder {
         Player(string,DeckCard&,int);
         ~Player();
         void setName(string);
-        void addPoint(double);
+        void addPoint(__uint128_t);
 
         int getId() const;
-        double getPoint()const;
+        __uint128_t getPoint()const;
         string getName()const;
         vector<Card> getCards();
         void setCards(vector<Card>);
@@ -64,6 +65,8 @@ class Player : public InventoryHolder {
         double getValueGeneric();
         void resetPlayerCard();
         static int totalPlayer;
+
+        friend class ReRoll;
         friend class DeckAbility;
         friend class Game;
 };
