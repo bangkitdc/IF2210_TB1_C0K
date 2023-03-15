@@ -43,6 +43,6 @@ class tableCard : public InventoryHolder{
         void sortTableCard();               /* Sort Table Card */
 };
 
-void addPlayerCard(tableCard &, Player &, int);
+void addPlayerCard(tableCard &, Player &, int); /* Add Player Card From Table*/
 
 #endif

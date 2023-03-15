@@ -61,6 +61,9 @@ class Player : public InventoryHolder {
         Player &operator-(const Card &);                /* Operator Overloading */
         Player &operator-(DeckCard &);                  /* Operator Overloading */
         Player &operator=(const Player &);              /* Operator Overloading */
+        bool operator>(const Player &);                 /* Operator Overloading */
+        bool operator<(const Player &);                 /* Operator Overloading */
+        bool operator==(const Player &);                /* Operator Overloading */
 
         void addCard(const Card &);                     /* Add Card */
         void addCardFromDeck(DeckCard &);               /* Add Card From Deck */
@@ -74,6 +77,6 @@ class Player : public InventoryHolder {
         friend class Game;                              /* Friend Function */
 };
 
-void moveAllTableCardToPlayer(Player &, tableCard &);   /* Move All  */
+void moveAllTableCardToPlayer(Player &, tableCard &);   /* Move All Table Card To Player */
 
 #endif

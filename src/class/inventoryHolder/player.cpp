@@ -169,7 +169,6 @@ void Player::setCards(vector<Card> a){
     cardsP=a;
 }
 
-
 double Player::getValueGeneric() {
     return point; 
 }
@@ -187,4 +186,16 @@ void moveAllTableCardToPlayer(Player& p, tableCard &t) {
     }
 
     t.clearMilik();
+}
+
+bool Player::operator>(const Player &a){
+    return this->point>a.point;
+}
+
+bool Player::operator<(const Player &a){
+    return this->point<a.point;
+}
+
+bool Player::operator==(const Player &a){
+    return this->point==a.point;
 }

@@ -29,6 +29,9 @@ class Card {
         double getValue() const;
         void displayCard();
         double getValueGeneric();
+        bool operator>(Card &);
+        bool operator<(Card &);
+        bool operator==(Card &);
 };
 
 #endif

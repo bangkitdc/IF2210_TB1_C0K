@@ -134,7 +134,6 @@ void DeckCard::readFromFile(string filename) {
             break;
             }   
         }
-
         int copyCardNum=cardNum;
         string copyCardColor=cardColor;
         tempSet.insert(to_string(copyCardNum)+copyCardColor);

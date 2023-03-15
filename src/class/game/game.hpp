@@ -7,6 +7,7 @@
 #include <cstdio>
 
 #include "../inventoryHolder/player.hpp"
+#include <iomanip>
 #include "../inventoryHolder/deckCard.hpp"
 
 using namespace std;

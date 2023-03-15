@@ -1,4 +1,13 @@
 #include "gameManager.hpp"
+#include "../../utility/utility.hpp"
+#include <filesystem>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <conio.h>
+#include "../exception/nameException.hpp"
+
+using namespace std;
 
 const string listCommand[] = {
     "NEXT",
@@ -52,7 +61,7 @@ void GameManager::startGame() {
                         cout << "\n\n";
                         printPrize(prize);
                         cout << " DIBERIKAN KE P1!\n\n";
-                        cout << "=====================================================" << endl;
+                        cout << "=====================================================";
                         cout << "\nPoint player:\n";
                         
                         printPlayersPoint();
@@ -122,6 +131,7 @@ void GameManager::startGame() {
 
                         }
                         
+
                         // Assign deck ke masing-masing player
                         for (auto &p : playerTurn) {
                             p.setCardN(d, 2);
@@ -165,12 +175,14 @@ void GameManager::startGame() {
                     Player temp = dequeuePlayer();
                     enqueuePlayer(temp);
 
-                nextTurn();
-                printQueue();
-                }            
-            }
-        } else if (inpGame==2){
-            cout << "Welcome to Cangkulan" << endl << endl;
+                    nextTurn();
+                    }   
+
+                CheckWin(playerTurn);
+                delete da;
+                }
+        } else if (inpGame==2) {
+            cout << "Welcome to Cangkulan" << endl;
             
             DeckCard d;
             tableCard t;
@@ -195,7 +207,11 @@ void GameManager::startGame() {
                     cout << "Silahkan mengeluarkan kartu bebas!" << endl;
                     playerTurn[0].displayPlayerCards();
 
-                int x = inputCangkul(1, playerTurn[0].getCards().size());
+                    int x = inputCangkul(1, playerTurn[0].getCards().size());
+                    if (x == -1) {
+
+                       break;     
+                    }
 
                     addPlayerCard(t, playerTurn[0], x - 1);
                 } else {
@@ -277,12 +293,20 @@ void GameManager::inputPlayer(int x) {
     cout << "Silahkan masukkan username tiap player!!" << endl;
 
     do {
-        string username;
-        cout << "Masukkan username [P" << this->playerTurn.size() + 1 << "]: " << endl;
-        cin >> username;
+        try {
+            string username;
+            cout << "Masukkan username <p" << this->playerTurn.size() + 1 << "> : " << endl << "> ";
+            cin >> username;
 
-        Player temp(username);
-        this->enqueuePlayer(temp);
+            if (username.size() > 10) {
+                throw UsernameException();
+            }
+
+            Player temp(username);
+            this->enqueuePlayer(temp);
+        } catch (UsernameException& e) {
+            cout << e.what();
+        }
     } while (this->playerTurn.size() != x);
 }
 
@@ -291,12 +315,20 @@ void GameManager::inputPlayer(int x, DeckCard& d, int n) {
     cout << "Silahkan masukkan username tiap player!!" << endl;
 
     do {
-        string username;
-        cout << "Masukkan username [P" << this->playerTurn.size() + 1 << "]: " << endl;
-        cin >> username;
+        try {
+            string username;
+            cout << "Masukkan username <p" << this->playerTurn.size() + 1 << "> : " << endl << "> ";
+            cin >> username;
 
-        Player temp(username, d, n);
-        this->enqueuePlayer(temp);
+            if (username.size() > 10) {
+                throw UsernameException();
+            }
+
+            Player temp(username, d, n);
+            this->enqueuePlayer(temp);
+        } catch (UsernameException& e) {
+            cout << e.what();
+        }
     } while (this->playerTurn.size() != x);
 }
 
@@ -537,7 +569,7 @@ void GameManager::CheckWin(deque<Player> & p) {
             cout << "Selamat!! Pemain dengan username " << p[i].getName() << " memenangkan permainan!" << endl;
             cout << "Pemain telah mencapai poin: ";
             printPrize(p[i].getPoint());
-            cout << "\nPoin sudah melebihi " << pow(2,32) << endl;
+            cout << "\nPoin sudah melebihi 4294967296" << endl;
 
             this->gameEnd = true;
         }
