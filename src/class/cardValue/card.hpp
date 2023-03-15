@@ -27,7 +27,7 @@ class Card {
 
         bool isValidCard() const;
         double getValue() const;
-        void displayCard();
+        void displayCard(bool displaySpace = true);
         double getValueGeneric();
         bool operator>(Card &);
         bool operator<(Card &);

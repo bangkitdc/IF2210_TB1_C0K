@@ -102,8 +102,8 @@ void Player::displayPlayer(bool displayPoint){
     displayPlayerCards();
 }
 
-void Player::displayPlayerCard(int i) {
-    cardsP[i].displayCard();
+void Player::displayPlayerCard(int i, bool displaySpace) {
+    cardsP[i].displayCard(displaySpace);
 }
 
 void Player::displayPlayerCards(){

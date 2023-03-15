@@ -50,6 +50,8 @@ void GameManager::startGame() {
                         Combination c;
                         vector<Player> evaluator = getPlayers();
                         Player temp = c.evaluate(evaluator, t.getCards());
+                        vector<Card> kartuMenang = c.winnerCard(temp, t.getCards(), c.getValue());
+
                         int idxPemenang = findIdxWithId(temp.getId());
 
                         // Give prize to player with most value
@@ -57,8 +59,12 @@ void GameManager::startGame() {
                         cout << endl << "Poin sebesar: ";
                         printPrize(prize);
                         cout << ", diberikan kepada: p" << temp.getId() << endl; 
-                        cout << "=====================================================";
-                        cout << "\nPoint player:\n";
+                        cout << "=====================================================" << endl;
+                        cout << "Paket pemenang adalah: " << c.displayHandInfo(kartuMenang) << endl;
+                        displayKartuMenang(kartuMenang);
+                        cout << "=====================================================" << endl;
+                        cout << "Point player:\n";
+                        
                         printPlayersPoint();
 
                         CheckWin(playerTurn);
@@ -89,7 +95,8 @@ void GameManager::startGame() {
                     // round 1 turn 1, initialize EVERYTHING
                     // (DeckCard, TableCard, PlayerCard, AbilityCard, so on)
                     if (round == 1 && turn == 1) {
-                        // input wether to shuffle cards or input deck from file
+                        // Inisiasi awal deck, tablecard, playercard, dll
+                        // Kalau round 1 ditanya deck nya mau random apa dari file
                         int pil = inputOpsi();
 
                         // exit if pil == -1
@@ -166,9 +173,9 @@ void GameManager::startGame() {
                     
                     // display table card
                     t.displayTCard();
+                    displayCardUI(t.getCards());
 
-                    // display player info
-                    cout << "\n=====================================================\n";
+                    cout << "=====================================================" << endl;
                     cout << "Round : " << round << "\n";
                     cout << "Turn  : " << turn << "\n";
                     cout << "Prize : ";
@@ -176,15 +183,17 @@ void GameManager::startGame() {
                     cout << endl;
                     cout << "Queue : ";
                     printQueue();
-                    cout << "Giliran saat ini: p" << getFirstPlayer().getId() << endl;
+                    cout << "Giliran saat ini: " << CYAN << "p" << getFirstPlayer().getId() << RESET << endl;
                     cout << "Player cards:\n";
                     playerTurn.front().displayPlayerCard(0);
-                    cout << " & ";
+                    cout << " && ";
                     playerTurn.front().displayPlayerCard(1);
-                    cout << endl << endl;
+                    cout << endl;
+                    displayCardUI(getFirstPlayer().getCards(), 4);
                     if (round > 1) {
-                        cout << "Kamu punya ability: " << getFirstPlayer().getAbility()->getPower() << endl;
+                        cout << "Kamu punya ability: " << CYAN << getFirstPlayer().getAbility()->getPower() << RESET << endl;
                     }
+                    cout << "=====================================================" << endl;
 
                     // requesting and process command input
                     string command = reqCommand();
@@ -261,7 +270,7 @@ void GameManager::startGame() {
                         bool dapet = false;
                         while (!d.isDeckEmpty() && !dapet) {
                             Card temp = d.getTopCard();
-                            cout << "Player mendapat kartu "; temp.displayCard();
+                            cout << endl << "Player mendapat kartu "; temp.displayCard();
 
                             playerTurn[0].addCardFromDeck(d); // sekalian dipop dari deck
                             if (temp.getWarna() == warna) {
@@ -288,14 +297,17 @@ void GameManager::startGame() {
 
                     evaluateQueue(t);
 
-                    cout << endl << "Urutan giliran yang baru: ";
+                    CheckWin2(playerTurn);
 
-                    printQueue();
+                    if (!gameEnd) {
+                        cout << endl << "Urutan giliran yang baru: ";
+
+                        printQueue();
+                    }
 
                     flag = false;
                     t.clearCards();
                     t.clearMilik();
-                    CheckWin2(playerTurn);
                 }
 
                 if (flag) {
@@ -590,6 +602,17 @@ void GameManager::printQueue() {
     cout << endl;
 }
 
+void GameManager::displayKartuMenang(vector<Card> c) {
+    cout << "=================Paket Kartu Pemenang=================" << endl;
+
+    for(int i=0;i<c.size();i++){
+        c[i].displayCard(); cout << " ";
+    }
+    cout << endl;
+
+    displayCardUI(c);
+}
+
 bool GameManager::isInteger(const string& str) {
     try {
         stoi(str);
@@ -717,4 +740,87 @@ int GameManager::findIdxWithId(int id) {
     }
 
     return -1;
+}
+
+void GameManager::displayCardUI(vector<Card> v, int spaces) {
+    int size = v.size();
+
+    for (int i = 0; i < size; i ++) {
+        int num = v[i].getNum();
+        string color = color2String(v[i]);
+        cout << color << ".--------.";
+        cout << setfill(' ') << setw(spaces) << ' ';
+    }
+    cout << endl;
+
+    for (int i = 0; i < size; i ++) {
+        int num = v[i].getNum();
+        string color = color2String(v[i]);
+        cout << color << "|" << setw(2) << setfill(' ') << left << num << "   " << color << "   |";
+        cout << setfill(' ') << setw(spaces) << ' ';
+    }
+    cout << endl;
+
+    for (int i = 0; i < size; i ++) {
+        int num = v[i].getNum();
+        string color = color2String(v[i]);
+        cout << color << "|        |";
+        cout << setfill(' ') << setw(spaces) << ' ';
+    }
+    cout << endl;
+
+    for (int i = 0; i < size; i ++) {
+        int num = v[i].getNum();
+        string color = color2String(v[i]);
+        cout << color << "|        |";
+        cout << setfill(' ') << setw(spaces) << ' ';
+    }
+    cout << endl;
+
+    for (int i = 0; i < size; i ++) {
+        int num = v[i].getNum();
+        string color = color2String(v[i]);
+        cout << color << "|        |";
+        cout << setfill(' ') << setw(spaces) << ' ';
+    }
+    cout << endl;
+
+    for (int i = 0; i < size; i ++) {
+        int num = v[i].getNum();
+        string color = color2String(v[i]);
+        cout << color << "|        |";
+        cout << setfill(' ') << setw(spaces) << ' ';
+    }
+    cout << endl;
+
+    for (int i = 0; i < size; i ++) {
+        int num = v[i].getNum();
+        string color = color2String(v[i]);
+        cout << color << "|      " << setw(2) << setfill(' ') << right << num << color << "|";
+        cout << setfill(' ') << setw(spaces) << ' ';
+    }
+    cout << endl;
+
+    for (int i = 0; i < size; i ++) {
+        int num = v[i].getNum();
+        string color = color2String(v[i]);
+        cout << color << "`--------'";
+        cout << setfill(' ') << setw(spaces) << ' ';
+    }
+    cout << endl;
+    cout << RESET;
+}
+
+string GameManager::color2String(Card card) {
+    if(card.getWarna() == "hijau"){
+        return GREEN;
+    }
+    else if(card.getWarna() == "biru"){
+        return BLUE;
+    }
+    else if(card.getWarna() == "kuning"){
+        return YELLOW;
+    } else {
+        return RED;
+    }
 }

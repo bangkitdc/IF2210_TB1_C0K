@@ -84,4 +84,5 @@ void Game::gameReset() {
     programEnd = false;
     playerTurn.clear();
     d.resetDeckCard();
+    Player::totalPlayer = 0;
 }

@@ -52,7 +52,7 @@ class Combination : public CardValue {
 
         int color2Int(Card);
 
-        string displayHandInfo(vector<Card> );
+        string displayHandInfo(vector<Card>);
 
         double getValue() const;
 
