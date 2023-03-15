@@ -11,13 +11,15 @@ void tableCard::setTCard(DeckCard *deck){
 }
 
 void tableCard::displayTCard(){
+    cout << "=================Kartu Meja Sekarang=================" << endl;
     if (Tcards.size() != 0) {
-        cout << "=================Kartu Meja Sekarang=================" << endl;
         for(int i=0;i<Tcards.size();i++){
-            Tcards[i].displayCard();   
+            cout << i + 1 << ". ";
+            Tcards[i].displayCard();
+            cout << endl;
         }
     } else {
-        cout << "Kartu meja saat ini kosong :(" << endl;
+        cout << "             Kartu meja saat ini kosong :(           " << endl;
     }
 }
 
@@ -30,6 +32,9 @@ Card tableCard::getFirstCard() {
 }
 
 Card tableCard::getCard() {
+    if(Tcards.size()==0){
+        throw TableKosongException();
+    }
     Card temp = Tcards[Tcards.size() - 1];
     Tcards.pop_back();
     return temp;
@@ -41,6 +46,10 @@ Card tableCard::getCardWithoutPop(int i) {
 
 void tableCard::addCard(Card c) {
     this->Tcards.push_back(c);
+}
+
+void tableCard::clearCards() {
+    this->Tcards.clear();
 }
 
 void tableCard::addMilik(int i) {
@@ -78,6 +87,22 @@ tableCard& tableCard::operator-(DeckCard &a){
 
 bool tableCard::isTCardEmpty() {
     return getCards().size() == 0;
+}
+
+void tableCard::sortTableCard() {
+    for(int i = 0; i < Tcards.size(); i ++) {
+        for(int j = 0; j < Tcards.size() - 1 - i; j ++) {
+            if (getCardWithoutPop(j).getNum() < getCardWithoutPop(j + 1).getNum()) {
+                Card temp = getCardWithoutPop(j);
+                Tcards[j] = Tcards[j + 1];
+                Tcards[j + 1] = temp;
+
+                int tempVal = getMilik(j);
+                kartuMilik[j] = kartuMilik[j + 1];
+                kartuMilik[j + 1] = tempVal;
+            }
+        }
+    }
 }
 
 void addPlayerCard(tableCard& t, Player &p, int i) {

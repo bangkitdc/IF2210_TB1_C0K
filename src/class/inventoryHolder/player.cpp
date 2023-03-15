@@ -44,6 +44,9 @@ void Player::setCardBelakang(Card a){
 
 Card Player::getPlayerCard(int i){
     Card temp=cardsP[i];
+    if(cardsP.size()==0){
+        throw PlayerKosongException();
+    }
     if (i == cardsP.size() - 1){
         cardsP.pop_back();
     }else{
@@ -92,14 +95,14 @@ string Player::getName()const{
 }
 
 
-void Player::displayPlayer(){
+void Player::displayPlayer(bool displayPoint){
     cout << "Name : " << this->getName() <<endl;
-    cout << "Point : " << this->getPoint() <<endl;
+
+    if (displayPoint) {
+        cout << "Point : " << this->getPoint() << endl;
+    }
+
     cout << "Card : \n" ;
-    // for (int i=0;i<cardsP.size();i++){
-    //     cout << i + 1 << ". ";
-    //     cardsP[i].displayCard();
-    // } 
     displayPlayerCards();
 }
 
@@ -109,13 +112,13 @@ void Player::displayPlayerCard(int i) {
 
 void Player::displayPlayerCards(){
     for (int i = 0; i < getCards().size(); i ++) {
-        cout << i + 1 << ". "; cardsP[i].displayCard();
+        cout << i + 1 << ". "; cardsP[i].displayCard(); cout << endl;
     }
 }
 
 Player& Player::operator+(const Card &a){
     if(cardsP.size()==2){
-        throw "Player sudah memiliki 2 kartu";
+        throw PlayerFullException();
     }
     cardsP.push_back(a);
     return *this;
@@ -138,6 +141,9 @@ void Player::addCardFromDeck(DeckCard &a) {
 }
 
 Player& Player::operator-(const Card &a){
+    if(cardsP.size()==0){
+        throw PlayerKosongException();
+    }
     for(int i=0;i<cardsP.size();i++){
         if (cardsP[i].getNum()==a.getNum() && cardsP[i].getWarna().compare(a.getWarna())==0 ){
             cardsP.erase(cardsP.begin()+i);

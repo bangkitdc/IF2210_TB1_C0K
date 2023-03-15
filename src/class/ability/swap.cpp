@@ -15,68 +15,128 @@ void Swap::use(string power, GameManager* state) {
         throw AbilityOffException(power);
     }
     else {
-        cout << "dipake ya sayang\n";
-        cout << "p" << state->playerTurn.front().getId() << "melakukan SWAPCARD" << endl;
-        cout << "Kartumu sekarang adalah :\n";
-        state->playerTurn.front().displayPlayerCard(0);
-        cout << " && ";
-        state->playerTurn.front().displayPlayerCard(1);
-        cout << endl;
-        cout << "Silahkan pilih pemain yang kartunya ingin anda tukar :" << endl;
-        int count=1;
-        int idx;
-        int idxCardPlayer,idxCardPlayer2;
-        for (auto &t : state->playerTurn) {
-            cout << count << ". p" << t.getId() << endl;
-            count ++;
-        }
-        cin >> idx;
-        if (idx > 7){
-            throw "Pilihan tidak valid";
-        }
-        cout << "Silahkan pilih kartu kanan/kiri pemain_" << state->playerTurn.front().getId() << " :\n";
-        cout << "1. Kanan\n";
-        cout << "2. Kiri\n";
-        cin >> idxCardPlayer;
-        if(idxCardPlayer==2){
-            idxCardPlayer=0;
-        }
-        cout << "Silahkan pilih kartu kanan/kiri pemain_" << state->playerTurn[idx-1].getId() << " :\n";
-        cout << "1. Kanan\n";
-        cout << "2. Kiri\n";
-        cin >> idxCardPlayer2;
-
-        Card temp;
-        Card temp2;
-
-        if(idxCardPlayer2==2){
-            idxCardPlayer2  =0;
-        }
-        if(idxCardPlayer==0){
-            temp=state->playerTurn.front().getPlayerCard(0);
-        }else{
-            temp=state->playerTurn.front().getPlayerCard(1);
+        cout << "<p" << state->playerTurn.front().getId() << "> - ";
+        cout << state->playerTurn.front().getName() << " melakukan SWAP\n";
+        cout << "Silahkan pilih pemain yang kartunya ingin anda tukar :\n";
+        cout << "   no - <id> - name\n";
+        for (int i=1; i<7; i++) {
+            cout << "   " << i << ". - " << "<p" << state->playerTurn.at(i).getId() << ">";
+            cout << " - " << state->playerTurn.at(i).getName() << endl;
         }
 
-        if(idxCardPlayer==0){
-            temp2=state->playerTurn[idx-1].getPlayerCard(0);
-        }else{
-            temp2=state->playerTurn[idx-1].getPlayerCard(1);
+        string id1, id2;
+        while (true) {
+            try {
+                cout << "> ";
+                cin >> id1;
+
+                if (!isInteger(id1)) {
+                throw NotNumberException(id1);
+                }
+                
+                if (!(stoi(id1) >= 1 && stoi(id1) <= 6)) {
+                    throw InvalidNumberException(id1);
+                }
+
+                break;
+                
+            } catch(InvalidNumberException& e) {
+                cout << e.what() << endl;
+            } catch(NotNumberException& e) {
+                cout << e.what() << endl;
+            }
         }
 
-        if(idxCardPlayer==0){
-            state->playerTurn.front().setCardDepan(temp2);
-        }else{
-            state->playerTurn.front().setCardBelakang(temp2);
+        cout << "Silahkan pilih pemain lain yang kartunya ingin anda tukar :\n";
+        while (true) {
+            try {
+                cout << "> ";
+                cin >> id2;
+
+                if (!isInteger(id2)) {
+                throw NotNumberException(id2);
+                }
+                
+                if (!(stoi(id2) >= 1 && stoi(id2) <= 6)) {
+                    throw InvalidNumberException(id2);
+                }
+
+                if (id1 == id2) {
+                    throw SameNumberException();
+                }
+
+                break;
+                
+            } catch(InvalidNumberException& e) {
+                cout << e.what() << endl;
+            } catch(NotNumberException& e) {
+                cout << e.what() << endl;
+            } catch(SameNumberException& e) {
+                cout << e.what() << endl;
+            }
         }
 
-        if(idxCardPlayer2==0){
-            state->playerTurn.front().setCardDepan(temp);
-        }else{
-            state->playerTurn.front().setCardBelakang(temp);
+        string p1, p2;
+
+        cout << "Silahkan pilih kartu Kanan/Kiri <p" << state->playerTurn.at(stoi(id1)).getId() << "> - ";
+        cout << state->playerTurn.at(stoi(id1)).getName() << " : \n    1. Kiri\n    2. Kanan\n";        
+        while (true) {
+            try {
+                cout << "> ";
+                cin >> p1;
+
+                if (!isInteger(p1)) {
+                throw NotNumberException(p1);
+                }
+                
+                if (!(stoi(p1) >= 1 && stoi(p1) <= 2)) {
+                    throw InvalidNumberException(p1);
+                }
+
+                break;
+                
+            } catch(InvalidNumberException& e) {
+                cout << e.what() << endl;
+            } catch(NotNumberException& e) {
+                cout << e.what() << endl;
+            }
         }
 
-        
+        cout << "Silahkan pilih kartu Kanan/Kiri <p" << state->playerTurn.at(stoi(id2)).getId() << "> - ";
+        cout << state->playerTurn.at(stoi(id2)).getName() << " : \n    1. Kiri\n    2. Kanan\n";        
+        while (true) {
+            try {
+                cout << "> ";
+                cin >> p2;
+
+                if (!isInteger(p2)) {
+                throw NotNumberException(p2);
+                }
+                
+                if (!(stoi(p2) >= 1 && stoi(p2) <= 2)) {
+                    throw InvalidNumberException(p2);
+                }
+
+                break;
+                
+            } catch(InvalidNumberException& e) {
+                cout << e.what() << endl;
+            } catch(NotNumberException& e) {
+                cout << e.what() << endl;
+            }
+        }
+        int x1 = stoi(p1)-1, x2 = stoi(p2)-1;
+        Card temp1 = state->playerTurn.at(stoi(id1)).getCards().at(x1);
+        Card temp2 = state->playerTurn.at(stoi(id1)).getCards().at((x1+1)%2);
+        Card temp3 = state->playerTurn.at(stoi(id2)).getCards().at(x2);
+        Card temp4 = state->playerTurn.at(stoi(id2)).getCards().at((x2+1)%2);
+
+        vector<Card> c1 = {temp1, temp4};
+        vector<Card> c2 = {temp3, temp2};
+        state->playerTurn.at(stoi(id1)).setCards(c2);
+        state->playerTurn.at(stoi(id2)).setCards(c1);
+
+        cout << "Berhasil menukar kartu!\n";
         
         this->used = true;
     }

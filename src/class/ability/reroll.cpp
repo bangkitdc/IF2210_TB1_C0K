@@ -14,7 +14,13 @@ void ReRoll::use(string power, GameManager* state) {
         throw AbilityOffException(power);
     }
     else {
-        cout << "dipake ya sayang\n";
+        state->getFirstPlayer().setCardN(state->d, 2);
+        cout << "Melakukan pembuangan kartu yang sedang dimiliki.\n";
+        cout << "Kamu mendapatkan 2 kartu baru yaitu:\n";
+        state->getFirstPlayer().displayPlayerCard(0);
+        cout << " && ";
+        state->getFirstPlayer().displayPlayerCard(1);
+        cout << endl << endl;
         this->used = true;
     }
 }

@@ -1,4 +1,6 @@
 #include "card.hpp"
+#include "../../utility/utility.hpp"
+#include <iomanip>
 
 Card::Card() : Card(0, "-") { }
 
@@ -30,7 +32,16 @@ void Card::setWarna(string warna) {
     card.second = warna;
 }
 void Card::displayCard() {
-    cout << this->getNum() << " (" << this->getWarna() << ")\n";
+    if (getWarna() == "hijau") {
+        cout << GREEN;
+    } else if (getWarna() == "biru") {
+        cout << BLUE;
+    } else if (getWarna() == "kuning") {
+        cout << YELLOW;
+    } else if (getWarna() == "merah") {
+        cout << RED;
+    }
+    cout << setfill(' ') << setw(2) << left << this->getNum() << " (" << this->getWarna() << ")" << RESET;
 }
 
 bool Card::isValidCard() const {

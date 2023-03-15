@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include "../inventoryHolder/player.hpp"
+// #include "../inventoryHolder/deckCard.hpp"
 using namespace std;
 
 Game::Game() {
@@ -35,11 +36,11 @@ Player Game::dequeuePlayer() {
     return player;
 }
 
-void Game::setPrize(int prize) {
+void Game::setPrize(long long prize) {
     this->prize = prize;
 }
 
-int Game::getPrize() {
+long long Game::getPrize() {
     return this->prize;
 }
 
@@ -53,4 +54,14 @@ Player Game::getPlayer(int i) {
 
 Player Game::getFirstPlayer() {
     return this->playerTurn[0];
+}
+
+void Game::gameReset() {
+    turn = 1;
+    round = 1;
+    prize = 0;
+    gameEnd = false;
+    programEnd = false;
+    playerTurn.clear();
+    d.resetDeckCard();
 }

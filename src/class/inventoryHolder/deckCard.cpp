@@ -75,7 +75,7 @@ void DeckCard::readFromFile(string filename){
             cardNum = 9;
             break;
         default:
-            throw "Input tidak valid";
+            throw fileInvalidException();
             break;
         }
         
@@ -109,7 +109,7 @@ void DeckCard::readFromFile(string filename){
                 cardColor = "hijau";
                 break;
             default : 
-                throw "Input tidak valid";
+                throw fileInvalidException();
                 break;
             
             break;
@@ -119,7 +119,7 @@ void DeckCard::readFromFile(string filename){
     }
     f.close();
     if (temp.size()!= 52){
-        throw "Input kartu kurang";
+        throw fileInvalidException();
     }
     cards=temp;
 }
@@ -152,6 +152,9 @@ bool DeckCard::isDeckEmpty() {
 }
 
 DeckCard& DeckCard::operator-(const Card & a){
+    if(cards.size()==0){
+        throw DeckKosongException();
+    }
     for(int i=0;i<cards.size();i++){
         if (cards[i].getNum()==a.getNum() && cards[i].getWarna().compare(a.getWarna())==0 ){
             cards.erase(cards.begin()+i);
@@ -161,6 +164,9 @@ DeckCard& DeckCard::operator-(const Card & a){
 }
 
 void DeckCard::deleteCard(Card a){
+    if(cards.size()==0){
+        throw DeckKosongException();
+    }
     for(int i=0;i<cards.size();i++){
         if (cards[i].getNum()==a.getNum() && cards[i].getWarna().compare(a.getWarna())==0 ){
             cards.erase(cards.begin()+i);
@@ -179,6 +185,9 @@ Card DeckCard::getCard(){
 }
 
 Card DeckCard::getTopCard() {
+    if(cards.size()==0){
+        throw DeckKosongException();
+    }
     Card temp = cards[cards.size() - 1];
     return temp;
 }
@@ -194,4 +203,8 @@ DeckCard& DeckCard::operator=(const DeckCard &a){
 }
 void DeckCard::setCards(vector<Card> a){
     cards=a;
+}
+
+void DeckCard::resetDeckCard() {
+    cards.clear();
 }
