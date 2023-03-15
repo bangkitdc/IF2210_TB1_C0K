@@ -9,14 +9,15 @@ void tableCard::setTCard(DeckCard *deck){
 }
 
 void tableCard::displayTCard(){
-    cout << "=================Kartu Meja Sekarang==================" << endl;
+    cout << endl;
     if (Tcards.size() != 0) {
+        cout << CYAN << "================ Kartu Meja Sekarang =================" << RESET << endl;
         for(int i=0;i<Tcards.size();i++){
             Tcards[i].displayCard(); cout << " ";
         }
         cout << endl;
     } else {
-        cout << "===================Kartu Meja Kosong==================" << endl;
+        cout << CYAN << "================== Kartu Meja Kosong =================" << RESET << endl;
     }
 }
 

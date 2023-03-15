@@ -47,6 +47,9 @@ class Game {
 
         void gameReset();               /* Reset Game */
 
+        void splashCastle();            /* Splash Screen */
+        void splashEnd();               /* Splash Screen */  
+
         friend class DeckAbility;       /* Friend Function */
         friend class Swap;              /* Friend Function */
         friend class Switch;            /* Friend Function */

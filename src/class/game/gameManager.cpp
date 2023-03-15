@@ -19,6 +19,7 @@ const string listCommand[] = {
 GameManager::GameManager() : Game() {}
 
 void GameManager::startGame() {
+    splashCastle();
     do {
         // reset every loop
         gameReset();
@@ -26,6 +27,7 @@ void GameManager::startGame() {
         
         // POKER
         if (inpGame == 1) {
+            // INI BIKIN SPLASH DONG PLS
             cout << "Welcome to Poker KW" << endl << endl;
 
             // Input Player
@@ -40,7 +42,6 @@ void GameManager::startGame() {
 
                 DeckAbility *da = new DeckAbility();
                 da->distributeAbility(this);
-                
 
                 while(!gameEnd) {
                     
@@ -99,8 +100,8 @@ void GameManager::startGame() {
                         // Kalau round 1 ditanya deck nya mau random apa dari file
                         int pil = inputOpsi();
 
-                        // exit if pil == -1
-                        if (pil == -1) {
+                        // exit if pil == 0
+                        if (pil == 0) {
                             break;
                         }
 
@@ -175,7 +176,7 @@ void GameManager::startGame() {
                     t.displayTCard();
                     displayCardUI(t.getCards());
 
-                    cout << "=====================================================" << endl;
+                    cout << endl << CYAN << "======================================================" << RESET << endl;
                     cout << "Round : " << round << "\n";
                     cout << "Turn  : " << turn << "\n";
                     cout << "Prize : ";
@@ -193,11 +194,17 @@ void GameManager::startGame() {
                     if (round > 1) {
                         cout << "Kamu punya ability: " << CYAN << getFirstPlayer().getAbility()->getPower() << RESET << endl;
                     }
-                    cout << "=====================================================" << endl;
+                    cout << CYAN << "======================================================" << RESET << endl << endl;
 
                     // requesting and process command input
                     string command = reqCommand();
                     process(command);
+
+                    // COK INI MASIH SALAH TOLONG
+                    // while (command == "HELP") {
+                    //     string command = reqCommand();
+                    //     process(command);
+                    // }
 
                     // Next Turn
                     Player temp = dequeuePlayer();
@@ -242,7 +249,7 @@ void GameManager::startGame() {
                     playerTurn[0].displayPlayerCards();
 
                     int x = inputCangkul(1, playerTurn[0].getCards().size());
-                    if (x == -1) {
+                    if (x == 0) {
                        break;     
                     }
 
@@ -258,7 +265,7 @@ void GameManager::startGame() {
                         displayPlayerCardWithColor(playerTurn[0], warna);
 
                         int x = inputCangkul(1, listIndex.size());
-                        if (x == -1) {
+                        if (x == 0) {
                             break;
                         }
 
@@ -321,7 +328,7 @@ void GameManager::startGame() {
         }
     } while(!programEnd);
 
-    cout << "Program selesai, sampai jumpa lagi" << endl;
+    splashEnd();
 }
 
 void GameManager::inputPlayer(int x) {
@@ -331,7 +338,7 @@ void GameManager::inputPlayer(int x) {
     do {
         try {
             string username;
-            cout << "Masukkan username <p" << this->playerTurn.size() + 1 << "> : " << endl << "> ";
+            cout << endl << CYAN << "Masukkan username <p" << this->playerTurn.size() + 1 << "> : " << RESET << endl << "> ";
             cin >> username;
 
             if (username.size() > 10) {
@@ -339,28 +346,6 @@ void GameManager::inputPlayer(int x) {
             }
 
             Player temp(username);
-            this->enqueuePlayer(temp);
-        } catch (UsernameException& e) {
-            cout << RED << endl << e.what() << RESET << endl << endl;
-        }
-    } while (this->playerTurn.size() != x);
-}
-
-void GameManager::inputPlayer(int x, DeckCard& d, int n) {
-    cout << "Jumlah player pada game : " << x << endl;
-    cout << "Silahkan masukkan username tiap player!!" << endl;
-
-    do {
-        try {
-            string username;
-            cout << "Masukkan username <p" << this->playerTurn.size() + 1 << "> : " << endl << "> ";
-            cin >> username;
-
-            if (username.size() > 10) {
-                throw UsernameException();
-            }
-
-            Player temp(username, d, n);
             this->enqueuePlayer(temp);
         } catch (UsernameException& e) {
             cout << RED << endl << e.what() << RESET << endl << endl;
@@ -396,7 +381,7 @@ string GameManager::inputFile() {
     bool flag = true;
     while(flag) {
         try {
-            cout << "Masukkan nomor file:" << endl;
+            cout << endl << CYAN << "Masukkan nomor file:" << RESET << endl;
             cout << "> ";
             cin >> i;
 
@@ -410,9 +395,9 @@ string GameManager::inputFile() {
 
             flag = false;
         } catch(InvalidNumberException& e) {
-            cout << RED << endl << e.what() << RESET << endl << endl;
+            cout << RED << endl << e.what() << RESET << endl;
         } catch(NotNumberException& e) {
-            cout << RED << endl << e.what() << RESET << endl << endl;
+            cout << RED << endl << e.what() << RESET << endl;
         }
     }
 
@@ -424,11 +409,13 @@ int GameManager::inputOpsi() {
     bool flag = true;
     while(flag) {
         try {
+            cout << endl;
             cout << "Untuk urutan Deck Card, terdapat 2 Opsi" << endl;
-            cout << "Ketik `-1` jika ingin keluar dari game" << endl << endl;
             cout << "1. Opsi Random" << endl;
-            cout << "2. Opsi Baca File" << endl;
-            cout << "Masukkan pilihan: " << endl;
+            cout << "2. Opsi Baca File" << endl << endl;
+
+            cout << "0. Batal" << endl << endl;
+            cout << CYAN << "Masukkan pilihan: " << RESET << endl;
             cout << "> ";
             cin >> i;
 
@@ -436,11 +423,11 @@ int GameManager::inputOpsi() {
                 throw NotNumberException(i);
             }
 
-            if (stoi(i) == -1) {
+            if (stoi(i) == 0) {
                 this->gameEnd = true;
 
-                cout << endl << "Terima kasih telah bermain Poker KW :p" << endl;
-                return -1;
+                cout << endl << GREEN << "Terima kasih telah bermain Poker KW :p" << RESET << endl;
+                return 0;
             }
             
             if (!(stoi(i) >= 1 && stoi(i) <= 2)) {
@@ -449,9 +436,9 @@ int GameManager::inputOpsi() {
 
             flag = false;
         } catch(InvalidNumberException& e) {
-            cout << RED << endl << e.what() << RESET << endl << endl;
+            cout << RED << endl << e.what() << RESET << endl;
         } catch(NotNumberException& e) {
-            cout << RED << endl << e.what() << RESET << endl << endl;
+            cout << RED << endl << e.what() << RESET << endl;
         }
     }
 
@@ -463,11 +450,13 @@ int GameManager::inputGame() {
     bool flag = true;
     while(flag) {
         try {
-            cout << "Terdapat 2 Permainan" << endl;
-            cout << "1. Poker KW" << endl;
-            cout << "2. Cangkulan" << endl;
-            cout << "3. Quit Game" << endl;
-            cout << "Masukkan pilihan: " << endl;
+            cout << CYAN << "======================================================" << endl;
+            cout << "=" << RESET << "                 Silahkan Pilih Game                " << CYAN << "=" << endl;
+            cout << "======================================================" << RESET << endl;
+            cout << "1. Kompetisi Kartu Kerajaan Permen (Poker KW)" << endl;
+            cout << "2. Cangkulan" << endl << endl;
+            cout << "0. Quit Game" << endl << endl;
+            cout << CYAN << "Masukkan pilihan: " << RESET << endl;
             cout << "> ";
             cin >> i;
 
@@ -475,15 +464,15 @@ int GameManager::inputGame() {
                 throw NotNumberException(i);
             }
             
-            if (!(stoi(i) >= 1 && stoi(i) <= 3)) {
+            if (!(stoi(i) >= 0 && stoi(i) <= 2)) {
                 throw InvalidNumberException(i);
             }
 
             flag = false;
         } catch(InvalidNumberException& e) {
-            cout << RED << endl << e.what() << RESET << endl << endl;
+            cout << RED << endl << e.what() << RESET << endl;
         } catch(NotNumberException& e) {
-            cout << RED << endl << e.what() << RESET << endl << endl;
+            cout << RED << endl << e.what() << RESET << endl;
         }
     }
 
@@ -494,7 +483,7 @@ string GameManager::reqCommand() {
     string command;
     while(!this->gameEnd) {
         try {
-            cout << "Masukkan command:" << endl;
+            cout << endl << CYAN << "Masukkan command: (Ketik `HELP` untuk melihat command)" << RESET << endl;
             cout << "> ";
             cin >> command;
             
@@ -506,7 +495,7 @@ string GameManager::reqCommand() {
 
             throw InvalidCommandException(command);
         } catch(InvalidCommandException& e) {
-            cout << RED << endl << e.what() << RESET << endl << endl;
+            cout << RED << endl << e.what() << RESET << endl;
         }
     }
     return "GAME END";
@@ -550,25 +539,29 @@ void GameManager::process(string command) {
         
         // HELP, show all valid commands
         else if (command == "HELP") {
-            cout << endl << "Command yang tersedia: " << endl;
-            cout << "NEXT \t: " << "Perintah untuk tidak melakukan apa-apa. Giliran dilanjutkan ke pemain berikutnya" << endl;
-            cout << "RE-ROLL \t: " << "PreReq: Re-Roll Card. Perintah untuk membuang 2 kartu tangan pemanggil dan mengambil ulang 2 kartu baru dari deck" << endl;
-            cout << "DOUBLE \t: " << "Perintah untuk menaikkan total poin hadiah menjadi 2x lipat" << endl;
-            cout << "QUADRUPLE \t: " << "PreReq: Double Card. Perintah untuk menaikkan total poin hadiah menjadi 4x lipat" << endl;
-            cout << "HALF \t: " << "Perintah untuk menurunkan total poin hadiah menjadi (1/2)x lipat" << endl;
-            cout << "QUARTER \t: " << "Perintah untuk menurunkan total poin hadiah menjadi (1/4)x lipat" << endl;
-            cout << "REVERSE \t: " << "Perintah untuk memutar arah giliran pemain" << endl;
-            cout << "SWAPCARD \t: " << "Perintah untuk menukar 1 kartu pemain lain dengan 1 kartu pemain yang lain" << endl;
-            cout << "SWITCH \t: " << "Perintah untuk menukar 2 kartu tangan pemanggil dengan 2 kartu tangan pemain lain" << endl;
-            cout << "ABILITYLESS \t: " << "Perintah untuk mematikan kemampuan kartu lawan" << endl;
-            cout << "HELP \t: " << "Perintah untuk menampilkan semua command yang tersedia" << endl;
-            cout << "QUIT \t: " << "Perintah untuk keluar game" << endl;
+            cout << endl;
+            cout << CYAN << "======================================================" << endl;
+            cout << "=" << RESET << "                Command Yang Tersedia              " << CYAN << "=" << endl;
+            cout << "======================================================" << RESET << endl;
+
+            cout << "1.  NEXT \t: " << "Perintah untuk tidak melakukan apa-apa. Giliran dilanjutkan ke pemain berikutnya." << endl;
+            cout << "2.  RE-ROLL \t: " << "PreReq: Re-Roll Card. Perintah untuk mengambil ulang 2 kartu tangan pemanggil dari deck." << endl;
+            cout << "3.  DOUBLE \t: " << "Perintah untuk menaikkan total poin hadiah menjadi 2x lipat." << endl;
+            cout << "4.  QUADRUPLE \t: " << "PreReq: Quadruple Card. Perintah untuk menaikkan total poin hadiah menjadi 4x lipat." << endl;
+            cout << "5.  HALF \t: " << "Perintah untuk menurunkan total poin hadiah menjadi (1/2)x lipat." << endl;
+            cout << "6.  QUARTER \t: " << "Perintah untuk menurunkan total poin hadiah menjadi (1/4)x lipat." << endl;
+            cout << "7.  REVERSE \t: " << "Perintah untuk memutar arah giliran pemain." << endl;
+            cout << "8.  SWAPCARD \t: " << "Perintah untuk menukar 1 kartu pemain lain dengan 1 kartu pemain yang lain." << endl;
+            cout << "9.  SWITCH \t: " << "Perintah untuk menukar 2 kartu tangan pemanggil dengan 2 kartu tangan pemain lain." << endl;
+            cout << "10. ABILITYLESS \t: " << "Perintah untuk mematikan kemampuan kartu lawan." << endl;
+            cout << "11. HELP \t: " << "Perintah untuk menampilkan semua command yang tersedia." << endl;
+            cout << "12. QUIT \t: " << "Perintah untuk keluar game." << endl;
         } 
         
         // QUIT, end the game
         else if (command == "QUIT") {
             this->gameEnd = true;
-            cout << endl << "Terima kasih telah bermain Poker KW :p" << endl;
+            cout << endl << GREEN << "Terima kasih telah bermain Poker KW :p" << RESET << endl;
         } 
         
         // else, use card ability according to command
@@ -576,22 +569,22 @@ void GameManager::process(string command) {
             try {
                 getFirstPlayer().getAbility()->use(command, this);
             } catch (NoCardException &e) {
-                cout << RED << endl << e.what() << RESET << endl << endl;
+                cout << RED << endl << e.what() << RESET << endl;
                 process(reqCommand());
             } catch (UsedCardException &e) {
-                cout << RED << endl << e.what() << RESET << endl << endl;
+                cout << RED << endl << e.what() << RESET << endl;
                 process(reqCommand());
             } catch (NoAbilityException &e) {
-                cout << RED << endl << e.what() << RESET << endl << endl;
+                cout << RED << endl << e.what() << RESET << endl;
                 process(reqCommand());
             } catch (AbilityOffException &e) {
-                cout << RED << endl << e.what() << RESET << endl << endl;
+                cout << RED << endl << e.what() << RESET << endl;
                 process(reqCommand());
             }
             
         }
     } catch (InvalidCommandException &e) {
-        cout << RED << endl << e.what() << RESET << endl << endl;
+        cout << RED << endl << e.what() << RESET << endl;
     }
 }
 
@@ -603,7 +596,7 @@ void GameManager::printQueue() {
 }
 
 void GameManager::displayKartuMenang(vector<Card> c) {
-    cout << "=================Paket Kartu Pemenang=================" << endl;
+    cout << CYAN << "================ Paket Kartu Pemenang ================" << RESET << endl;
 
     for(int i=0;i<c.size();i++){
         c[i].displayCard(); cout << " ";
@@ -626,10 +619,10 @@ bool GameManager::isInteger(const string& str) {
 void GameManager::CheckWin(deque<Player> & p) {
     for (int i = 0; i < 7; i ++) {
         if (p[i].getPoint() >= pow(2, 32)) {
-            cout << "Selamat!! Pemain dengan username " << p[i].getName() << " memenangkan permainan!" << endl;
+            cout << "Selamat!!! Pemain dengan username " << p[i].getName() << " memenangkan permainan!" << endl;
             cout << "Pemain telah mencapai poin: ";
             printPrize(p[i].getPoint());
-            cout << "\nPoin sudah melebihi 4294967296" << endl;
+            cout << "\nPoin sudah melebihi 4294967296 (2^32)" << endl;
 
             this->gameEnd = true;
         }
@@ -644,11 +637,11 @@ int GameManager::inputCangkul(int a, int b) {
     while(flag) {
         try {
             if (a != b) {
-                cout << "Silahkan pilih kartu yang ingin dikeluarkan: " << "(" << a << " - " << b << ")" << endl;
+                cout << CYAN << "Silahkan pilih kartu yang ingin dikeluarkan: " << "(" << a << " - " << b << ")" << RESET << endl;
             } else {
-                cout << "Silahkan pilih kartu yang ingin dikeluarkan: (1) pilihan saja" << endl;
+                cout << CYAN << "Silahkan pilih kartu yang ingin dikeluarkan: (1) pilihan saja" << RESET << endl;
             }
-            cout << "Ketik `-1` jika ingin keluar dari game" << endl << endl;
+            cout << endl << "0. Batal" << endl << endl;
 
             cout << "> ";
             cin >> i;
@@ -657,11 +650,11 @@ int GameManager::inputCangkul(int a, int b) {
                 throw NotNumberException(i);
             }
 
-            if (stoi(i) == -1) {
+            if (stoi(i) == 0) {
                 this->gameEnd = true;
 
-                cout << endl << "Terima kasih telah bermain Poker KW :p" << endl;
-                return -1;
+                cout << endl << GREEN << "Terima kasih telah bermain Poker KW :p" << RESET << endl;
+                return 0;
             }
             
             if (!(stoi(i) >= a && stoi(i) <= b)) {
