@@ -32,6 +32,7 @@ class GameManager : public Game {
         int inputGame();                                        /* I/O Console */
         string reqCommand();                                    /* I/O Console */
         void printQueue();                                      /* I/O Console */
+        void displayKartuMenang(vector<Card>);                  /* I/O Console */
 
         void startGame();                                       /* Start */
         void process(string);                                   /* Process Command */
@@ -46,6 +47,9 @@ class GameManager : public Game {
         void evaluateQueue(tableCard &);                        /* Validator */
         vector<int> countPlayerCardWithColor(Player &, string); /* Getter */
         int findIdxWithId(int);                                 /* Getter */
+
+        void displayCardUI(vector<Card>, int spaces = 0); /* I/O Console */
+        string color2String(Card card);
 };
 
 #endif

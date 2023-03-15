@@ -8,6 +8,8 @@
 #include "inventoryHolder.hpp"
 #include "player.hpp"
 #include "../exception/cardException.hpp"
+#include "../../utility/utility.hpp"
+
 
 using namespace std;
 

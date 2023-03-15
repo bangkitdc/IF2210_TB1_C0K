@@ -31,7 +31,7 @@ string Card::getWarna() const {
 void Card::setWarna(string warna) {
     card.second = warna;
 }
-void Card::displayCard() {
+void Card::displayCard(bool displaySpace) {
     if (getWarna() == "hijau") {
         cout << GREEN;
     } else if (getWarna() == "biru") {
@@ -41,7 +41,12 @@ void Card::displayCard() {
     } else if (getWarna() == "merah") {
         cout << RED;
     }
-    cout << setfill(' ') << setw(2) << left << this->getNum() << " (" << this->getWarna() << ")" << RESET;
+    string warnaTemp = "(" + this->getWarna() + ")";
+    if (displaySpace) {
+        cout << setfill(' ') << setw(2) << left << this->getNum() << setfill(' ') << setw(8) << right << warnaTemp << RESET;
+    } else {
+        cout << this->getNum() << " (" << this->getWarna() << ")" << RESET;
+    }
 }
 
 bool Card::isValidCard() const {
