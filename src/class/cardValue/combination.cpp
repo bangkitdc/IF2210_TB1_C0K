@@ -631,22 +631,22 @@ double Combination::fullHouseVal(int angka1, int angka2, int warna1_1, int warna
     // maxGap = 156
 
     return 26285.8 + (pow(2, angka1) + angka1 * 156 + angka2 + angka2 * 5) * pow(2, 6) + (pow(konstan1, 2) + konstan2 - 50);
-    // MAX : 412554
+    // MAX : 684362
 }
 
 double Combination::foursVal(int angka) {
     // Fours
 
-    return 412554 + angka;
-    // MAX : 412567
+    return 684362 + angka;
+    // MAX : 684375
 }
 
 double Combination::straightFlushVal(int angka1, int angka2, int angka3, int angka4, int angka5, int warna) {
     // StraightFlush
     double konstan = warna;
 
-    return 412567 + konstan + angka1 + angka2 + angka3 + angka4 + angka5;
-    // MAX : 412567
+    return 684375 + konstan + angka1 + angka2 + angka3 + angka4 + angka5;
+    // MAX : 684433
 }
 
 void Combination::eraseFirst(vector<vector<Card>> &card){

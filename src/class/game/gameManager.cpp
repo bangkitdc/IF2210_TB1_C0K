@@ -1,13 +1,4 @@
 #include "gameManager.hpp"
-#include "../../utility/utility.hpp"
-#include <filesystem>
-#include <iostream>
-#include <vector>
-#include <string>
-#include <conio.h>
-#include "../exception/nameException.hpp"
-
-using namespace std;
 
 const string listCommand[] = {
     "NEXT",
@@ -95,35 +86,36 @@ void GameManager::startGame() {
 
                         if (pil == 2) {
                             string fileInput = inputFile();
+                            cin.ignore();
                             if (fileInput == "nofile") {
                                 cout << "Tidak terdapat file di dalam directory /test, Deck Card akan di-random" << endl;
                             } else {
                                 while(true){   
                                 try
                                     {
-                                        d.readFromFile("..\\IF2210_TB1_C0K\\test\\"+fileInput); 
+                                        d.readFromFile("../IF2210_TB1_C0K/test/"+fileInput);
                                         break;
                                     }
                                     catch(fileInvalidException &e)
                                     {
                                         cout << RED << endl << e.what() << RESET << endl << endl;
                                         cout << "Mohon perbaiki fileinput..." << endl;
-                                        cout << "Press Anything to Continue\n";
-                                        getch();
+                                        cout << "Press Enter to Continue...";
+                                        getchar();
                                     }
                                     catch(fileInvalidUkuranException &e)
                                     {
                                         cout << RED << endl << e.what() << RESET << endl << endl;
                                         cout << "Mohon perbaiki fileinput..." << endl;
-                                        cout << "Press Anything to Continue\n";
-                                        getch();                                    
+                                        cout << "Press Enter to Continue...";
+                                        getchar();
                                     }
                                     catch(fileInvalidDuplicateException &e)
                                     {
                                         cout << RED << endl << e.what() << RESET << endl << endl;
                                         cout << "Mohon perbaiki fileinput..." << endl;
-                                        cout << "Press Anything to Continue\n";
-                                        getch();                                
+                                        cout << "Press Enter to Continue...";
+                                        getchar();
                                     }
                                 }       
                             }
