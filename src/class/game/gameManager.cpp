@@ -43,7 +43,6 @@ void GameManager::startGame() {
                 
                 this->d = DeckCard();
                 this->d.shuffleCard();
-                // this->d.displayDeckCard();
                 tableCard t;
 
                 DeckAbility *da = new DeckAbility();
@@ -52,34 +51,37 @@ void GameManager::startGame() {
 
                 while(!gameEnd) {
                     if (round == 7) {
-                        // EVALUATE
-                        Player temp = dequeuePlayer();
-                        enqueuePlayer(temp);
+                        Combination c;
+                        // Evaluate
+                        vector<Player> evaluator = getPlayers();
 
-                        // SEMENTARA PRIZE GW ASSIGN LANGSUNG KE P1
-                        playerTurn.front().addPoint(prize);
-                        cout << "\n\n";
+                        Player temp = c.evaluate(evaluator, t.getCards());
+
+                        int idxPemenang = findIdxWithId(temp.getId());
+
+                        playerTurn[idxPemenang].addPoint(prize);
+                        cout << endl << "Poin sebesar: ";
                         printPrize(prize);
-                        cout << " DIBERIKAN KE P1!\n\n";
+                        cout << ", diberikan kepada: p" << temp.getId() << endl; 
                         cout << "=====================================================";
                         cout << "\nPoint player:\n";
                         
                         printPlayersPoint();
 
-                        if (getFirstPlayer().getPoint() >= pow(2,32)) {
-                            cout << "\nP1 MENANG!!!!!!!!!!!\n\n";
-                            gameEnd = true;
-                            break;
-                        } else {
+                        CheckWin(playerTurn);
+
+                        if (!gameEnd) {
                             cout << "\nPermainan diulang!\n";
                             this->d = DeckCard();
                             this->d.shuffleCard();
-                            t = tableCard();
+                            t.clearCards();
                             setPrize(64);
                             this->round = 1;
                             this->turn = 1;
                             da->resetAbilityDeck();
                             da->distributeAbility(this);
+                        } else {
+                            break;
                         }
                     }
                     if (round == 1 && turn == 1) {
@@ -104,21 +106,21 @@ void GameManager::startGame() {
                                     }
                                     catch(fileInvalidException &e)
                                     {
-                                        cout << endl << e.what() << endl;
+                                        cout << RED << endl << e.what() << RESET << endl << endl;
                                         cout << "Mohon perbaiki fileinput..." << endl;
                                         cout << "Press Anything to Continue\n";
                                         getch();
                                     }
                                     catch(fileInvalidUkuranException &e)
                                     {
-                                        cout << endl << e.what() << endl;
+                                        cout << RED << endl << e.what() << RESET << endl << endl;
                                         cout << "Mohon perbaiki fileinput..." << endl;
                                         cout << "Press Anything to Continue\n";
                                         getch();                                    
                                     }
                                     catch(fileInvalidDuplicateException &e)
                                     {
-                                        cout << endl << e.what() << endl;
+                                        cout << RED << endl << e.what() << RESET << endl << endl;
                                         cout << "Mohon perbaiki fileinput..." << endl;
                                         cout << "Press Anything to Continue\n";
                                         getch();                                
@@ -131,7 +133,6 @@ void GameManager::startGame() {
 
                         }
                         
-
                         // Assign deck ke masing-masing player
                         for (auto &p : playerTurn) {
                             p.setCardN(d, 2);
@@ -178,7 +179,6 @@ void GameManager::startGame() {
                     nextTurn();
                     }   
 
-                CheckWin(playerTurn);
                 delete da;
                 }
         } else if (inpGame==2) {
@@ -305,7 +305,7 @@ void GameManager::inputPlayer(int x) {
             Player temp(username);
             this->enqueuePlayer(temp);
         } catch (UsernameException& e) {
-            cout << e.what();
+            cout << RED << endl << e.what() << RESET << endl << endl;
         }
     } while (this->playerTurn.size() != x);
 }
@@ -327,7 +327,7 @@ void GameManager::inputPlayer(int x, DeckCard& d, int n) {
             Player temp(username, d, n);
             this->enqueuePlayer(temp);
         } catch (UsernameException& e) {
-            cout << e.what();
+            cout << RED << endl << e.what() << RESET << endl << endl;
         }
     } while (this->playerTurn.size() != x);
 }

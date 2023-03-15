@@ -55,8 +55,14 @@ void Game::printPlayersPoint() {
     cout << endl;
 }
 
-deque<Player> Game::getPlayers() {
-    return this->playerTurn;
+vector<Player> Game::getPlayers() {
+    vector<Player> res;
+
+    for (int i = 0; i < playerTurn.size(); i ++) {
+        res.push_back(getPlayer(i));
+    }
+
+    return res;
 }
 
 Player Game::getPlayer(int i) {

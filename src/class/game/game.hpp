@@ -34,7 +34,7 @@ class Game {
         void setPrize(__uint128_t);     /* Setter */
 
         __uint128_t getPrize();         /* Getter */
-        deque<Player> getPlayers();     /* Getter */
+        vector<Player> getPlayers();     /* Getter */
         Player getFirstPlayer();        /* Getter */
         Player getPlayer(int);          /* Getter */
 
