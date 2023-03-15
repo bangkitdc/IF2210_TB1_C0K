@@ -7,3 +7,39 @@
 #define MAGENTA "\033[1m\033[35m"
 #define CYAN    "\033[1m\033[36m"
 #define WHITE   "\033[1m\033[37m"
+
+#include <iostream>
+#include <Windows.h> //system
+#include <stdio.h> //printf
+
+using namespace std;
+void LoadingBar(){
+    system("COLOR B");
+    system("cls");
+    printf("\e[?25l");
+
+    //Set ASCII to print special character.
+    //Code page 437
+    SetConsoleCP(437);
+    SetConsoleOutputCP(437);
+    int bar1 = 177, bar2 = 219;
+
+    cout << "\n\n\n\t\t\t\tLoading...";
+    cout << "\n\n\n\t\t\t\t";
+
+    for(int i = 0; i < 25; i++)
+        cout << (char)bar1;
+
+    cout <<"\r";
+    cout <<"\t\t\t\t";
+    for(int i = 0; i < 25; i++)
+    {
+        cout << (char)bar2;
+        Sleep(150);
+    }
+
+    cout<<"\n\t\t\t\t" << "Welcom to Poker KW!\n\t\t\t\t";
+    system("Pause");
+    system("CLS");
+    system("COLOR 7");
+}
