@@ -1,9 +1,4 @@
 #include "player.hpp"
-#include "../exception/cardException.hpp"
-#include "../ability/ability.hpp"
-#include <vector>
-#include <iostream>
-using namespace std;
 
 int Player::totalPlayer = 0;
 
@@ -27,9 +22,7 @@ Player::Player(string a,DeckCard &b,int n=2) : InventoryHolder("player"), id(Pla
 
 void Player::setCard(DeckCard &a){
     this->cardsP.push_back(a.getCard());
-} 
-
-// "REROLL ABILITYLESS QUADRUPLE REVERSE SWAP SWITCH QUARTER"
+}
 
 void Player::setCardN(DeckCard &a, int n){
     for (int i = 0; i < n; i ++) {
@@ -40,6 +33,7 @@ void Player::setCardN(DeckCard &a, int n){
 void Player::setCardDepan(Card a){
     cardsP.insert(cardsP.begin(),a);
 }
+
 void Player::setCardBelakang(Card a){
     cardsP.push_back(a);
 }
@@ -69,8 +63,7 @@ void Player::setAbility(Ability *abl) {
     this->ability = abl;
 }
 
-Player::~Player(){
-}
+Player::~Player(){ }
 
 vector<Card> Player::getCards(){
     return cardsP;
@@ -95,7 +88,6 @@ __uint128_t Player::getPoint()const{
 string Player::getName()const{
     return this->username;
 }
-
 
 void Player::displayPlayer(bool displayPoint){
     cout << "Name : " << this->getName() <<endl;
@@ -164,31 +156,17 @@ Player& Player::operator-(DeckCard &a){
     cardsP.pop_back();
     return *this;
 }
+
 Player& Player::operator=(const Player &a){
     this->id = a.id;
     this->cardsP = a.cardsP;
     this->username = a.username;
     this->point = a.point;
-    // ability belom
     return *this;
 }
+
 void Player::setCards(vector<Card> a){
     cardsP=a;
-}
-
-
-vector<Card> Player::evaluateCard(tableCard a){
-    vector<Card> temp;
-    vector<Card> tempTable=a.getCards();
-    for(int i=0;i<cardsP.size();i++){
-        temp.push_back(Card(tempTable[i]));
-    }
-
-    for (int i=0;i<a.getCards().size();i++){
-        temp.push_back(Card(tempTable[i]));
-    }
-    return temp;
-
 }
 
 double Player::getValueGeneric() {
@@ -210,12 +188,14 @@ void moveAllTableCardToPlayer(Player& p, tableCard &t) {
     t.clearMilik();
 }
 
-bool Player::operator>(const Player &a)[
-    return this->poiint>a.point;
-]
-bool Player::operator<(const Player &a){
-    return this->poiint<a.point;
+bool Player::operator>(const Player &a){
+    return this->point>a.point;
 }
+
+bool Player::operator<(const Player &a){
+    return this->point<a.point;
+}
+
 bool Player::operator==(const Player &a){
-    return this->poiint==a.point;
+    return this->point==a.point;
 }

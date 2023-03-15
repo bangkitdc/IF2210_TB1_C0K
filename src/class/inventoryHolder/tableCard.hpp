@@ -7,6 +7,9 @@
 #include "deckCard.hpp"
 #include "inventoryHolder.hpp"
 #include "player.hpp"
+#include "../exception/cardException.hpp"
+
+using namespace std;
 
 class Player;
 class tableCard : public InventoryHolder{
@@ -14,32 +17,32 @@ class tableCard : public InventoryHolder{
         vector<Card> Tcards;
         vector<int> kartuMilik;
     public:
-        tableCard();
-        ~tableCard();
-        void setTCard(DeckCard*);
-        void displayTCard();
-        vector<Card> getCards();
-        Card getFirstCard();
-        Card getCard();
-        Card getCardWithoutPop(int i);
-        void clearCards();
+        tableCard();                        /* Default Constructor */
+        ~tableCard();                       /* Destructor */
+        void setTCard(DeckCard*);           /* Setter */
+        void setCards(vector<Card>);        /* Setter */
 
+        vector<Card> getCards();            /* Getter */
+        Card getFirstCard();                /* Getter */
+        Card getCard();                     /* Getter */
+        Card getCardWithoutPop(int i);      /* Getter */
+        int getMilik(int i);                /* Getter */
 
-        void addCard(Card);
-        void addMilik(int i);
-        int getMilik(int i);
-        void clearMilik();
+        void displayTCard();                /* I/O Console */
+        
+        void clearCards();                  /* Clear Table Cards */
+        void clearMilik();                  /* Clear Milik */
 
-        void setCards(vector<Card>);
-        tableCard& operator+(DeckCard &);
+        void addCard(Card);                 /* Add Card */
+        void addMilik(int i);               /* Add Milik */
 
-        tableCard& operator-(DeckCard &);
+        tableCard& operator+(DeckCard &);   /* Operator Overloading */
+        tableCard& operator-(DeckCard &);   /* Operator Overloading */
 
-        bool isTCardEmpty();
-
-        void sortTableCard();
+        bool isTCardEmpty();                /* Operator */
+        void sortTableCard();               /* Sort Table Card */
 };
 
-void addPlayerCard(tableCard &, Player &, int);
+void addPlayerCard(tableCard &, Player &, int); /* Add Player Card From Table*/
 
 #endif

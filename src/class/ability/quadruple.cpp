@@ -1,5 +1,4 @@
 #include "quadruple.hpp"
-#include "../game/gameManager.hpp"
 
 Quadruple::Quadruple() : Ability("QUADRUPLE") {}
 

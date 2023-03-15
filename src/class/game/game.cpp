@@ -1,7 +1,4 @@
 #include "Game.hpp"
-#include "../inventoryHolder/player.hpp"
-// #include "../inventoryHolder/deckCard.hpp"
-using namespace std;
 
 Game::Game() : d() {
     this->turn = 1;
@@ -56,9 +53,6 @@ void Game::printPlayersPoint() {
         cout << endl;
     }
     cout << endl;
-    // for (auto &p : playerTurn) {
-    //                         p.setCardN(d, 2);
-    //                     }
 }
 
 deque<Player> Game::getPlayers() {

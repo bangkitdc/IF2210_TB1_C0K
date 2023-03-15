@@ -88,6 +88,6 @@ bool Card::operator>(Card &a){
 bool Card::operator<(Card &a){
     return this->getValue() < a.getValue();
 }
-bool operator==(Card &){
+bool Card::operator==(Card &a){
     return this->getValue() == a.getValue();
 }

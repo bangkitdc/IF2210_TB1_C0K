@@ -3,11 +3,12 @@
 
 #include "ability.hpp"
 #include <cstdint>
+#include "../game/gameManager.hpp"
 
 class Quarter : public Ability {
     public:
-        Quarter();
-        void use(string, GameManager*);
+        Quarter();                      /* Default Constructor */
+        void use(string, GameManager*); /* Implementor */
 };
 
 #endif

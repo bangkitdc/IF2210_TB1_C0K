@@ -130,6 +130,7 @@ void GameManager::startGame() {
                             this->d.shuffleCard();
 
                         }
+                        
 
                         // Assign deck ke masing-masing player
                         for (auto &p : playerTurn) {

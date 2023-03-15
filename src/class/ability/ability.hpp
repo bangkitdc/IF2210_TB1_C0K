@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 #include "../exception/commandException.hpp"
-// #include "../game/gameManager.hpp"
 using namespace std;
 
 #pragma once
@@ -17,17 +16,17 @@ class Ability {
         bool used;
         bool active;
     public:
-        Ability(string);
-        ~Ability();
+        Ability(string);                            /* Constructor */
+        ~Ability();                                 /* Destructor */
 
-        string getPower() const;
-        bool isUsed() const;
-        bool isActive() const;
-        void setActive(bool);
+        string getPower() const;                    /* Getter */
+        void setActive(bool);                       /* Setter */
 
-        virtual void use(string, GameManager*) = 0;
+        bool isUsed() const;                        /* Validator */
+        bool isActive() const;                      /* Validator */
+        bool isInteger(const string &);             /* Validator */
 
-        bool isInteger(const string&);
+        virtual void use(string, GameManager*) = 0; /* Implementor */
 };
 
 #endif

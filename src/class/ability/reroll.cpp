@@ -1,5 +1,4 @@
 #include "reroll.hpp"
-#include "../game/gameManager.hpp"
 
 ReRoll::ReRoll() : Ability("RE-ROLL") {}
 

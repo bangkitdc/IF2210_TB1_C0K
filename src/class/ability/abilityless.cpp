@@ -1,6 +1,4 @@
 #include "abilityless.hpp"
-#include "../game/gameManager.hpp"
-#include "../exception/numberException.hpp"
 
 AbilityLess::AbilityLess() : Ability("ABILITYLESS") {}
 

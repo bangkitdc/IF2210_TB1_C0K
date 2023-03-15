@@ -1,29 +1,24 @@
 #include "deckCard.hpp"
-#include <random>
-#include <algorithm>
-#include <fstream>
-#include <set>
-using namespace std;
 
-DeckCard::DeckCard() : InventoryHolder ("DeckCard"){
+DeckCard::DeckCard() : InventoryHolder ("DeckCard") {
     for(int i=1;i<=13;i++){
-            cards.push_back(Card(i,"merah"));
+        cards.push_back(Card(i,"merah"));
     }    
     for(int i=1;i<=13;i++){
-            cards.push_back(Card(i,"kuning"));
+        cards.push_back(Card(i,"kuning"));
     }    
     for(int i=1;i<=13;i++){
-            cards.push_back(Card(i,"biru"));
+        cards.push_back(Card(i,"biru"));
     }    
     for(int i=1;i<=13;i++){
-            cards.push_back(Card(i,"hijau"));
+        cards.push_back(Card(i,"hijau"));
     }    
 }
 
-void DeckCard::readFromFile(string filename){
+void DeckCard::readFromFile(string filename) {
     fstream f;
-    vector<Card> temp1234;
-    set<string> temp1;
+    vector<Card> tempCard;
+    set<string> tempSet;
     f.open(filename,ios::in);    
     int lineCount=1;
     while(!f.eof()){
@@ -71,7 +66,6 @@ void DeckCard::readFromFile(string filename){
                 default:
                     throw fileInvalidException(lineCount);
                     break;
-                   
                 }
                 break;
             }
@@ -142,18 +136,23 @@ void DeckCard::readFromFile(string filename){
         }
         int copyCardNum=cardNum;
         string copyCardColor=cardColor;
-        temp1.insert(to_string(copyCardNum)+copyCardColor);
-        temp1234.push_back(Card(cardNum,cardColor));
-        if(temp1.size()!=temp1234.size()){
+        tempSet.insert(to_string(copyCardNum)+copyCardColor);
+        tempCard.push_back(Card(cardNum,cardColor));
+
+        if(tempSet.size()!=tempCard.size()){
             throw fileInvalidDuplicateException(lineCount);
         }
+
         lineCount++;
     }
+
     f.close();
-    if (temp1234.size()!= 52){
+
+    if (tempCard.size()!= 52){
         throw fileInvalidUkuranException();
     }
-    cards=temp1234;
+
+    cards=tempCard;
 }
 
 DeckCard::~DeckCard(){}
@@ -170,7 +169,7 @@ void DeckCard::displayDeckCard(){
     }
 }
 
-void DeckCard::shuffleCard(){
+void DeckCard::shuffleCard() {
     std::random_device rd;
     std::mt19937 g(rd());
     std::shuffle(cards.begin(), cards.end(), g);
@@ -196,19 +195,7 @@ DeckCard& DeckCard::operator-(const Card & a){
     return *this;
 }
 
-void DeckCard::deleteCard(Card a){
-    if(cards.size()==0){
-        throw DeckKosongException();
-    }
-    for(int i=0;i<cards.size();i++){
-        if (cards[i].getNum()==a.getNum() && cards[i].getWarna().compare(a.getWarna())==0 ){
-            cards.erase(cards.begin()+i);
-        }
-    }
-}
-
 Card DeckCard::getCard(){
-    // shuffleCard();
     if(cards.size()==0){
         throw DeckKosongException();
     }

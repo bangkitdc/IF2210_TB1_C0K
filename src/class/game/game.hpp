@@ -5,8 +5,11 @@
 #include <deque>
 #include <cstdint>
 #include <cstdio>
+
+#include "../inventoryHolder/player.hpp"
 #include <iomanip>
 #include "../inventoryHolder/deckCard.hpp"
+
 using namespace std;
 
 #pragma once
@@ -24,27 +27,31 @@ class Game {
         DeckCard d;
 
     public:
-        Game();
-        void nextTurn();
-        void nextRound();
-        void setPrize(__uint128_t);
-        __uint128_t getPrize();
-        void printPrize(__uint128_t);
-        deque<Player> getPlayers();
-        void printPlayersPoint();
-        void enqueuePlayer(Player);
-        Player dequeuePlayer();
-        Player getFirstPlayer();
-        Player getPlayer(int);
+        Game();                         /* Default Constructor */
+        void nextTurn();                /* Next Turn */
+        void nextRound();               /* Next Round */
 
-        void gameReset();
+        void setPrize(__uint128_t);     /* Setter */
 
-        friend class DeckAbility;
-        friend class Swap;
-        friend class Switch;
-        friend class Reverse;
-        friend class AbilityLess;
-        friend class ReRoll;
+        __uint128_t getPrize();         /* Getter */
+        deque<Player> getPlayers();     /* Getter */
+        Player getFirstPlayer();        /* Getter */
+        Player getPlayer(int);          /* Getter */
+
+        void printPrize(__uint128_t);   /* I/O Console */
+        void printPlayersPoint();       /* I/O Console */
+        
+        void enqueuePlayer(Player);     /* Enqueue */
+        Player dequeuePlayer();         /* Dequeue */
+
+        void gameReset();               /* Reset Game */
+
+        friend class DeckAbility;       /* Friend Function */
+        friend class Swap;              /* Friend Function */
+        friend class Switch;            /* Friend Function */
+        friend class Reverse;           /* Friend Function */
+        friend class AbilityLess;       /* Friend Function */
+        friend class ReRoll;            /* Friend Function */
 };
 
 #endif

@@ -25,13 +25,13 @@ class DeckAbility {
     private:
         map<int, Ability*> aDeck;
     public:
-        DeckAbility();
-        ~DeckAbility();
+        DeckAbility();                          /* Default Constructor */
+        ~DeckAbility();                         /* Destructor */
 
-        map<int, Ability*> getAbilityDeck();
-        void resetAbilityDeck();
-        void shuffleAbility(Game*);
-        void distributeAbility(Game*);
+        map<int, Ability*> getAbilityDeck();    /* Getter */
+        void resetAbilityDeck();                /* Reset Ability Deck */
+        void shuffleAbility(Game*);             /* Shuffle Ability Deck */
+        void distributeAbility(Game*);          /* Distribute Ability Deck */
 };
 
 #endif

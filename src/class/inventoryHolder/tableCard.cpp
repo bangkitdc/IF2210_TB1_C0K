@@ -1,9 +1,7 @@
 #include "tableCard.hpp"
-#include "../exception/cardException.hpp"
-using namespace std;
 
-tableCard::tableCard():InventoryHolder("TableCard"){
-}
+tableCard::tableCard():InventoryHolder("TableCard"){ }
+
 tableCard::~tableCard(){}
 
 void tableCard::setTCard(DeckCard *deck){

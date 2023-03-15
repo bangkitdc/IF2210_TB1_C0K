@@ -3,11 +3,12 @@
 
 #include "ability.hpp"
 #include "../cardValue/card.hpp"
+#include "../game/gameManager.hpp"
 
 class Switch : public Ability {
     public:
-        Switch();
-        void use(string, GameManager*);
+        Switch();                       /* Default Constructor */
+        void use(string, GameManager*); /* Implementor */
 };
 
 #endif

@@ -11,11 +11,11 @@ class InventoryHolder {
     protected:
         string type;
     public:
-        InventoryHolder();
-        InventoryHolder(string);
-        virtual ~InventoryHolder();
-        virtual vector<Card> getCards()=0;
-        virtual void setCards(vector<Card>)=0;
+        InventoryHolder();                      /* Default Constructor */
+        InventoryHolder(string);                /* Constructor */
+        virtual ~InventoryHolder();             /* Virtual Destructor */
+        virtual vector<Card> getCards()=0;      /* Virtual Getter */
+        virtual void setCards(vector<Card>)=0;  /* Virtual Setter */
 };
 
 #endif

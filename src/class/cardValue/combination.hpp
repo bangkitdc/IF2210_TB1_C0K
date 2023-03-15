@@ -2,10 +2,15 @@
 #define _COMBINATION_HPP_
 
 #include <vector>
+#include <deque>
 #include <iostream>
+#include <string>
+#include <utility>
 #include <cmath>
 #include "cardValue.hpp"
 #include "../inventoryHolder/player.hpp"
+#include <bits/stdc++.h>
+
 using namespace std;
 
 class Combination : public CardValue {
