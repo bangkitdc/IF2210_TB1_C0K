@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <conio.h>
 
 using namespace std;
 
@@ -59,8 +58,8 @@ void GameManager::startGame() {
                         playerTurn.front().addPoint(prize);
                         cout << "\n\n";
                         printPrize(prize);
-                        cout << " DIBERIKAN KE P1!\n\n"
-                        cout << "====================================================="
+                        cout << " DIBERIKAN KE P1!\n\n";
+                        cout << "=====================================================";
                         cout << "\nPoint player:\n";
                         
                         printPlayersPoint();
@@ -95,40 +94,16 @@ void GameManager::startGame() {
                             if (fileInput == "nofile") {
                                 cout << "Tidak terdapat file di dalam directory /test, Deck Card akan di-random" << endl;
                             } else {
-                                while(true){   
-                                    try
-                                    {
-                                        d.readFromFile("..\\IF2210_TB1_C0K\\test\\"+fileInput); 
-                                        break;
-                                    }
-                                    catch(fileInvalidException &e)
-                                    {
-                                        cout << endl << e.what() << endl;
-                                        cout << "Mohon perbaiki fileinput..." << endl;
-                                        cout << "Press Anything to Continue\n";
-                                        getch();
-                                    }
-                                    catch(fileInvalidUkuranException &e)
-                                    {
-                                        cout << endl << e.what() << endl;
-                                        cout << "Mohon perbaiki fileinput..." << endl;
-                                        cout << "Press Anything to Continue\n";
-                                        getch();                                    
-                                    }
-                                    catch(fileInvalidDuplicateException &e)
-                                    {
-                                        cout << endl << e.what() << endl;
-                                        cout << "Mohon perbaiki fileinput..." << endl;
-                                        cout << "Press Anything to Continue\n";
-                                        getch();                                
-                                    }
-                                }       
+                                try {
+                                    d.readFromFile(fileInput);
+                                } catch(fileInvalidException &e) {
+                                    cout << RED << endl << e.what() << RESET << endl << endl;
+                                    cout << "Deck Card akan di-random" << endl;
+                                }
                             }
                         } else {
                             this->d.shuffleCard();
                         }
-                    }
-                        
 
                         // Assign deck ke masing-masing player
                         for (auto &p : playerTurn) {
@@ -173,16 +148,18 @@ void GameManager::startGame() {
                     Player temp = dequeuePlayer();
                     enqueuePlayer(temp);
 
-                nextTurn();
-                printQueue();
-            }            
-        }
-    } else {
-        cout << "Welcome to Cangkulan" << endl << endl;
-        
-        DeckCard d;
-        tableCard t;
-        d.shuffleCard();
+                    nextTurn();
+                }   
+
+                CheckWin(playerTurn);
+                delete da;
+            }
+        } else if (inpGame == 2) {
+            cout << "Welcome to Cangkulan" << endl;
+            
+            DeckCard d;
+            tableCard t;
+            d.shuffleCard();
 
             // Input Player
             inputPlayer(4, d, 3);
@@ -203,7 +180,11 @@ void GameManager::startGame() {
                     cout << "Silahkan mengeluarkan kartu bebas!" << endl;
                     playerTurn[0].displayPlayerCards();
 
-                int x = inputCangkul(1, playerTurn[0].getCards().size());
+                    int x = inputCangkul(1, playerTurn[0].getCards().size());
+                    if (x == -1) {
+
+                       break;     
+                    }
 
                     addPlayerCard(t, playerTurn[0], x - 1);
                 } else {

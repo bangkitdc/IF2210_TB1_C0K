@@ -49,9 +49,9 @@ __uint128_t Game::getPrize() {
 }
 
 void Game::printPlayersPoint() {
-    cout << "<id> - name - point\n";
+    cout << "<id> - name       - point\n";
     for (auto &p : playerTurn) {
-        cout << "<p" << p.getId() << "> - " << p.getName() << "    - ";
+        cout << "<p" << p.getId() << "> - " << p.getName() << setw(10) << " - ";
         printPrize(p.getPoint());
         cout << endl;
     }
