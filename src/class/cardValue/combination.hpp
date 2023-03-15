@@ -51,6 +51,8 @@ class Combination : public CardValue {
 
         int color2Int(Card);
 
+        double getValue() const;
+
         double highVal(int angka, int warna);
         double pairVal(int angka, int warna1, int warna2);
         double twoPairVal(int angka1, int angka2, int warna1_a, int warna1_b, int warna2_a, int warna2_b);

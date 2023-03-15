@@ -864,3 +864,7 @@ Player Combination::evaluateAgain(vector<Player> players, vector<Card> t, double
 
     return player[0];
 }
+
+double Combination::getValue() const {
+    return 0;
+}
