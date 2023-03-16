@@ -60,6 +60,8 @@ void Switch::use(string power, GameManager* state) {
         cout << " && ";
         state->getFirstPlayer().displayPlayerCard(1);
         cout << endl;
+        state->displayCardUI(state->getFirstPlayer().getCards(), 4);
+        cout << endl;
 
         
         this->used = true;

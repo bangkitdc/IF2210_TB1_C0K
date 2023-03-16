@@ -129,10 +129,24 @@ void Swap::use(string power, GameManager* state) {
         Card temp3 = state->playerTurn.at(stoi(id2)).getCards().at(x2);
         Card temp4 = state->playerTurn.at(stoi(id2)).getCards().at((x2+1)%2);
 
-        vector<Card> c1 = {temp1, temp4};
-        vector<Card> c2 = {temp3, temp2};
-        state->playerTurn.at(stoi(id1)).setCards(c2);
-        state->playerTurn.at(stoi(id2)).setCards(c1);
+        vector<Card> c1, c2;
+
+        if (x1%2==0) {
+            c1 = {temp3, temp2};
+        }
+        else {
+            c1 = {temp2, temp3};
+        }
+        
+        if (x2%2==0) {
+            c2 = {temp1, temp4};
+        }
+        else {
+            c2 = {temp4, temp1};
+        }
+        
+        state->playerTurn.at(stoi(id1)).setCards(c1);
+        state->playerTurn.at(stoi(id2)).setCards(c2);
 
         cout << "Berhasil menukar kartu!\n";
         
