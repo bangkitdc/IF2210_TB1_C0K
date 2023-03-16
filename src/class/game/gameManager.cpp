@@ -50,30 +50,28 @@ void GameManager::startGame() {
                         // Evaluate
                         Combination c;
                         vector<Player> evaluator = getPlayers();
-                        cout << "1\n";
                         Player temp = c.evaluate(evaluator, t.getCards());
-                        cout << "2\n";
-                        displayCardUI(temp.getCards());
-
-                        cout << "VAL " << c.getValue() << endl;
 
                         vector<Card> kartuMenang = c.winnerCard(temp, t.getCards(), c.getValue());
-                        cout << "3\n";
 
                         int idxPemenang = findIdxWithId(temp.getId());
-                        cout << "4\n";
 
                         displayCardUI(kartuMenang);
 
                         // Give prize to player with most value
                         playerTurn[idxPemenang].addPoint(prize);
                         cout << endl << "Poin sebesar: ";
-                        printPrize(prize);
-                        cout << ", diberikan kepada: p" << temp.getId() << endl; 
-                        cout << "=====================================================" << endl;
-                        cout << "Paket pemenang adalah: " << c.displayHandInfo(kartuMenang) << endl;
+                        cout << YELLOW; printPrize(prize); cout << RESET;
+                        cout << ", diberikan kepada: ";
+                        printf("%s%d%c%d%c%d%c%s%d%s\n",
+                               "\x1B[38;2;",
+                               255, ';', 228, ';', 181, 'm',
+                               "p", temp.getId(),
+                               "\x1B[0m"); cout << endl;
+                        cout << CYAN << "======================================================" << RESET <<endl;
+                        cout << endl << "Paket pemenang adalah: " << YELLOW << c.displayHandInfo(kartuMenang) << RESET << endl << endl;
                         displayKartuMenang(kartuMenang);
-                        cout << "=====================================================" << endl;
+                        cout << CYAN << "======================================================" << RESET << endl;
                         cout << "Point player:\n";
                         
                         printPlayersPoint();
@@ -82,7 +80,7 @@ void GameManager::startGame() {
 
                         // There is NO WINNER yet, restart game
                         if (!gameEnd) {
-                            cout << "\nPermainan diulang!\n";
+                            cout << "Permainan diulang!\n";
 
                             // re-initialize DeckCard, TableCard, and AbilityCard
                             this->d = DeckCard();
@@ -188,7 +186,7 @@ void GameManager::startGame() {
                     t.displayTCard();
                     displayCardUI(t.getCards());
 
-                    cout << endl << CYAN << "======================================================" << RESET << endl;
+                    cout    << CYAN << "======================================================" << RESET << endl;
                     cout << "Round : " << round << "\n";
                     cout << "Turn  : " << turn << "\n";
                     cout << "Prize : ";
@@ -196,15 +194,27 @@ void GameManager::startGame() {
                     cout << endl;
                     cout << "Queue : ";
                     printQueue();
-                    cout << "Giliran saat ini: " << CYAN << "p" << getFirstPlayer().getId() << RESET << endl;
+                    cout << "Giliran saat ini: ";
+                    printf("%s%d%c%d%c%d%c%s%d%s\n",
+                               "\x1B[38;2;",
+                               255, ';', 228, ';', 181, 'm',
+                               "p", getFirstPlayer().getId(),
+                               "\x1B[0m"); cout << endl;
                     cout << "Player cards:\n";
                     playerTurn.front().displayPlayerCard(0);
                     cout << " && ";
                     playerTurn.front().displayPlayerCard(1);
                     cout << endl;
                     displayCardUI(getFirstPlayer().getCards(), 4);
+                    string ab = getFirstPlayer().getAbility()->getPower();
                     if (round > 1) {
-                        cout << "Kamu punya ability: " << CYAN << getFirstPlayer().getAbility()->getPower() << RESET << endl;
+                        cout << "Kamu punya ability: ";
+                        printf("%s%d%c%d%c%d%c%s%s\n",
+                               "\x1B[38;2;",
+                               255, ';', 228, ';', 181, 'm',
+                               ab.c_str(),
+                               "\x1B[0m");
+                        cout << endl;
                     }
                     cout << CYAN << "======================================================" << RESET << endl << endl;
 
@@ -369,7 +379,7 @@ void GameManager::inputPlayer(int x) {
             Player temp(username);
             this->enqueuePlayer(temp);
         } catch (UsernameException& e) {
-            cout << RED << endl << e.what() << RESET << endl << endl;
+            cout << RED << endl << e.what() << RESET << endl;
         }
     } while (this->playerTurn.size() != x);
 }
@@ -402,7 +412,7 @@ string GameManager::inputFile() {
 
     filesystem::path path(path_string);
 
-    cout << "Files in directory " << path.filename() << ":" << endl;
+    cout << endl << "Files in directory " << path.filename() << ":" << endl;
 
     vector<string> s;
 
@@ -513,9 +523,9 @@ int GameManager::inputGame() {
 
             flag = false;
         } catch(InvalidNumberException& e) {
-            cout << RED << endl << e.what() << RESET << endl;
+            cout << RED << endl << e.what() << RESET << endl << endl;
         } catch(NotNumberException& e) {
-            cout << RED << endl << e.what() << RESET << endl;
+            cout << RED << endl << e.what() << RESET << endl << endl;
         }
     }
 
@@ -526,7 +536,11 @@ string GameManager::reqCommand() {
     string command;
     while(!this->gameEnd) {
         try {
-            cout << endl << CYAN << "Masukkan command: (Ketik `HELP` untuk melihat command)" << RESET << endl;
+            printf("%s%d%c%d%c%d%c%s%s\n",
+            "\x1B[38;2;",
+            255, ';', 160, ';', 122, 'm',
+            "Masukkan command: (Ketik `HELP` untuk melihat command)\n",
+            "\x1B[0m");
             cout << "> ";
             cin >> command;
             
@@ -538,7 +552,7 @@ string GameManager::reqCommand() {
 
             throw InvalidCommandException(command);
         } catch(InvalidCommandException& e) {
-            cout << RED << endl << e.what() << RESET << endl;
+            cout << RED << endl << e.what() << RESET << endl << endl;
         }
     }
     return "GAME END";
@@ -598,7 +612,7 @@ void GameManager::process(string command) {
             cout << "9.  SWAP \t: " << "Ability Swap.\n" << "\t\t  Menukar 1 kartu pemain lain dengan 1 kartu pemain yang lain." << endl;
             cout << "10. SWITCH \t: " << "Ability Switch.\n" << "\t\t  Menukar kartu pemanggil dengan kartu pemain lain." << endl;
             cout << "11. ABILITYLESS : " << "Ability AbilityLess.\n" << "\t\t  Mematikan kemampuan kartu lawan." << endl;
-            cout << "12. QUIT \t: " << "Keluar game." << endl;
+            cout << "12. QUIT \t: " << "Keluar game." << endl << endl;
 
             process(reqCommand());
         } 
@@ -606,7 +620,7 @@ void GameManager::process(string command) {
         // QUIT, end the game
         else if (command == "QUIT") {
             this->gameEnd = true;
-            cout << endl << GREEN << "Terima kasih telah bermain Poker KW :p" << RESET << endl;
+            cout << endl << GREEN << "Terima kasih telah bermain Poker KW :p" << RESET << endl << endl;
         } 
         
         // else, use card ability according to command
@@ -641,7 +655,9 @@ void GameManager::printQueue() {
 }
 
 void GameManager::displayKartuMenang(vector<Card> c) {
-    cout << CYAN << "================ Paket Kartu Pemenang ================" << RESET << endl;
+    cout << CYAN << "======================================================" << endl;
+    cout << "=" << RESET << "                Paket Kartu Pemenang                " << CYAN << "=" << endl;
+    cout << "======================================================" << RESET << endl;
 
     for(int i=0;i<c.size();i++){
         c[i].displayCard(); cout << " ";
@@ -662,6 +678,7 @@ bool GameManager::isInteger(const string& str) {
 }
 
 void GameManager::CheckWin(deque<Player> & p) {
+    cout << endl;
     for (int i = 0; i < 7; i ++) {
         if (p[i].getPoint() >= pow(2, 32)) {
             cout << "Selamat!!! Pemain dengan username " << p[i].getName() << " memenangkan permainan!" << endl;
@@ -698,7 +715,7 @@ int GameManager::inputCangkul(int a, int b) {
             if (stoi(i) == 0) {
                 this->gameEnd = true;
 
-                cout << endl << GREEN << "Terima kasih telah bermain Poker KW :p" << RESET << endl;
+                cout << endl << GREEN << "Terima kasih telah bermain Poker KW :p" << RESET << endl << endl;
                 return 0;
             }
             
@@ -718,6 +735,7 @@ int GameManager::inputCangkul(int a, int b) {
 }
 
 void GameManager::CheckWin2(deque<Player> & p) {
+    cout << endl;
     for (int i = 0; i < 4; i ++) {
         if (p[i].getCards().size() == 0) {
             cout << "Selamat!! Pemain dengan username " << p[i].getName() << " memenangkan permainan!" << endl;
