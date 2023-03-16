@@ -635,7 +635,7 @@ double Combination::fullHouseVal(int angka1, int angka2, int warna1_1, int warna
 
     // maxGap = 156
 
-    return 50861.2 + (pow(2, angka1) + angka1 * 156 + angka2 + angka2 * 5) * pow(2, 6) + (pow(konstan1, 2) + konstan2 - 50);
+    return 50861.2 + (pow(2, angka1) + angka1 * 156 + angka2 + angka2 * 4) * pow(2, 6) + (pow(konstan1, 2) + konstan2 - 52);
     // MAX : 708937
 }
 
