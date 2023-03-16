@@ -50,10 +50,14 @@ void GameManager::startGame() {
                         // Evaluate
                         Combination c;
                         vector<Player> evaluator = getPlayers();
+                        cout << "1\n";
                         Player temp = c.evaluate(evaluator, t.getCards());
+                        cout << "2\n";
                         vector<Card> kartuMenang = c.winnerCard(temp, t.getCards(), c.getValue());
+                        cout << "3\n";
 
                         int idxPemenang = findIdxWithId(temp.getId());
+                        cout << "4\n";
 
                         // Give prize to player with most value
                         playerTurn[idxPemenang].addPoint(prize);
@@ -80,6 +84,9 @@ void GameManager::startGame() {
                             t.clearCards();
                             da->resetAbilityDeck();
                             da->distributeAbility(this);
+                            for (auto &p : playerTurn) {
+                                p.resetPlayerCard();
+                            }
 
                             // reset prize, round, and turn
                             setPrize(64);
@@ -199,12 +206,6 @@ void GameManager::startGame() {
                     // requesting and process command input
                     string command = reqCommand();
                     process(command);
-
-                    // COK INI MASIH SALAH TOLONG
-                    // while (command == "HELP") {
-                    //     string command = reqCommand();
-                    //     process(command);
-                    // }
 
                     // Next Turn
                     Player temp = dequeuePlayer();

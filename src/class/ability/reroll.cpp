@@ -20,7 +20,9 @@ void ReRoll::use(string power, GameManager* state) {
         state->playerTurn.front().displayPlayerCard(0);
         cout << " && ";
         state->playerTurn.front().displayPlayerCard(1);
-        cout << endl << endl;
+        cout << endl;
+        state->displayCardUI(state->getFirstPlayer().getCards(), 4);
+        cout << endl;
         this->used = true;
     }
 }
