@@ -48,7 +48,7 @@ class GameManager : public Game {
         vector<int> countPlayerCardWithColor(Player &, string); /* Getter */
         int findIdxWithId(int);                                 /* Getter */
 
-        void displayCardUI(vector<Card>, int spaces = 0); /* I/O Console */
+        void displayCardUI(vector<Card>, int spaces = 0);       /* I/O Console */
         string color2String(Card card);
 };
 

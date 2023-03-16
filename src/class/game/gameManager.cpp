@@ -56,8 +56,6 @@ void GameManager::startGame() {
 
                         int idxPemenang = findIdxWithId(temp.getId());
 
-                        displayCardUI(kartuMenang);
-
                         // Give prize to player with most value
                         playerTurn[idxPemenang].addPoint(prize);
                         cout << endl << "Poin sebesar: ";
@@ -268,7 +266,7 @@ void GameManager::startGame() {
                 cout << endl;
 
                 if (t.isTCardEmpty()) {
-                    cout << "Silahkan mengeluarkan kartu bebas!" << endl;
+                    cout << endl << "Silahkan mengeluarkan kartu bebas!" << endl;
                     playerTurn[0].displayPlayerCards();
 
                     int x = inputCangkul(1, playerTurn[0].getCards().size());
@@ -678,7 +676,6 @@ bool GameManager::isInteger(const string& str) {
 }
 
 void GameManager::CheckWin(deque<Player> & p) {
-    cout << endl;
     for (int i = 0; i < 7; i ++) {
         if (p[i].getPoint() >= pow(2, 32)) {
             cout << "Selamat!!! Pemain dengan username " << p[i].getName() << " memenangkan permainan!" << endl;
