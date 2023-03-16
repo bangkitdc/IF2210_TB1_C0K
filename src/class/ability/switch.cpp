@@ -1,5 +1,4 @@
 #include "switch.hpp"
-#include "../game/gameManager.hpp"
 
 Switch::Switch() : Ability("SWITCH") {}
 

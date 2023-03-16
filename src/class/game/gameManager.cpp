@@ -53,11 +53,17 @@ void GameManager::startGame() {
                         cout << "1\n";
                         Player temp = c.evaluate(evaluator, t.getCards());
                         cout << "2\n";
+                        displayCardUI(temp.getCards());
+
+                        cout << "VAL " << c.getValue() << endl;
+
                         vector<Card> kartuMenang = c.winnerCard(temp, t.getCards(), c.getValue());
                         cout << "3\n";
 
                         int idxPemenang = findIdxWithId(temp.getId());
                         cout << "4\n";
+
+                        displayCardUI(kartuMenang);
 
                         // Give prize to player with most value
                         playerTurn[idxPemenang].addPoint(prize);
@@ -115,7 +121,6 @@ void GameManager::startGame() {
                         // shuffle card if pil == 1
                         else if (pil == 1) {
                             this->d.shuffleCard();
-
                         }
 
                         // input deck from file if pil == 2
