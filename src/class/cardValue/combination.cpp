@@ -63,7 +63,7 @@ bool Combination::hasTwoPair(vector<Card> card)
     sortingWarna(card);
     for (int i = 0; i < card.size(); i++){
         for (int j = i+1; j < card.size(); j++){
-            if(card[i].getNum() == card[j].getNum() && card[i].getNum() != temp){
+            if(card[i].getNum() == card[j].getNum() && card[i].getWarna() != card[j].getWarna() && card[i].getNum() != temp){
                 temp = card[i].getNum();
                 ctr++;
             }
@@ -117,10 +117,12 @@ bool Combination::hasStraight(vector<Card> card)
 
     sortCard(card);
 
-    for (int i=0; i<card.size()-4; i++){
+    int temp2 = card.size();
+
+    for (int i=0; i< (temp2 -4); i++){
         temp = card[i].getNum();
         ctr = 1;
-        for(int j=0; j<card.size(); j++){
+        for(int j=0; j< temp2; j++){
             if(card[j].getNum() == temp+ctr){
                 ctr++;
             }
@@ -136,13 +138,13 @@ bool Combination::hasStraight(vector<Card> card)
 bool Combination::hasFlush(vector<Card> card)
 {
     int ctr = 0;
-    for(int i = 1; i < card.size(); i++){
+    for(int i = 0; i < card.size(); i++){
         for(int j = i+1; j < card.size() ; j++){
             if(card[i].getWarna() == card[j].getWarna()){
                 ctr++;
             }
         }
-        if(ctr == 4){
+        if(ctr >= 4){
             return 1;
         }
         ctr = 0;
@@ -192,7 +194,9 @@ bool Combination::hasStraightFlush(vector<Card> card)
 
     sortCard(card);
 
-    for (int i=0; i<card.size()-4; i++){
+    int temp2 = card.size();
+
+    for (int i=0; i < (temp2 - 4); i++){
         temp = card[i].getNum();
         tempcolour = card[i].getWarna();
         ctr = 1;
@@ -205,6 +209,7 @@ bool Combination::hasStraightFlush(vector<Card> card)
             }
         }
     }
+
     return 0;
 }
 
@@ -484,7 +489,10 @@ pair<vector<vector<Card>>, vector<double>> Combination::fullHouse(vector<Card> c
                         if(cards[i].getNum() == cards[j].getNum()
                         && cards[j].getNum() == cards[k].getNum()
                         && cards[k].getNum() != cards[l].getNum()
-                        && cards[l].getNum() == cards[m].getNum()){
+                        && cards[l].getNum() == cards[m].getNum()
+                        && cards[i].getWarna() != cards[j].getWarna()
+                        && cards[j].getWarna() != cards[k].getWarna()
+                        && cards[l].getWarna() != cards[m].getWarna()){
                             temp.push_back(cards[i]);
                             temp.push_back(cards[j]);
                             temp.push_back(cards[k]);
@@ -498,15 +506,18 @@ pair<vector<vector<Card>>, vector<double>> Combination::fullHouse(vector<Card> c
                         } else if (cards[i].getNum() == cards[j].getNum()
                         && cards[j].getNum() != cards[k].getNum()
                         && cards[k].getNum() == cards[l].getNum()
-                        && cards[l].getNum() == cards[m].getNum()){
+                        && cards[l].getNum() == cards[m].getNum()
+                        && cards[i].getWarna() != cards[j].getWarna()
+                        && cards[k].getWarna() != cards[l].getWarna()
+                        && cards[l].getWarna() != cards[m].getWarna()){
                             temp.push_back(cards[k]);
                             temp.push_back(cards[l]);
                             temp.push_back(cards[m]);
                             temp.push_back(cards[i]);
                             temp.push_back(cards[j]);
                             result.push_back(temp);
-                            int w4 = color2Int(temp[0]), w5 = color2Int(temp[1]), w1 = color2Int(temp[2]), w2 = color2Int(temp[3]), w3 = color2Int(temp[4]);
-                            double v = fullHouseVal(temp[2].getNum(), temp[0].getNum(), w1, w2, w3, w4, w5);
+                            int w4 = color2Int(temp[3]), w5 = color2Int(temp[4]), w1 = color2Int(temp[0]), w2 = color2Int(temp[1]), w3 = color2Int(temp[2]);
+                            double v = fullHouseVal(temp[0].getNum(), temp[3].getNum(), w1, w2, w3, w4, w5);
                             val.push_back(v);
                             temp.clear();
                         }
@@ -630,23 +641,23 @@ double Combination::fullHouseVal(int angka1, int angka2, int warna1_1, int warna
 
     // maxGap = 156
 
-    return 26285.8 + (pow(2, angka1) + angka1 * 156 + angka2 + angka2 * 5) * pow(2, 6) + (pow(konstan1, 2) + konstan2 - 50);
-    // MAX : 684362
+    return 50861.2 + (pow(2, angka1) + angka1 * 156 + angka2 + angka2 * 4) * pow(2, 6) + (pow(konstan1, 2) + konstan2 - 52);
+    // MAX : 708937
 }
 
 double Combination::foursVal(int angka) {
     // Fours
 
-    return 684362 + angka;
-    // MAX : 684375
+    return 708937 + angka;
+    // MAX : 708350
 }
 
 double Combination::straightFlushVal(int angka1, int angka2, int angka3, int angka4, int angka5, int warna) {
     // StraightFlush
     double konstan = warna;
 
-    return 684375 + konstan + angka1 + angka2 + angka3 + angka4 + angka5;
-    // MAX : 684433
+    return 708350 + konstan + angka1 + angka2 + angka3 + angka4 + angka5;
+    // MAX : 709008
 }
 
 void Combination::eraseFirst(vector<vector<Card>> &card){
@@ -737,11 +748,6 @@ pair<vector<vector<Card>>, vector<double>> Combination::concatCombi(vector<Card>
     value.clear();
 
     sortVector(result, val);
-    // for(int i=0; i<val.size(); i++){
-    //     for(int j=0; j<val.size(); i++){
-    //         if(val[i])
-    //     }
-    // }
 
     return make_pair(result, val);
 }
@@ -751,7 +757,7 @@ Player Combination::evaluate(vector<Player> players, vector<Card> tableCard)
     vector<Player> playersTemp;
     vector<Card> temp;
     vector<Card> table = tableCard;
-    double max = 0.0;
+    double max = 0;
     vector<Card> tempGabungan;
 
     for(auto &p : players){
@@ -770,19 +776,22 @@ Player Combination::evaluate(vector<Player> players, vector<Card> tableCard)
             playersTemp.push_back(p);
         }
 
-        if(playersTemp.size() == 4){ 
+        if(playersTemp.size() == 7){ 
             return evaluateAgain(playersTemp, tableCard, max);
         }
         tempGabungan.clear();
     }
     this->value = max;
+
     return playersTemp[0];
 }
+
 
 Player Combination::evaluateAgain(vector<Player> players, vector<Card> t, double m)
 {
     Player res;
     vector<Player> player;
+    int ctr = 1;
     while(player.size() != 1){
         player.clear();
         double max = 0.0;
@@ -793,32 +802,111 @@ Player Combination::evaluateAgain(vector<Player> players, vector<Card> t, double
             tempGabungan.insert(tempGabungan.end(), kartuplayer.begin(), kartuplayer.end());
 
             pair<vector<vector<Card>>, vector<double>> combi = concatCombi(tempGabungan);
-
             vector<vector<Card>> com = combi.first;
             vector<double> val = combi.second;
 
-            if(val[0] == m){
-                com.erase(com.begin());
-                val.erase(val.begin());
-            }
-
-            if(val[0] > max){
-                max = val[0];
+            if(val[ctr] > max){
+                max = val[ctr];
                 while(player.size() != 0){
                     player.pop_back();
                 }
                 player.push_back(p);
-            } else if(val[0] == max){
+            } else if(val[ctr] == max){
                 player.push_back(p);
             }
             tempGabungan.clear();
         }
         m = max;
+        ctr++;
     }
     this->value = m;
 
     return player[0];
 }
+
+double Combination::getValue() const {
+    return this->value;
+}
+
+vector<Card> Combination::winnerCard(Player winner, vector<Card> tableCard, double winnerValue)
+{
+    ::pair<vector<vector<Card>>, vector<double>> tempWinnerCard;
+    vector<Card>tempGabungan;
+    vector<Card> kartuplayer = winner.getCards();
+    vector<Card> res;
+
+    tempGabungan.insert(tempGabungan.end(), tableCard.begin(), tableCard.end());
+    tempGabungan.insert(tempGabungan.end(), kartuplayer.begin(), kartuplayer.end());
+
+    if(winnerValue >= 0 && winnerValue <=1.39){ //high card
+        tempWinnerCard = highCard(tempGabungan);
+        res = tempWinnerCard.first[0];
+    }
+    if(winnerValue > 1.39 && winnerValue <= 131.69){ //pair
+        tempWinnerCard = Pair(tempGabungan);
+        res = tempWinnerCard.first[0];
+    }
+    if(winnerValue > 131.69 && winnerValue <= 299.857){ //two pair
+        tempWinnerCard = twoPair(tempGabungan);
+        res = tempWinnerCard.first[0];
+    }
+    if(winnerValue > 299.857 && winnerValue <= 430.157){ //threes
+        tempWinnerCard = threeOfAKind(tempGabungan);
+        res = tempWinnerCard.first[0];
+    }
+    if(winnerValue > 430.158 && winnerValue <= 10669.2){ //straight
+        tempWinnerCard = straight(tempGabungan);
+        res = tempWinnerCard.first[0];
+    }
+    if(winnerValue > 10669.2 && winnerValue <= 50861.2 ){ //flush
+        tempWinnerCard = flush(tempGabungan);
+        res = tempWinnerCard.first[0];
+    }
+    if(winnerValue > 50861.2 && winnerValue <= 708937 ){ //full house
+        tempWinnerCard = fullHouse(tempGabungan);
+        res = tempWinnerCard.first[0];
+    }
+    if(winnerValue > 708937 && winnerValue <= 708950 ){ //four of a kind
+        tempWinnerCard = fourOfAKind(tempGabungan);
+        res = tempWinnerCard.first[0];
+    }
+    if(winnerValue > 708950 && winnerValue <= 709008 ){ //straight flush
+        tempWinnerCard = straightFlush(tempGabungan);
+        res = tempWinnerCard.first[0];
+    }
+
+    return res;
+}
+
+string Combination::displayHandInfo(vector<Card> card)
+{
+    if(hasStraightFlush(card)){
+        return "Straight Flush";
+    }
+    if(hasFourOfAKind(card)){
+        return "For Of A Kind";
+    }
+    if(hasFullHouse(card)){
+        return "Full House";
+    }
+    if(hasFlush(card)){
+        return "Flush";
+    }
+    if(hasStraight(card)){
+        return "Straight";
+    }
+    if(hasThreeOfAKind(card)){
+        return "Three Of A Kind";
+    }
+    if(hasTwoPair(card)){
+        return "Two Pair";
+    }
+    if(hasPair(card)){
+        return "Pair";
+    }
+    return "High Card";
+}
+
 
 double Combination::getValue() const {
     return this->value;
