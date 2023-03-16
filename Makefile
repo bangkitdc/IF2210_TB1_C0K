@@ -15,7 +15,3 @@ run:
 
 clean:
 	$(RM) ./$(REMOVE_FILE)
-
-# abilityDriver
-ability:
-	$(CXX) $(CPPFLAGS) -o ability $(wildcard src/class/ability/*.cpp)

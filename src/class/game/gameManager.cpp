@@ -353,6 +353,28 @@ void GameManager::inputPlayer(int x) {
     } while (this->playerTurn.size() != x);
 }
 
+void GameManager::inputPlayer(int x, DeckCard& d, int n) {
+    cout << "Jumlah player pada game : " << x << endl;
+    cout << "Silahkan masukkan username tiap player!!" << endl;
+
+    do {
+        try {
+            string username;
+            cout << "Masukkan username <p" << this->playerTurn.size() + 1 << "> : " << endl << "> ";
+            cin >> username;
+
+            if (username.size() > 10) {
+                throw UsernameException();
+            }
+
+            Player temp(username, d, n);
+            this->enqueuePlayer(temp);
+        } catch (UsernameException& e) {
+            cout << RED << endl << e.what() << RESET << endl << endl;
+        }
+    } while (this->playerTurn.size() != x);
+}
+
 string GameManager::inputFile() {
     // Path to the directory
     string path_string = "test";
@@ -544,18 +566,20 @@ void GameManager::process(string command) {
             cout << "=" << RESET << "                Command Yang Tersedia              " << CYAN << "=" << endl;
             cout << "======================================================" << RESET << endl;
 
-            cout << "1.  NEXT \t: " << "Perintah untuk tidak melakukan apa-apa. Giliran dilanjutkan ke pemain berikutnya." << endl;
-            cout << "2.  RE-ROLL \t: " << "PreReq: Re-Roll Card. Perintah untuk mengambil ulang 2 kartu tangan pemanggil dari deck." << endl;
-            cout << "3.  DOUBLE \t: " << "Perintah untuk menaikkan total poin hadiah menjadi 2x lipat." << endl;
-            cout << "4.  QUADRUPLE \t: " << "PreReq: Quadruple Card. Perintah untuk menaikkan total poin hadiah menjadi 4x lipat." << endl;
-            cout << "5.  HALF \t: " << "Perintah untuk menurunkan total poin hadiah menjadi (1/2)x lipat." << endl;
-            cout << "6.  QUARTER \t: " << "Perintah untuk menurunkan total poin hadiah menjadi (1/4)x lipat." << endl;
-            cout << "7.  REVERSE \t: " << "Perintah untuk memutar arah giliran pemain." << endl;
-            cout << "8.  SWAPCARD \t: " << "Perintah untuk menukar 1 kartu pemain lain dengan 1 kartu pemain yang lain." << endl;
-            cout << "9.  SWITCH \t: " << "Perintah untuk menukar 2 kartu tangan pemanggil dengan 2 kartu tangan pemain lain." << endl;
-            cout << "10. ABILITYLESS \t: " << "Perintah untuk mematikan kemampuan kartu lawan." << endl;
-            cout << "11. HELP \t: " << "Perintah untuk menampilkan semua command yang tersedia." << endl;
-            cout << "12. QUIT \t: " << "Perintah untuk keluar game." << endl;
+            cout << "1.  NEXT \t: " << "Melanjutkan giliran ke pemain selanjutnya." << endl;
+            cout << "2.  DOUBLE \t: " << "Menaikkan total prize menjadi 2x lipat." << endl;
+            cout << "3.  HALF \t: " << "Menurunkan total prize menjadi (1/2)x lipat." << endl;
+            cout << "4.  HELP \t: " << "Menampilkan command yang tersedia." << endl;
+            cout << "5.  RE-ROLL \t: " << "Ability Re-Roll.\n" << "\t\t  Mengambil ulang 2 kartu tangan baru." << endl;
+            cout << "6.  QUADRUPLE \t: " << "Ability Quadruple.\n" << "\t\t  Menaikkan total prize menjadi 4x lipat." << endl;
+            cout << "7.  QUARTER \t: " << "Ability Quarter.\n" << "\t\t  Menurunkan total prize menjadi (1/4)x lipat." << endl;
+            cout << "8.  REVERSE \t: " << "Ability Reverse.\n" << "\t\t  Memutar arah giliran pemain." << endl;
+            cout << "9.  SWAP \t: " << "Ability Swap.\n" << "\t\t  Menukar 1 kartu pemain lain dengan 1 kartu pemain yang lain." << endl;
+            cout << "10. SWITCH \t: " << "Ability Switch.\n" << "\t\t  Menukar kartu pemanggil dengan kartu pemain lain." << endl;
+            cout << "11. ABILITYLESS : " << "Ability AbilityLess.\n" << "\t\t  Mematikan kemampuan kartu lawan." << endl;
+            cout << "12. QUIT \t: " << "Keluar game." << endl;
+
+            process(reqCommand());
         } 
         
         // QUIT, end the game
