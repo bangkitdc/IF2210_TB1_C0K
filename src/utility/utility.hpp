@@ -13,5 +13,4 @@
 #define CYAN    "\033[1m\033[36m"
 #define WHITE   "\033[1m\033[37m"
 
-
 using namespace std;

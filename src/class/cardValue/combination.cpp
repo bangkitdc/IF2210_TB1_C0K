@@ -820,7 +820,6 @@ Player Combination::evaluateAgain(vector<Player> players, vector<Card> t, double
         ctr++;
     }
     this->value = m;
-    cout << "nilai akhirnya :" << m << endl;
     return player[0];
 }
 
