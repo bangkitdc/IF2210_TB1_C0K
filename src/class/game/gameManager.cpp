@@ -108,7 +108,6 @@ void GameManager::startGame() {
                         // shuffle card if pil == 1
                         else if (pil == 1) {
                             this->d.shuffleCard();
-
                         }
 
                         // input deck from file if pil == 2
