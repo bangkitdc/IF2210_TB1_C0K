@@ -43,7 +43,7 @@ void LoadingBar(){
         Sleep(150);
     }
 
-    cout<<"\n\t\t\t\t" << "Welcom to Poker KW!\n\t\t\t\t";
+    cout<<"\n\t\t\t\t" << "Welcome to Candy Kingdom!\n\t\t\t\t";
     system("Pause");
     system("CLS");
     system("COLOR 7");
