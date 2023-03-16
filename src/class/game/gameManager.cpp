@@ -227,7 +227,7 @@ void GameManager::startGame() {
         // CANGKUL
         else if (inpGame==2) {
             splashCangkul();
-            
+
             // Initialize DeckCard and TableCard
             DeckCard d;
             tableCard t;
@@ -236,19 +236,26 @@ void GameManager::startGame() {
             // Input Player
             inputPlayer(4, d, 3);
             
-            // Display all player
-            for (int i = 0; i < 4; i ++) {
-                playerTurn[i].displayPlayer(false);
-                cout << endl;
-            }
-            
             // Display Queue
-            cout << "Urutan giliran: ";
-            printQueue();
+            cout << endl << CYAN << "======================================================" << RESET << endl;
 
             while (!gameEnd) {
+                
+                cout << endl << CYAN << "======================================================" << RESET << endl;
                 bool flag = true;
                 cout << endl << "Giliran saat ini: p" << getFirstPlayer().getId() << endl;
+                cout << "Kartu pemain:\n";
+                
+                for (int i=0; i<getFirstPlayer().getCards().size(); i++) {
+                    cout << i+1 << ". ";
+                    getFirstPlayer().displayPlayerCard(i);
+                    if (i%2==1) {
+                        cout << endl;
+                    } else {
+                        cout << " ";
+                    }
+                }
+                cout << endl;
 
                 if (t.isTCardEmpty()) {
                     cout << "Silahkan mengeluarkan kartu bebas!" << endl;
@@ -261,7 +268,14 @@ void GameManager::startGame() {
 
                     addPlayerCard(t, playerTurn[0], x - 1);
                 } else {
+
                     t.displayTCard();
+                    displayCardUI(t.getCards());
+                    
+                    cout << CYAN << "======================================================" << RESET << endl;
+                    
+                    cout << endl;
+
                     string warna = t.getFirstCard().getWarna();
                     vector<int> listIndex;
                     listIndex = countPlayerCardWithColor(playerTurn[0], warna);
@@ -277,20 +291,21 @@ void GameManager::startGame() {
 
                         addPlayerCard(t, playerTurn[0], listIndex[x - 1]);
                     } else {
-                        cout << "Pemain tidak memiliki kartu dengan warna " << warna << "!" << endl;
+                        cout << "\nPemain tidak memiliki kartu dengan warna " << warna << "!" << endl;
                         cout << "Silahkan mengambil kartu di cangkulan sampe dapet, hehe" << endl;
 
                         bool dapet = false;
                         while (!d.isDeckEmpty() && !dapet) {
                             Card temp = d.getTopCard();
-                            cout << endl << "Player mendapat kartu "; temp.displayCard();
+                            cout << "Player mendapat kartu "; 
+                            temp.displayCard();
 
                             playerTurn[0].addCardFromDeck(d); // sekalian dipop dari deck
                             if (temp.getWarna() == warna) {
                                 dapet = true;
-                                cout << "Player mendapat kartu dengan warna yang sama dengan table" << endl;
+                                cout << "\nPlayer mendapat kartu dengan warna yang sama dengan table" << endl;
                             } else {
-                                cout << "Player mendapat kartu dengan warna berbeda dengan table, silahkan cangkul lagi :D" << endl;
+                                cout << "\nPlayer mendapat kartu dengan warna berbeda dengan table, silahkan cangkul lagi :D" << endl;
                             }
                         }
 
@@ -366,7 +381,7 @@ void GameManager::inputPlayer(int x, DeckCard& d, int n) {
     do {
         try {
             string username;
-            cout << "Masukkan username <p" << this->playerTurn.size() + 1 << "> : " << endl << "> ";
+            cout << endl << CYAN << "Masukkan username <p" << this->playerTurn.size() + 1 << "> : " << RESET << endl << "> ";
             cin >> username;
 
             if (username.size() > 10) {
@@ -454,7 +469,7 @@ int GameManager::inputOpsi() {
             if (stoi(i) == 0) {
                 this->gameEnd = true;
 
-                cout << endl << GREEN << "Terima kasih telah bermain Poker KW :p" << RESET << endl;
+                cout << endl << GREEN << "Terima kasih telah bermain! :p" << RESET << endl;
                 return 0;
             }
             
