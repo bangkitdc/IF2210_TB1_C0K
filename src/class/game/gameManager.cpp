@@ -27,8 +27,8 @@ void GameManager::startGame() {
         
         // POKER
         if (inpGame == 1) {
-            // INI BIKIN SPLASH DONG PLS
-            cout << "Welcome to Poker KW" << endl << endl;
+            splashPoker();
+            cout << endl << endl;
 
             // Input Player
             inputPlayer(7);
@@ -226,7 +226,7 @@ void GameManager::startGame() {
         
         // CANGKUL
         else if (inpGame==2) {
-            cout << "Welcome to Cangkulan" << endl;
+            splashCangkul();
             
             // Initialize DeckCard and TableCard
             DeckCard d;

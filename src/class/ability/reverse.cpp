@@ -15,7 +15,7 @@ void Reverse::use(string power, GameManager* state) {
     else {
         this->used = true;
 
-        cout << state->getFirstPlayer().getName() << " melakukan REVERSE!" << endl;
+        cout << endl << state->getFirstPlayer().getName() << " melakukan REVERSE!\n";
         Player p1 = state->dequeuePlayer();
         Player p2 = state->dequeuePlayer();
         Player p3 = state->dequeuePlayer();

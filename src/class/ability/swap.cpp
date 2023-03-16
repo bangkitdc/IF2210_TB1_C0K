@@ -13,8 +13,7 @@ void Swap::use(string power, GameManager* state) {
         throw AbilityOffException(power);
     }
     else {
-        cout << "<p" << state->playerTurn.front().getId() << "> - ";
-        cout << state->playerTurn.front().getName() << " melakukan SWAP\n";
+        cout << "\n" << state->playerTurn.front().getName() << " melakukan SWAP\n";
         cout << "Silahkan pilih pemain yang kartunya ingin anda tukar :\n";
         cout << "   no - <id> - name\n";
         for (int i=1; i<7; i++) {
@@ -137,7 +136,7 @@ void Swap::use(string power, GameManager* state) {
         else {
             c1 = {temp2, temp3};
         }
-        
+
         if (x2%2==0) {
             c2 = {temp1, temp4};
         }

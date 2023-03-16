@@ -45,13 +45,11 @@ void AbilityLess::use(string power, GameManager* state) {
 
         int idd = stoi(id);
         if (state->playerTurn.at(stoi(id)).getAbility()->isUsed()) {
-            cout << "Kartu ability <p" << state->playerTurn.at(stoi(id)).getId() << "> - ";
-            cout << state->playerTurn.at(stoi(id)).getName() << " telah dipakai sebelumnya.";
+            cout << "Kartu ability " << state->playerTurn.at(stoi(id)).getName() << " telah dipakai sebelumnya.";
             cout << "\nYah, sayang penggunaan kartu ini sia-sia :(.\n";
         } else {
             state->playerTurn.at(stoi(id)).getAbility()->setActive(false);
-            cout << "Kartu ability <p" << state->playerTurn.at(stoi(id)).getId() << "> - ";
-            cout << state->playerTurn.at(stoi(id)).getName() << " telah dimatikan.\n";
+            cout << "Kartu ability " << state->playerTurn.at(stoi(id)).getName() << " telah dimatikan.\n";
         }
     }
 }
