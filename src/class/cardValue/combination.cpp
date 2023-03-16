@@ -792,6 +792,7 @@ Player Combination::evaluateAgain(vector<Player> players, vector<Card> t, double
     Player res;
     vector<Player> player;
     int ctr = 1;
+    cout << m << endl;
     while(player.size() != 1){
         player.clear();
         double max = 0.0;
@@ -800,7 +801,6 @@ Player Combination::evaluateAgain(vector<Player> players, vector<Card> t, double
             vector<Card> kartuplayer = p.getCards();
             tempGabungan.insert(tempGabungan.end(), t.begin(), t.end());
             tempGabungan.insert(tempGabungan.end(), kartuplayer.begin(), kartuplayer.end());
-
             pair<vector<vector<Card>>, vector<double>> combi = concatCombi(tempGabungan);
             vector<vector<Card>> com = combi.first;
             vector<double> val = combi.second;
@@ -820,7 +820,7 @@ Player Combination::evaluateAgain(vector<Player> players, vector<Card> t, double
         ctr++;
     }
     this->value = m;
-
+    cout << "nilai akhirnya :" << m << endl;
     return player[0];
 }
 
@@ -830,49 +830,20 @@ double Combination::getValue() const {
 
 vector<Card> Combination::winnerCard(Player winner, vector<Card> tableCard, double winnerValue)
 {
-    ::pair<vector<vector<Card>>, vector<double>> tempWinnerCard;
-    vector<Card>tempGabungan;
+    vector<Card> tempGabungan, res;
     vector<Card> kartuplayer = winner.getCards();
-    vector<Card> res;
 
     tempGabungan.insert(tempGabungan.end(), tableCard.begin(), tableCard.end());
     tempGabungan.insert(tempGabungan.end(), kartuplayer.begin(), kartuplayer.end());
 
-    if(winnerValue >= 0 && winnerValue <=1.39){ //high card
-        tempWinnerCard = highCard(tempGabungan);
-        res = tempWinnerCard.first[0];
-    }
-    if(winnerValue > 1.39 && winnerValue <= 131.69){ //pair
-        tempWinnerCard = Pair(tempGabungan);
-        res = tempWinnerCard.first[0];
-    }
-    if(winnerValue > 131.69 && winnerValue <= 299.857){ //two pair
-        tempWinnerCard = twoPair(tempGabungan);
-        res = tempWinnerCard.first[0];
-    }
-    if(winnerValue > 299.857 && winnerValue <= 430.157){ //threes
-        tempWinnerCard = threeOfAKind(tempGabungan);
-        res = tempWinnerCard.first[0];
-    }
-    if(winnerValue > 430.158 && winnerValue <= 10669.2){ //straight
-        tempWinnerCard = straight(tempGabungan);
-        res = tempWinnerCard.first[0];
-    }
-    if(winnerValue > 10669.2 && winnerValue <= 50861.2 ){ //flush
-        tempWinnerCard = flush(tempGabungan);
-        res = tempWinnerCard.first[0];
-    }
-    if(winnerValue > 50861.2 && winnerValue <= 708937 ){ //full house
-        tempWinnerCard = fullHouse(tempGabungan);
-        res = tempWinnerCard.first[0];
-    }
-    if(winnerValue > 708937 && winnerValue <= 708950 ){ //four of a kind
-        tempWinnerCard = fourOfAKind(tempGabungan);
-        res = tempWinnerCard.first[0];
-    }
-    if(winnerValue > 708950 && winnerValue <= 709008 ){ //straight flush
-        tempWinnerCard = straightFlush(tempGabungan);
-        res = tempWinnerCard.first[0];
+    ::pair<vector<vector<Card>>, vector<double>> tempWinnerCard = concatCombi(tempGabungan);
+    vector<vector<Card>> tempvector = tempWinnerCard.first;
+    vector<double> tempdouble = tempWinnerCard.second;
+
+    for(int i=0; i<tempdouble.size(); i++){
+        if(winnerValue == tempdouble[i]){
+            res = tempvector[i];
+        }
     }
 
     return res;
@@ -906,3 +877,4 @@ string Combination::displayHandInfo(vector<Card> card)
     }
     return "High Card";
 }
+
