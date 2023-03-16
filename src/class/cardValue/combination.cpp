@@ -245,7 +245,7 @@ pair<vector<vector<Card>>, vector<double>> Combination::Pair(vector<Card> card)
                 temp.push_back(card[i]);
                 temp.push_back(card[j]);
                 allPairs.push_back(temp);
-                val.push_back(pairVal(temp[1].getNum(), color2Int(temp[1]), color2Int(temp[1])));
+                val.push_back(pairVal(temp[1].getNum(), color2Int(temp[0]), color2Int(temp[1])));
                 temp.clear();
             }
         }
