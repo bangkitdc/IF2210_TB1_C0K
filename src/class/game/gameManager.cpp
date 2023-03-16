@@ -678,10 +678,10 @@ bool GameManager::isInteger(const string& str) {
 void GameManager::CheckWin(deque<Player> & p) {
     for (int i = 0; i < 7; i ++) {
         if (p[i].getPoint() >= pow(2, 32)) {
-            cout << "Selamat!!! Pemain dengan username " << p[i].getName() << " memenangkan permainan!" << endl;
+            cout << YELLOW << "Selamat!!! Pemain dengan username " << p[i].getName() << " memenangkan permainan!" << endl;
             cout << "Pemain telah mencapai poin: ";
             printPrize(p[i].getPoint());
-            cout << "\nPoin sudah melebihi 4294967296 (2^32)" << endl;
+            cout << "\nPoin sudah melebihi 4294967296 (2^32)" << RESET << endl << endl;
 
             this->gameEnd = true;
         }
